@@ -1,0 +1,63 @@
+@import '@fontsource/patrick-hand';
+@import '@fontsource-variable/merriweather';
+
+:root {
+  --color-paper: #fff;
+  --color-ink: #222;
+  --color-faded: #eeeeee;
+  --color-editable: rgb(255, 255, 181);
+  --gutter: 1em;
+  --font-written: 'Patrick Hand', cursive;
+  --font-base: 'Merriweather Variable', serif;
+  --border: 0.2em solid var(--color-ink);
+  --border-sm: 0.1em solid var(--color-ink);
+  --shadow: drop-shadow(0.5em 0.5em 0 var(--color-faded));
+
+  font-family: var(--font-base);
+}
+
+@media print {
+  :root {
+    --color-editable: transparent;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  font: inherit;
+  border: none;
+  background: transparent;
+}
+
+input,
+textarea {
+  border: none;
+  font: inherit;
+  padding: 0;
+  background-color: var(--color-editable);
+  font-family: var(--font-written);
+  font-size: 2em;
+  width: 100%;
+}
+input {
+  line-height: 1;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  appearance: textfield;
+}
