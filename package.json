@@ -21,6 +21,7 @@
   "dependencies": {
     "@fontsource-variable/merriweather": "^5.2.6",
     "@fontsource/patrick-hand": "^5.2.8",
+    "localforage": "^1.10.0",
     "marked": "^17.0.1",
     "sass-embedded": "^1.97.2",
     "yaml": "^2.8.2",

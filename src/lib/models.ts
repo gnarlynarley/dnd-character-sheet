@@ -5,6 +5,12 @@ export type CharacterAvatar = {
   black: number;
 };
 export type CharacterType = {
+  avatar: {
+    image: ImageBitmap | null;
+    contrast: number;
+    gray: number;
+    black: number;
+  };
   name: string;
   playerName: string;
   level: number;

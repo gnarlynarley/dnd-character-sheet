@@ -8,38 +8,42 @@
 <Border>
   <div class="inner">
     <div class="field">
-      <div class="value">{$characterStore.playerName}</div>
+      <input class="value" bind:value={$characterStore.playerName} />
       <BorderLine />
       <div class="label">Player name</div>
     </div>
     <div class="field">
-      <div class="value">{$characterStore.alignment}</div>
+      <input type="text" class="value" bind:value={$characterStore.alignment} />
       <BorderLine />
       <div class="label">Alignment</div>
     </div>
     <div class="field">
-      <div class="value">{$characterStore.background}</div>
+      <input
+        type="text"
+        class="value"
+        bind:value={$characterStore.background}
+      />
       <BorderLine />
       <div class="label">Background</div>
     </div>
     <div class="field">
-      <div class="value">{$characterStore.class}</div>
+      <input type="text" class="value" bind:value={$characterStore.class} />
       <BorderLine />
       <div class="label">Class</div>
     </div>
     <div class="field">
-      <div class="value">{$characterStore.species}</div>
+      <input type="text" class="value" bind:value={$characterStore.species} />
       <BorderLine />
       <div class="label">Species</div>
     </div>
     <div class="field">
-      <div class="value">{$characterStore.subclass}</div>
+      <input type="text" class="value" bind:value={$characterStore.subclass} />
       <BorderLine />
       <div class="label">Subclass</div>
     </div>
     <div class="level">
       <Flex column sm align="center">
-        <div class="value">{$characterStore.level}</div>
+        <input class="value" type="number" bind:value={$characterStore.level} />
         <BorderLine />
         <div class="label">Level</div>
       </Flex>
@@ -61,6 +65,10 @@
   .level {
     grid-area: level;
     align-self: center;
+
+    input {
+      text-align: center;
+    }
   }
 
   .field {

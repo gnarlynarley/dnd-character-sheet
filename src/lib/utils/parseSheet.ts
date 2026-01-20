@@ -43,6 +43,12 @@ const proficiencySchema: z.ZodType<ProficiencyType> = z.enum([
 ]);
 
 const EMPTY_CHARACTER: CharacterType = {
+  avatar: {
+    image: null,
+    contrast: 0,
+    gray: 0,
+    black: 1,
+  },
   name: '',
   playerName: '',
   level: 1,
@@ -74,6 +80,17 @@ const EMPTY_CHARACTER: CharacterType = {
 
 const characterSchema: z.ZodType<CharacterType> = z
   .object({
+    avatar: z
+      .object({
+        image: z
+          .instanceof(ImageBitmap)
+          .nullable()
+          .default(EMPTY_CHARACTER.avatar.image),
+        contrast: z.number().default(EMPTY_CHARACTER.avatar.contrast),
+        gray: z.number().default(EMPTY_CHARACTER.avatar.gray),
+        black: z.number().default(EMPTY_CHARACTER.avatar.black),
+      })
+      .default(EMPTY_CHARACTER.avatar),
     name: z.string().default(EMPTY_CHARACTER.name),
     playerName: z.string().default(EMPTY_CHARACTER.playerName),
     level: z.number().default(1),
@@ -121,4 +138,12 @@ export function parseYaml(yamlString: string) {
   const obj = parse(yamlString);
 
   return characterSchema.parse(obj);
+}
+
+export function parseData(data: unknown): CharacterType {
+  return characterSchema.parse(data);
+}
+
+export function createEmptyCharacter(): CharacterType {
+  return structuredClone(EMPTY_CHARACTER);
 }

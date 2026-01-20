@@ -1,12 +1,12 @@
 export default function drawImage(
   canvas: HTMLCanvasElement,
-  image: HTMLImageElement
+  image: HTMLImageElement | HTMLCanvasElement | ImageBitmap,
 ) {
   const context = canvas.getContext('2d')!;
   const canvasWidth = canvas.width;
   const canvasHeight = canvas.height;
-  const imageWidth = image.naturalWidth;
-  const imageHeight = image.naturalHeight;
+  const imageWidth = image.width;
+  const imageHeight = image.height;
   const canvasAspect = canvasWidth / canvasHeight;
   const imageAspect = imageWidth / imageHeight;
   let sourceX = 0;
@@ -32,6 +32,6 @@ export default function drawImage(
     0,
     0,
     canvasWidth,
-    canvasHeight
+    canvasHeight,
   );
 }

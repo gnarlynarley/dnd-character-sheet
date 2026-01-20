@@ -29,35 +29,20 @@ features:
     **Mimicry.** You can mimic the sounds of other creatures, including speech. A creature that hears the mimicry must succeed on a Wisdom (Insight) check to determine the effect is faked (DC 8 plus your Charisma modifier and Proficiency Bonus).
   species: |
     # Bite
-    Your bite is a natural weapon, which you can use to
-    make unarmed strikes. If you hit with it, you deal piercing
-    damage equal to **1d6** + your Strength modifier, instead of the
-    bludgeoning damage normal for an unarmed strike.
-    damage equal to **1d6** + your Strength modifier, instead of the
-    bludgeoning damage normal for an unarmed strike.
+
+    Your bite is a natural weapon, which you can use to make unarmed strikes. If you hit with it, you deal piercing damage equal to **1d6** + your Strength modifier, instead of the bludgeoning damage normal for an unarmed strike. damage equal to **1d6** + your Strength modifier, instead of the bludgeoning damage normal for an unarmed strike.
 
     # Darkvision
-    Being moderately nocturnal, you have superior
-    vision in dark and dim conditions. You can see in dim light
-    within 60 feet of you as if it were bright light, and in darkness
-    as if it were dim light. You can't discern color in darkness,
-    only shades of gray.
+
+    Being moderately nocturnal, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.
 
     # Scavenger
-    You can safely consume raw or rotten food and
-    have advantage on saving throws against disease and
-    ingested poisons.
+
+    You can safely consume raw or rotten food and have advantage on saving throws against disease and ingested poisons.
 
     # Pack Hunter
-    You are especially adept at collaborating
-    with your allies mid-combat. Whenever you deal damage to a
-    hostile creature with at least one of your allies within its
-    reach, you can deal extra damage to that creature equal to
-    your proficiency bonus × 2 , then one of your allies can
-    immediately use their reaction to move up to half their speed
-    without provoking opportunity attacks from the creature.
-    Once you use this feature, you can not use it again until you
-    complete a short or long rest.
+
+    You are especially adept at collaborating with your allies mid-combat. Whenever you deal damage to a hostile creature with at least one of your allies within its reach, you can deal extra damage to that creature equal to your proficiency bonus × 2 , then one of your allies can immediately use their reaction to move up to half their speed without provoking opportunity attacks from the creature. Once you use this feature, you can not use it again until you complete a short or long rest.
   class: |
     # Level 1: Sneak Attack
     You know how to strike subtly and exploit a foe's distraction. Once per turn, you can deal an extra **1d6** damage to one creature you hit with an attack roll if you have Advantage on the roll and the attack uses a Finesse or a Ranged weapon. The extra damage's type is the same as the weapon's type.
@@ -90,3 +75,9 @@ features:
 
     Level 3: Steady Aim
     As a Bonus Action, you give yourself Advantage on your next attack roll on the current turn. You can use this feature only if you haven't moved during this turn, and after you use it, your Speed is 0 until the end of the current turn.
+weaponAttacks:
+  - name: Dagger
+    bonus: 1
+    damage: 1d6
+    type: piercing
+    properties: foo

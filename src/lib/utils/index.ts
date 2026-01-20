@@ -9,7 +9,7 @@ export function getAbilityModifier(abilityScore: number): number {
 }
 
 export function getProficiencyMultiplier(
-  proficiencyType: ProficiencyType
+  proficiencyType: ProficiencyType,
 ): number {
   switch (proficiencyType) {
     case 'none':
@@ -26,7 +26,7 @@ export function getProficiencyMultiplier(
 export function getSkillModifier(
   abilityScore: number,
   proficiencyBonus: number,
-  proficiencyType: ProficiencyType
+  proficiencyType: ProficiencyType,
 ): number {
   const multiplier = getProficiencyMultiplier(proficiencyType);
   const abilityModifier = getAbilityModifier(abilityScore);
@@ -35,7 +35,7 @@ export function getSkillModifier(
 }
 
 export function entries<TKey extends string, TValue>(
-  obj: Record<TKey, TValue>
+  obj: Record<TKey, TValue>,
 ): [TKey, TValue][] {
   return Object.entries(obj) as [TKey, TValue][];
 }
@@ -53,6 +53,13 @@ export function createImage(blob: Blob) {
     };
     image.src = url;
   });
+}
+
+export async function getImageBitmap(blob: Blob): Promise<ImageBitmap> {
+  const image = await createImage(blob);
+  const bitmap = await createImageBitmap(image);
+
+  return bitmap;
 }
 
 export function toggleAdd<T>(arr: T[], value: T): T[] {

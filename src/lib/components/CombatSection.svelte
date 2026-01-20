@@ -91,10 +91,6 @@
     background-color: var(--color-paper);
     text-align: center;
     padding: var(--gutter);
-
-    .title {
-      filter: none;
-    }
   }
 
   .value {

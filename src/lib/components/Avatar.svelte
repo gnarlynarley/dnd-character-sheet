@@ -1,36 +1,50 @@
 <script lang="ts">
-  import { avatarStore } from '../stores/character';
+  import { characterStore } from '../stores/character';
+  import { getImageBitmap } from '../utils';
   import applyContrast from '../utils/canvas/applyContrast';
   import applyGrayTones from '../utils/canvas/applyGrayTones';
   import applyHalftone from '../utils/canvas/applyHalftone';
   import drawImage from '../utils/canvas/drawImage';
-  import removeBackground from '../utils/canvas/removeBackground';
   import Border from './Border.svelte';
   import Card from './Card.svelte';
 
-  const image = $derived($avatarStore.image);
+  const image = $derived($characterStore.avatar.image);
   let canvas = $state<HTMLCanvasElement | null>(null);
   let context = $derived(canvas ? canvas.getContext('2d') : null);
-  let contrast = $derived($avatarStore.contrast);
-  let gray = $derived($avatarStore.gray);
-  let black = $derived($avatarStore.black);
+  let contrast = $derived($characterStore.avatar.contrast);
+  let gray = $derived($characterStore.avatar.gray);
+  let black = $derived($characterStore.avatar.black);
   let stringified = $derived(
-    `contrast:${contrast},gray:${gray},black:${black}`
+    `contrast:${contrast},gray:${gray},black:${black}`,
   );
 
   $effect(() => {
     if (!image || !context || !canvas) return;
     drawImage(canvas, image);
-    removeBackground(canvas);
     applyContrast(canvas, contrast);
     applyGrayTones(canvas, context, gray, black);
-
     applyHalftone(canvas, 5, 30);
   });
 </script>
 
 <div class="container">
-  <canvas bind:this={canvas} width="1000" height="1200"></canvas>
+  <label class="canvas">
+    <input
+      type="file"
+      accept="image/*"
+      oninput={async (ev) => {
+        const file = ev.currentTarget.files?.[0];
+        console.log(file);
+        if (file) {
+          const bitmap = await getImageBitmap(file);
+
+          $characterStore.avatar.image = bitmap;
+        }
+      }}
+    />
+    <canvas bind:this={canvas} width="1000" height="1000"></canvas>
+  </label>
+
   <div class="background">
     <Border absolute />
   </div>
@@ -43,7 +57,7 @@
           min="0"
           max="1"
           step="0.01"
-          bind:value={$avatarStore.contrast}
+          bind:value={$characterStore.avatar.contrast}
         />
       </div>
       <div>
@@ -52,7 +66,7 @@
           min="0"
           max="1"
           step="0.01"
-          bind:value={$avatarStore.gray}
+          bind:value={$characterStore.avatar.gray}
         />
       </div>
       <div>
@@ -61,7 +75,7 @@
           min="0"
           max="1"
           step="0.01"
-          bind:value={$avatarStore.black}
+          bind:value={$characterStore.avatar.black}
         />
       </div>
       <textarea value={stringified}></textarea>
@@ -91,17 +105,26 @@
     width: 100%;
     left: 0;
     bottom: 0;
-    height: 90%;
+    height: 100%;
     display: flex;
   }
-  canvas {
-    --offset: 0.2em;
-    display: block;
-    width: calc(100% - (var(--offset) * 2));
-    position: relative;
-    z-index: 1;
-    bottom: 0.2em;
-    left: var(--offset);
-    filter: url('#pencil');
+
+  .canvas {
+    input {
+      display: none;
+      visibility: hidden;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      filter: url('#pencil');
+      mix-blend-mode: multiply;
+    }
   }
 </style>

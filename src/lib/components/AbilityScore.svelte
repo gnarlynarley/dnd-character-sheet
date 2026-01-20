@@ -22,7 +22,7 @@
     <Modifier modifier={getAbilityModifier(value)} />
   </div>
   <span class="score">
-    <span>{$characterStore.abilityScores[ability]}</span>
+    <input type="number" bind:value={$characterStore.abilityScores[ability]} />
     <Border rounded absolute noshadow small></Border>
   </span>
 </div>
@@ -57,10 +57,11 @@
     align-items: center;
     font-family: var(--font-written);
 
-    span {
+    input {
       position: relative;
       z-index: 1;
       font-size: 1.2em;
+      text-align: center;
     }
   }
 </style>

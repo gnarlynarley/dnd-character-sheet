@@ -8,13 +8,17 @@
   import Page from './lib/components/Page.svelte';
   import PencilSVG from './lib/components/PencilSVG.svelte';
   import SkillList from './lib/components/SkillList.svelte';
+  import Textarea from './lib/components/Textarea.svelte';
   import { characterStore } from './lib/stores/character';
 </script>
 
 <Page>
   <div class="inner">
     <div class="side">
-      <h1 class="name">{$characterStore.name}</h1>
+      <!-- svelte-ignore a11y_missing_content -->
+      <h1 class="name">
+        <input type="text" bind:value={$characterStore.name} />
+      </h1>
 
       <div class="avatar">
         <Avatar />
@@ -27,7 +31,7 @@
           <Card title="Heroic Inspiration" />
           <Card title="Languages">
             <span class="languages">
-              {$characterStore.languages}
+              <Markdown bind:code={$characterStore.languages} />
             </span>
           </Card>
         </div>
@@ -50,17 +54,17 @@
       </div>
       <div class="feats">
         <Card grid title="Feats">
-          <Markdown code={$characterStore.features.feats} />
+          <Markdown bind:code={$characterStore.features.feats} />
         </Card>
       </div>
       <div class="species">
         <Card grid title="Species">
-          <Markdown code={$characterStore.features.species} />
+          <Markdown bind:code={$characterStore.features.species} />
         </Card>
       </div>
       <div class="class">
         <Card grid title="Class">
-          <Markdown code={$characterStore.features.class} />
+          <Markdown bind:code={$characterStore.features.class} />
         </Card>
       </div>
     </div>
@@ -97,6 +101,7 @@
     .languages {
       font-size: 1.4em;
       font-family: var(--font-written);
+      flex-grow: 1;
     }
 
     .abilities {
