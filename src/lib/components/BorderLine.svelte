@@ -8,7 +8,7 @@
 
 <style>
   div {
-    filter: url('#pencil');
+    filter: url("#pencil");
 
     &.spread {
       margin-left: calc(var(--gutter) * -1);
@@ -22,7 +22,6 @@
 
     &.vertical {
       border-left: var(--border-sm);
-      height: 100%;
     }
   }
 </style>

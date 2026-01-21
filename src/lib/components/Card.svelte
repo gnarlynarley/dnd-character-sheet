@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
-  import Border from './Border.svelte';
-  import BorderLine from './BorderLine.svelte';
-  import Grid from './Grid.svelte';
+  import type { Snippet } from "svelte";
+  import Border from "./Border.svelte";
+  import BorderLine from "./BorderLine.svelte";
+  import Grid from "./Grid.svelte";
 
   type Props = {
     title?: string;
@@ -21,9 +21,15 @@
     {/if}
     {#if children}
       <div class="children">
-        <Grid>
-          {@render children()}
-        </Grid>
+        {#if grid}
+          <Grid>
+            {@render children()}
+          </Grid>
+        {:else}
+          <div class="padding">
+            {@render children()}
+          </div>
+        {/if}
       </div>
     {/if}
   </div>
@@ -44,6 +50,10 @@
     > :global(*) {
       flex-grow: 1;
     }
+  }
+
+  .padding {
+    padding: var(--gutter);
   }
 
   h1 {

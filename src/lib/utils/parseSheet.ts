@@ -1,64 +1,64 @@
-import z from 'zod';
+import z from "zod";
 import type {
   CharacterType,
   SkillType,
   AbilityType,
   ProficiencyType,
-} from '../models';
-import { parse } from 'yaml';
+} from "../models";
+import { parse } from "yaml";
 
 const skillSchema: z.ZodType<SkillType> = z.enum([
-  'acrobatics',
-  'animalHandling',
-  'arcana',
-  'athletics',
-  'deception',
-  'history',
-  'insight',
-  'intimidation',
-  'investigation',
-  'medicine',
-  'nature',
-  'perception',
-  'performance',
-  'persuasion',
-  'religion',
-  'sleightOfHand',
-  'stealth',
-  'survival',
+  "acrobatics",
+  "animalHandling",
+  "arcana",
+  "athletics",
+  "deception",
+  "history",
+  "insight",
+  "intimidation",
+  "investigation",
+  "medicine",
+  "nature",
+  "perception",
+  "performance",
+  "persuasion",
+  "religion",
+  "sleightOfHand",
+  "stealth",
+  "survival",
 ]);
 const abilitySchema: z.ZodType<AbilityType> = z.enum([
-  'str',
-  'dex',
-  'con',
-  'int',
-  'wis',
-  'cha',
+  "str",
+  "dex",
+  "con",
+  "int",
+  "wis",
+  "cha",
 ]);
 const proficiencySchema: z.ZodType<ProficiencyType> = z.enum([
-  'none',
-  'proficient',
-  'double',
-  'half',
+  "none",
+  "proficient",
+  "double",
+  "half",
 ]);
 
 const EMPTY_CHARACTER: CharacterType = {
   avatar: {
-    image: null,
-    contrast: 0,
-    gray: 0,
-    black: 1,
+    blob: null,
+    contrast: 1,
+    gray: 0.5,
+    black: 0.25,
   },
-  name: '',
-  playerName: '',
+  name: "",
+  playerName: "",
   level: 1,
-  class: '',
-  subclass: '',
-  species: '',
-  size: 'Medium',
+  class: "",
+  subclass: "",
+  species: "",
+  size: "Medium",
   speed: 30,
-  background: '',
-  alignment: '',
+  background: "",
+  alignment: "",
   proficiencyBonus: 2,
   abilityScores: {
     str: 10,
@@ -70,37 +70,45 @@ const EMPTY_CHARACTER: CharacterType = {
   },
   abilityProficiencies: [],
   skillProficiencies: {},
-  languages: '',
+  languages: "",
   features: {
-    feats: '',
-    species: '',
-    class: '',
+    feats: "",
+    species: "",
+    class: "",
   },
+  armorClass: 0,
+  hitDice: "",
+  hitPoints: 0,
+  weapons: [],
 };
 
-const characterSchema: z.ZodType<CharacterType> = z
+export const characterSchema: z.ZodType<CharacterType> = z
   .object({
     avatar: z
       .object({
-        image: z
-          .instanceof(ImageBitmap)
+        blob: z
+          .instanceof(Blob)
           .nullable()
-          .default(EMPTY_CHARACTER.avatar.image),
+          .default(EMPTY_CHARACTER.avatar.blob),
         contrast: z.number().default(EMPTY_CHARACTER.avatar.contrast),
         gray: z.number().default(EMPTY_CHARACTER.avatar.gray),
         black: z.number().default(EMPTY_CHARACTER.avatar.black),
       })
-      .default(EMPTY_CHARACTER.avatar),
+      .nullish()
+      .transform((value) => value ?? EMPTY_CHARACTER.avatar),
     name: z.string().default(EMPTY_CHARACTER.name),
     playerName: z.string().default(EMPTY_CHARACTER.playerName),
     level: z.number().default(1),
     class: z.string().default(EMPTY_CHARACTER.class),
     subclass: z.string().default(EMPTY_CHARACTER.subclass),
     species: z.string().default(EMPTY_CHARACTER.species),
-    size: z.string().default('medium'),
+    size: z.string().default("medium"),
     speed: z.number().default(30),
     background: z.string().default(EMPTY_CHARACTER.background),
     alignment: z.string().default(EMPTY_CHARACTER.alignment),
+    armorClass: z.number().default(EMPTY_CHARACTER.armorClass),
+    hitDice: z.string().default(EMPTY_CHARACTER.hitDice),
+    hitPoints: z.number().default(EMPTY_CHARACTER.hitPoints),
     proficiencyBonus: z.number().default(EMPTY_CHARACTER.proficiencyBonus),
     abilityScores: z
       .partialRecord(abilitySchema, z.number())
@@ -117,7 +125,7 @@ const characterSchema: z.ZodType<CharacterType> = z
     skillProficiencies: z
       .partialRecord(skillSchema, proficiencySchema)
       .nullish()
-      .transform((value): CharacterType['skillProficiencies'] => ({
+      .transform((value): CharacterType["skillProficiencies"] => ({
         ...EMPTY_CHARACTER.skillProficiencies,
         ...value,
       })),
@@ -130,6 +138,16 @@ const characterSchema: z.ZodType<CharacterType> = z
       })
       .nullish()
       .transform((value) => ({ ...EMPTY_CHARACTER.features, ...value })),
+    weapons: z
+      .array(
+        z.object({
+          name: z.string().default(""),
+          hit: z.number().default(0),
+          damage: z.string().default(""),
+          details: z.string().default(""),
+        })
+      )
+      .default(EMPTY_CHARACTER.weapons),
   })
   .nullish()
   .transform((value) => value ?? EMPTY_CHARACTER);

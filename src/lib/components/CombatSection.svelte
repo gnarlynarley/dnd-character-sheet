@@ -1,21 +1,23 @@
 <script lang="ts">
-  import Border from './Border.svelte';
-  import BorderLine from './BorderLine.svelte';
-  import Card from './Card.svelte';
-  import DeathSave from './DeathSave.svelte';
-  import Flex from './Flex.svelte';
-  import FlexPush from './FlexPush.svelte';
-
-  const ac = 12;
-  const hp = 34;
-  const hitdice = '2d8';
+  import { characterStore } from "../stores/character";
+  import BorderLine from "./BorderLine.svelte";
+  import Card from "./Card.svelte";
+  import DeathSave from "./DeathSave.svelte";
+  import Flex from "./Flex.svelte";
+  import FlexPush from "./FlexPush.svelte";
 </script>
 
 <div class="container">
   <div class="armor">
-    <div class="label">Armor<br />Class</div>
-    <BorderLine />
-    <div class="value">{ac}</div>
+    <div class="inner">
+      <div class="label">Armor<br />Class</div>
+      <BorderLine />
+      <input
+        type="number"
+        class="value"
+        bind:value={$characterStore.armorClass}
+      />
+    </div>
   </div>
   <Card>
     <div class="inner">
@@ -28,13 +30,19 @@
           </Flex>
           <BorderLine vertical />
           <Flex column align="center" justify="end" full>
-            <span class="value">{hp}</span>
+            <input
+              type="number"
+              class="value"
+              bind:value={$characterStore.hitPoints}
+            />
             <BorderLine />
             <span>max</span>
           </Flex>
         </Flex>
       </Flex>
+
       <BorderLine vertical />
+
       <Flex column align="center" sm>
         <div class="label">Hit Dice</div>
         <FlexPush />
@@ -44,11 +52,16 @@
           <span>spend</span>
         </Flex>
         <Flex column full>
-          <div class="value">{hitdice}</div>
+          <input
+            type="text"
+            class="value"
+            bind:value={$characterStore.hitDice}
+          />
           <BorderLine></BorderLine>
           <span>current</span>
         </Flex>
       </Flex>
+
       <BorderLine vertical />
 
       <Flex column --flex-grow="0">
@@ -66,6 +79,7 @@
     display: flex;
     flex-grow: 1;
     gap: var(--gutter);
+    align-items: center;
   }
 
   .label {
@@ -76,21 +90,50 @@
   .value {
     font-size: 2em;
     font-family: var(--font-written);
+    text-align: center;
   }
   .armor {
+    z-index: 0;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    align-self: center;
     aspect-ratio: 1/1;
-    border: var(--border);
-    border-radius: 0.4em 0.4em 10em 10em;
-    filter: var(--shadow) url('#pencil');
-    background-color: var(--color-paper);
-    text-align: center;
-    padding: var(--gutter);
+    width: 6em;
+    height: 8em;
+    flex-grow: 0;
+
+    &::after {
+      content: "";
+      border: var(--border);
+      border-radius: 0.4em 0.4em 10em 10em;
+      filter: var(--shadow) url("#pencil");
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--color-paper);
+      z-index: -1;
+    }
+
+    .inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      align-self: center;
+      padding: calc(var(--gutter) * 0.5);
+      text-align: center;
+      gap: calc(var(--gutter) * 0.5);
+    }
+
+    .value {
+      width: 2em;
+      mix-blend-mode: multiply;
+    }
   }
 
   .value {

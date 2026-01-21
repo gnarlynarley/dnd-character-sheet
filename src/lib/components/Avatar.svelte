@@ -1,29 +1,40 @@
 <script lang="ts">
-  import { characterStore } from '../stores/character';
-  import { getImageBitmap } from '../utils';
-  import applyContrast from '../utils/canvas/applyContrast';
-  import applyGrayTones from '../utils/canvas/applyGrayTones';
-  import applyHalftone from '../utils/canvas/applyHalftone';
-  import drawImage from '../utils/canvas/drawImage';
-  import Border from './Border.svelte';
-  import Card from './Card.svelte';
+  import { characterStore } from "../stores/character";
+  import { createImage } from "../utils";
+  import applyContrast from "../utils/canvas/applyContrast";
+  import applyGrayTones from "../utils/canvas/applyGrayTones";
+  import applyHalftone from "../utils/canvas/applyHalftone";
+  import drawImage from "../utils/canvas/drawImage";
+  import Border from "./Border.svelte";
+  import Card from "./Card.svelte";
 
-  const image = $derived($characterStore.avatar.image);
+  const blob = $derived($characterStore.avatar.blob);
+  let image = $state<HTMLImageElement | null>(null);
   let canvas = $state<HTMLCanvasElement | null>(null);
-  let context = $derived(canvas ? canvas.getContext('2d') : null);
+  let context = $derived(canvas ? canvas.getContext("2d") : null);
   let contrast = $derived($characterStore.avatar.contrast);
   let gray = $derived($characterStore.avatar.gray);
   let black = $derived($characterStore.avatar.black);
   let stringified = $derived(
-    `contrast:${contrast},gray:${gray},black:${black}`,
+    `contrast:${contrast},gray:${gray},black:${black}`
   );
+
+  $effect(() => {
+    if (blob) {
+      createImage(blob).then((result) => {
+        image = result;
+      });
+    } else {
+      image = null;
+    }
+  });
 
   $effect(() => {
     if (!image || !context || !canvas) return;
     drawImage(canvas, image);
     applyContrast(canvas, contrast);
     applyGrayTones(canvas, context, gray, black);
-    applyHalftone(canvas, 5, 30);
+    applyHalftone(canvas, 6, 30);
   });
 </script>
 
@@ -34,12 +45,10 @@
       accept="image/*"
       oninput={async (ev) => {
         const file = ev.currentTarget.files?.[0];
-        console.log(file);
         if (file) {
-          const bitmap = await getImageBitmap(file);
-
-          $characterStore.avatar.image = bitmap;
+          $characterStore.avatar.blob = file;
         }
+        ev.currentTarget.value = "";
       }}
     />
     <canvas bind:this={canvas} width="1000" height="1000"></canvas>
@@ -123,7 +132,7 @@
       z-index: 1;
       top: 0;
       left: 0;
-      filter: url('#pencil');
+      filter: url("#pencil");
       mix-blend-mode: multiply;
     }
   }

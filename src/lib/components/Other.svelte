@@ -1,8 +1,8 @@
 <script>
-  import { characterStore } from '../stores/character';
-  import { getAbilityModifier, parseModifier } from '../utils';
-  import Border from './Border.svelte';
-  import Flex from './Flex.svelte';
+  import { characterStore } from "../stores/character";
+  import { getAbilityModifier, parseModifier } from "../utils";
+  import Border from "./Border.svelte";
+  import Flex from "./Flex.svelte";
 </script>
 
 <Flex column justify="between">
@@ -41,12 +41,18 @@
 </Flex>
 
 <style>
+  .label {
+    text-align: center;
+  }
   .value {
     font-family: var(--font-written);
     font-size: 1.4em;
+    text-align: center;
 
     input {
       font: inherit;
+      width: 4em;
+      margin-inline: auto;
     }
   }
 </style>

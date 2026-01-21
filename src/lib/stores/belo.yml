@@ -1,12 +1,19 @@
-avatar: null
-name: 'Belo Wanderlust'
-playerName: 'Narley'
-class: 'Rogue'
-subclass: 'Thief'
-alignment: 'Neutral'
-species: 'Gnoll'
-background: 'Scribe'
+avatar:
+  contrast: 0
+  gray: 0.17
+  black: 0.26
+name: "Belo Wanderlust"
+level: 3
+playerName: "Narley"
+class: "Rogue"
+subclass: "Thief"
+alignment: "Neutral"
+species: "Gnoll"
+background: "Scribe"
 proficiencyBonus: 2
+hitPoints: 36
+hitDice: 2d8
+armorClass: 15
 abilityScores:
   str: 10
   dex: 17
@@ -18,8 +25,8 @@ abilityProficiencies:
   - int
   - dex
 skillProficiencies:
-  arcana: 'proficient'
-  sleightOfHand: 'double'
+  arcana: "proficient"
+  sleightOfHand: "double"
 languages: Common, Gnollish
 features:
   feats: |
@@ -75,9 +82,8 @@ features:
 
     Level 3: Steady Aim
     As a Bonus Action, you give yourself Advantage on your next attack roll on the current turn. You can use this feature only if you haven't moved during this turn, and after you use it, your Speed is 0 until the end of the current turn.
-weaponAttacks:
+weapons:
   - name: Dagger
-    bonus: 1
+    hit: 3
     damage: 1d6
-    type: piercing
-    properties: foo
+    details: Piercing

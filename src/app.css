@@ -1,5 +1,5 @@
-@import '@fontsource/patrick-hand';
-@import '@fontsource-variable/merriweather';
+@import "@fontsource/patrick-hand";
+@import "@fontsource-variable/merriweather";
 
 :root {
   --color-paper: #fff;
@@ -7,8 +7,8 @@
   --color-faded: #eeeeee;
   --color-editable: rgb(255, 255, 181);
   --gutter: 1em;
-  --font-written: 'Patrick Hand', cursive;
-  --font-base: 'Merriweather Variable', serif;
+  --font-written: "Patrick Hand", cursive;
+  --font-base: "Merriweather Variable", serif;
   --border: 0.2em solid var(--color-ink);
   --border-sm: 0.1em solid var(--color-ink);
   --shadow: drop-shadow(0.5em 0.5em 0 var(--color-faded));
@@ -45,6 +45,9 @@ textarea {
   font-family: var(--font-written);
   width: 100%;
   text-align: inherit;
+  display: block;
+  min-width: none;
+  flex-shrink: 1;
 }
 input {
   line-height: 1;
@@ -58,6 +61,6 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type='number'] {
+input[type="number"] {
   appearance: textfield;
 }

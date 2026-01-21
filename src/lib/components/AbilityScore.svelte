@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { type AbilityType } from '../models';
-  import { characterStore } from '../stores/character';
-  import { getAbilityModifier } from '../utils';
-  import { t } from '../utils/translate';
-  import Border from './Border.svelte';
-  import Modifier from './Modifier.svelte';
+  import { type AbilityType } from "../models";
+  import { characterStore } from "../stores/character";
+  import { getAbilityModifier } from "../utils";
+  import { t } from "../utils/translate";
+  import Border from "./Border.svelte";
+  import Modifier from "./Modifier.svelte";
 
   type Props = {
     ability: AbilityType;
@@ -22,8 +22,8 @@
     <Modifier modifier={getAbilityModifier(value)} />
   </div>
   <span class="score">
-    <input type="number" bind:value={$characterStore.abilityScores[ability]} />
     <Border rounded absolute noshadow small></Border>
+    <input type="number" bind:value={$characterStore.abilityScores[ability]} />
   </span>
 </div>
 
@@ -59,9 +59,9 @@
 
     input {
       position: relative;
-      z-index: 1;
       font-size: 1.2em;
       text-align: center;
+      mix-blend-mode: multiply;
     }
   }
 </style>

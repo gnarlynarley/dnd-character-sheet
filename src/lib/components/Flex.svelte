@@ -1,29 +1,31 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
+  import type { Snippet } from "svelte";
 
   type Props = {
     children?: Snippet;
     full?: boolean;
     column?: boolean;
-    justify?: 'start' | 'center' | 'end' | 'between';
-    align?: 'start' | 'center' | 'end';
+    nogap?: boolean;
+    justify?: "start" | "center" | "end" | "between";
+    align?: "start" | "center" | "end";
     sm?: boolean;
   };
 
-  const { children, full, column, justify, align, sm }: Props = $props();
+  const { children, full, column, nogap, justify, align, sm }: Props = $props();
 </script>
 
 <div
   class="flex"
   class:column
   class:full
-  class:justifyStart={justify === 'start'}
-  class:justifyCenter={justify === 'center'}
-  class:justifyEnd={justify === 'end'}
-  class:justifyBetween={justify === 'between'}
-  class:alignStart={align === 'start'}
-  class:alignCenter={align === 'center'}
-  class:alignEnd={align === 'end'}
+  class:nogap
+  class:justifyStart={justify === "start"}
+  class:justifyCenter={justify === "center"}
+  class:justifyEnd={justify === "end"}
+  class:justifyBetween={justify === "between"}
+  class:alignStart={align === "start"}
+  class:alignCenter={align === "center"}
+  class:alignEnd={align === "end"}
   class:sm
 >
   {@render children?.()}
@@ -33,8 +35,11 @@
   .flex {
     display: flex;
     flex-grow: var(--flex-grow, 1);
-    gap: var(--gutter);
     flex-shrink: var(--flex-shrink, 1);
+
+    &:not(.nogap) {
+      gap: var(--gutter);
+    }
 
     &.sm {
       gap: calc(var(--gutter) * 0.5);

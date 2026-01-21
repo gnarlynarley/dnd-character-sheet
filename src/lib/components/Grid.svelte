@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
+  import type { Snippet } from "svelte";
 
   type Props = {
     children?: Snippet;
@@ -20,6 +20,7 @@
     display: flex;
     flex-direction: column;
     padding: var(--gutter);
+    z-index: 0;
 
     &.absolute {
       position: absolute;
@@ -30,7 +31,7 @@
     }
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 0;
@@ -43,8 +44,8 @@
         linear-gradient(90deg, var(--color-faded) 0.1em, transparent 0.1em);
       background-size: 1em 1em;
       mix-blend-mode: multiply;
-      filter: url('#pencil');
-      z-index: 1;
+      filter: url("#pencil");
+      z-index: -1;
       pointer-events: none;
     }
 

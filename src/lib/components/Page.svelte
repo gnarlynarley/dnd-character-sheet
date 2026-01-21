@@ -1,8 +1,5 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
-  import { characterStore } from '../stores/character';
-
-  let name = $derived($characterStore.name);
+  import type { Snippet } from "svelte";
 
   type Props = {
     children?: Snippet;
@@ -20,23 +17,19 @@
 <style lang="scss">
   .page {
     flex-direction: column;
-    aspect-ratio: 210/297;
+    aspect-ratio: 210/296;
     container-type: inline-size;
     display: flex;
     align-items: stretch;
     justify-content: stretch;
     padding: var(--gutter);
-    break-before: page;
+    break-after: page;
     overflow: hidden;
 
-
-    // @media screen {
-    //   width: 600px;
-    // }
-    // @media print {
-    //   width: 210mm;
-    //   height: 297mm;
-    // }
+    @media screen {
+      width: 100em;
+      margin-inline: auto;
+    }
   }
 
   .inner {

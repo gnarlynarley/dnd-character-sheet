@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
+  import type { Snippet } from "svelte";
 
   type Props = {
     children?: Snippet;
@@ -52,7 +52,7 @@
     filter: var(--shadow);
 
     &::after {
-      content: '';
+      content: "";
       display: block;
       width: calc(100% + (var(--border-size) * 2));
       height: calc(100% + (var(--border-size) * 2));

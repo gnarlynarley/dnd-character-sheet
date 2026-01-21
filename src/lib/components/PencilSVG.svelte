@@ -2,7 +2,7 @@
   let scale = $state(1);
 
   function onresize() {
-    scale = window.innerWidth / 800;
+    scale = window.innerWidth / 1000;
   }
   onresize();
 
@@ -15,7 +15,7 @@
   <filter id="pencil">
     <feTurbulence
       type="fractalNoise"
-      baseFrequency="0.8"
+      baseFrequency="0.5"
       numOctaves="1"
       result="noise"
     />
