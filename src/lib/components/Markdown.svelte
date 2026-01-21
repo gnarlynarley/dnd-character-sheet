@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { parse } from 'marked';
-  import Textarea from './Textarea.svelte';
+  import { parse } from "marked";
+  import Textarea from "./Textarea.svelte";
 
   type Props = {
     code: string;
@@ -43,6 +43,9 @@
     font-size: 1.3em;
     line-height: 1.4;
     text-align: left;
+    word-break: break-all;
+    min-height: 1em;
+    background-color: var(--color-editable);
 
     :global(h1) {
       font-size: 1.4em;

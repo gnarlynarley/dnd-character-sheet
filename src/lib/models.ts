@@ -4,6 +4,15 @@ export type CharacterWeaponType = {
   damage: string;
   details: string;
 };
+export type CharacterSpell = {
+  name: string;
+  level: number;
+  castingTime: string;
+  range: string;
+  components: string;
+  duration: string;
+  description: string;
+};
 export type CharacterType = {
   avatar: {
     blob: Blob | null;
@@ -35,6 +44,7 @@ export type CharacterType = {
     class: string;
   };
   weapons: CharacterWeaponType[];
+  spells: CharacterSpell[];
 };
 export type ProficiencyType = "none" | "proficient" | "double" | "half";
 export type AbilityType = "str" | "dex" | "con" | "int" | "wis" | "cha";

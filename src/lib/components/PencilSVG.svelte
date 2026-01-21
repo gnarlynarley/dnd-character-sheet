@@ -5,8 +5,6 @@
     scale = window.innerWidth / 1000;
   }
   onresize();
-
-  $effect(() => console.log(scale));
 </script>
 
 <svelte:window {onresize} />

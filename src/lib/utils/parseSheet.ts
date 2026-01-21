@@ -80,6 +80,7 @@ const EMPTY_CHARACTER: CharacterType = {
   hitDice: "",
   hitPoints: 0,
   weapons: [],
+  spells: [],
 };
 
 export const characterSchema: z.ZodType<CharacterType> = z
@@ -148,6 +149,20 @@ export const characterSchema: z.ZodType<CharacterType> = z
         })
       )
       .default(EMPTY_CHARACTER.weapons),
+    spells: z
+      .array(
+        z.object({
+          name: z.coerce.string().default(""),
+          level: z.coerce.number().default(0),
+          castingTime: z.coerce.string().default(""),
+          range: z.coerce.string().default(""),
+          components: z.coerce.string().default(""),
+          duration: z.coerce.string().default(""),
+          description: z.coerce.string().default(""),
+        })
+      )
+      .nullish()
+      .transform((value) => value ?? []),
   })
   .nullish()
   .transform((value) => value ?? EMPTY_CHARACTER);

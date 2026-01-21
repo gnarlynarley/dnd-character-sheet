@@ -9,7 +9,7 @@
   import Page from "./lib/components/Page.svelte";
   import PencilSVG from "./lib/components/PencilSVG.svelte";
   import SkillList from "./lib/components/SkillList.svelte";
-  import Textarea from "./lib/components/Textarea.svelte";
+  import SpellsSection from "./lib/components/SpellsSection.svelte";
   import WeaponSection from "./lib/components/WeaponSection.svelte";
   import { characterStore, loadCharacter } from "./lib/stores/character";
 
@@ -29,6 +29,10 @@
       <Card>Toggle editables</Card>
     </button>
   </HidePrint>
+
+  <Page multiple>
+    <SpellsSection />
+  </Page>
 
   <Page>
     <div class="inner">

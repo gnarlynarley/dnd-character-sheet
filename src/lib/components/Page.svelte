@@ -3,12 +3,13 @@
 
   type Props = {
     children?: Snippet;
+    multiple?: boolean;
   };
 
-  const { children }: Props = $props();
+  const { children, multiple }: Props = $props();
 </script>
 
-<div class="page">
+<div class="page" class:multiple>
   <div class="inner">
     {@render children?.()}
   </div>
@@ -17,14 +18,18 @@
 <style lang="scss">
   .page {
     flex-direction: column;
-    aspect-ratio: 210/296;
     container-type: inline-size;
-    display: flex;
-    align-items: stretch;
-    justify-content: stretch;
     padding: var(--gutter);
-    break-after: page;
-    overflow: hidden;
+
+    &:not(.multiple) {
+      aspect-ratio: 210/296;
+      overflow: hidden;
+      break-before: page;
+    }
+
+    @media screen {
+      border: 3px solid var(--color-faded);
+    }
 
     @media screen {
       width: 100em;
