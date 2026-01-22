@@ -43,7 +43,6 @@
     font-size: 1.3em;
     line-height: 1.4;
     text-align: left;
-    word-break: break-all;
     min-height: 1em;
     background-color: var(--color-editable);
 

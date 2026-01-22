@@ -2,10 +2,10 @@
 @import "@fontsource-variable/merriweather";
 
 :root {
-  --color-paper: #fff;
+  --color-paper: #ece7e2;
   --color-ink: #222;
-  --color-faded: #eeeeee;
-  --color-editable: rgb(255, 255, 181);
+  --color-faded: color-mix(in srgb, var(--color-paper), black 10%);
+  --color-editable: color-mix(in oklab, var(--color-paper), rgb(255, 224, 86) 30%);
   --gutter: 1em;
   --font-written: "Patrick Hand", cursive;
   --font-base: "Merriweather Variable", serif;
@@ -14,11 +14,13 @@
   --shadow: drop-shadow(0.5em 0.5em 0 var(--color-faded));
 
   font-family: var(--font-base);
+  background-color: var(--color-paper);
 }
 
 @media print {
   :root {
     --color-editable: transparent;
+    --color-paper: #fff;
   }
 }
 

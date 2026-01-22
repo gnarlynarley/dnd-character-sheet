@@ -10,7 +10,7 @@
 
   const resize = () => {
     if (!textarea) return;
-    textarea.style.height = 'auto';
+    textarea.style.height = "auto";
 
     // Step 2: Set height to scrollHeight (total content height)
     // Add a small buffer (e.g., 2px) to prevent scrollbar flicker in some browsers
@@ -27,8 +27,8 @@
 
 <svelte:window
   onresize={resize}
-  onkeydown={({ key }) => {
-    if (key === 'Escape') {
+  onkeydown={(ev) => {
+    if (ev.key === "Escape") {
       onfocusout?.();
     }
   }}

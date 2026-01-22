@@ -48,6 +48,9 @@ const EMPTY_CHARACTER: CharacterType = {
     contrast: 1,
     gray: 0.5,
     black: 0.25,
+    x: 0,
+    y: 0,
+    scale: 1,
   },
   name: "",
   playerName: "",
@@ -94,6 +97,9 @@ export const characterSchema: z.ZodType<CharacterType> = z
         contrast: z.number().default(EMPTY_CHARACTER.avatar.contrast),
         gray: z.number().default(EMPTY_CHARACTER.avatar.gray),
         black: z.number().default(EMPTY_CHARACTER.avatar.black),
+        x: z.number().default(EMPTY_CHARACTER.avatar.x),
+        y: z.number().default(EMPTY_CHARACTER.avatar.y),
+        scale: z.number().default(EMPTY_CHARACTER.avatar.scale),
       })
       .nullish()
       .transform((value) => value ?? EMPTY_CHARACTER.avatar),

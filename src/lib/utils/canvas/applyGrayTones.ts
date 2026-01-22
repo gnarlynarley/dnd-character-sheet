@@ -6,6 +6,8 @@ export default function applyGrayTones(
 ) {
   const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
   const data = imageData.data;
+  const blackAverage = black * 255;
+  const grayAverage = gray * black * (255 - black);
 
   for (let i = 0; i < data.length; i += 4) {
     const r = data[i];
@@ -16,10 +18,10 @@ export default function applyGrayTones(
     const average = 0.299 * r + 0.587 * g + 0.114 * b;
     // Threshold to black or white
     let value = 0;
-    if (average > gray * 255) {
+    if (average > grayAverage) {
       value = 200;
     }
-    if (average > black * 255) {
+    if (average > blackAverage) {
       value = 255;
     }
 

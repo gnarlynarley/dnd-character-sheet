@@ -1,10 +1,12 @@
 <script lang="ts">
+  import { AVATAR_HEIGHT, AVATAR_WIDTH } from "../constants";
   import { characterStore } from "../stores/character";
   import { createImage } from "../utils";
   import applyContrast from "../utils/canvas/applyContrast";
   import applyGrayTones from "../utils/canvas/applyGrayTones";
   import applyHalftone from "../utils/canvas/applyHalftone";
   import drawImage from "../utils/canvas/drawImage";
+  import getCropDetails from "../utils/canvas/getCropDetails";
   import Border from "./Border.svelte";
   import Card from "./Card.svelte";
 
@@ -15,9 +17,13 @@
   let contrast = $derived($characterStore.avatar.contrast);
   let gray = $derived($characterStore.avatar.gray);
   let black = $derived($characterStore.avatar.black);
-  let stringified = $derived(
-    `contrast:${contrast},gray:${gray},black:${black}`
-  );
+
+  let panning: {
+    x: number;
+    y: number;
+    pointerX: number;
+    pointerY: number;
+  } | null = $state(null);
 
   $effect(() => {
     if (blob) {
@@ -31,28 +37,61 @@
 
   $effect(() => {
     if (!image || !context || !canvas) return;
-    drawImage(canvas, image);
-    applyContrast(canvas, contrast);
-    applyGrayTones(canvas, context, gray, black);
-    applyHalftone(canvas, 6, 30);
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    drawImage(
+      canvas,
+      image,
+      $characterStore.avatar.x,
+      $characterStore.avatar.y,
+      $characterStore.avatar.scale
+    );
+    if (panning === null) {
+      applyContrast(canvas, contrast);
+      applyGrayTones(canvas, context, gray, black);
+      applyHalftone(canvas, 6, 30);
+    }
   });
+
+  function startPan(ev: PointerEvent) {
+    panning = {
+      x: $characterStore.avatar.x,
+      y: $characterStore.avatar.y,
+      pointerX: ev.clientX,
+      pointerY: ev.clientY,
+    };
+  }
+  function onPanning(ev: PointerEvent) {
+    if (!panning) return;
+    if (!canvas) return;
+    const relativeX = ev.clientX - panning.pointerX;
+    const relativeY = ev.clientY - panning.pointerY;
+    const canvasScale =
+      (canvas.width / canvas.offsetWidth) * $characterStore.avatar.scale;
+    $characterStore.avatar.x = panning.x + relativeX * canvasScale;
+    $characterStore.avatar.y = panning.y + relativeY * canvasScale;
+  }
+  function endPan() {
+    panning = null;
+  }
+  function onzoom(ev: WheelEvent) {
+    ev.preventDefault();
+    $characterStore.avatar.scale += ev.deltaY / 1000;
+  }
 </script>
 
+<svelte:window onmouseup={endPan} onpointermove={onPanning} />
+
 <div class="container">
-  <label class="canvas">
-    <input
-      type="file"
-      accept="image/*"
-      oninput={async (ev) => {
-        const file = ev.currentTarget.files?.[0];
-        if (file) {
-          $characterStore.avatar.blob = file;
-        }
-        ev.currentTarget.value = "";
-      }}
-    />
-    <canvas bind:this={canvas} width="1000" height="1000"></canvas>
-  </label>
+  <div class="canvas">
+    <canvas
+      bind:this={canvas}
+      width={AVATAR_WIDTH}
+      height={AVATAR_HEIGHT}
+      onpointerdown={startPan}
+      onwheel={onzoom}
+    >
+    </canvas>
+  </div>
 
   <div class="background">
     <Border absolute />
@@ -87,7 +126,25 @@
           bind:value={$characterStore.avatar.black}
         />
       </div>
-      <textarea value={stringified}></textarea>
+      <input
+        type="file"
+        accept="image/*"
+        oninput={async (ev) => {
+          const file = ev.currentTarget.files?.[0];
+          if (file) {
+            const crop = await getCropDetails(
+              file,
+              AVATAR_WIDTH,
+              AVATAR_HEIGHT
+            );
+            $characterStore.avatar.blob = file;
+            $characterStore.avatar.x = crop.x;
+            $characterStore.avatar.y = crop.y;
+            $characterStore.avatar.scale = crop.scale;
+          }
+          ev.currentTarget.value = "";
+        }}
+      />
     </Card>
   </div>
 </div>
@@ -119,10 +176,8 @@
   }
 
   .canvas {
-    input {
-      display: none;
-      visibility: hidden;
-    }
+    position: relative;
+    background: red;
 
     canvas {
       display: block;

@@ -1,9 +1,11 @@
-<script>
+<script lang="ts">
   import { characterStore } from "../stores/character";
   import Border from "./Border.svelte";
   import Flex from "./Flex.svelte";
   import HidePrint from "./HidePrint.svelte";
   import SpellCard from "./SpellCard.svelte";
+  import DragDropContainer from "./DragDropContainer.svelte";
+  import DraggableItem from "./DraggableItem.svelte";
 
   function addSpell() {
     $characterStore.spells.push({
@@ -18,21 +20,23 @@
     $characterStore.spells = $characterStore.spells;
   }
 
-  function sortSpells() {
-    $characterStore.spells.sort((a, b) => a.level - b.level);
-
-    $characterStore.spells = $characterStore.spells;
+  function handleReorder(reorderedSpells: typeof $characterStore.spells) {
+    $characterStore.spells = reorderedSpells;
   }
 </script>
 
 <section>
-  <div class="items">
-    {#each $characterStore.spells as spell, index}
-      <div class="item">
-        <SpellCard {index} />
-      </div>
-    {/each}
-  </div>
+  <DragDropContainer items={$characterStore.spells} onReorder={handleReorder}>
+    <div class="items">
+      {#each $characterStore.spells as spell, index}
+        <DraggableItem {index}>
+          <div class="item">
+            <SpellCard {index} />
+          </div>
+        </DraggableItem>
+      {/each}
+    </div></DragDropContainer
+  >
   <HidePrint>
     <button type="button" onclick={addSpell}>
       <Border>Add spell</Border>

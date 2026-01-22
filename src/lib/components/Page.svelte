@@ -9,9 +9,11 @@
   const { children, multiple }: Props = $props();
 </script>
 
-<div class="page" class:multiple>
-  <div class="inner">
-    {@render children?.()}
+<div class="container">
+  <div class="page" class:multiple>
+    <div class="inner">
+      {@render children?.()}
+    </div>
   </div>
 </div>
 
@@ -20,11 +22,17 @@
     flex-direction: column;
     container-type: inline-size;
     padding: var(--gutter);
+    width: 100%;
 
     &:not(.multiple) {
       aspect-ratio: 210/296;
       overflow: hidden;
       break-before: page;
+
+      @media print {
+        width: 210mm;
+        height: 296mm;
+      }
     }
 
     @media screen {
@@ -32,7 +40,7 @@
     }
 
     @media screen {
-      width: 100em;
+      max-width: 100em;
       margin-inline: auto;
     }
   }

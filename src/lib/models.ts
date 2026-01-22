@@ -13,13 +13,17 @@ export type CharacterSpell = {
   duration: string;
   description: string;
 };
+export type CharacterAvatar = {
+  blob: Blob | null;
+  contrast: number;
+  gray: number;
+  black: number;
+  x: number;
+  y: number;
+  scale: number;
+};
 export type CharacterType = {
-  avatar: {
-    blob: Blob | null;
-    contrast: number;
-    gray: number;
-    black: number;
-  };
+  avatar: CharacterAvatar;
   name: string;
   playerName: string;
   level: number;

@@ -2,6 +2,7 @@
   import Avatar from "./lib/components/Avatar.svelte";
   import Card from "./lib/components/Card.svelte";
   import CombatSection from "./lib/components/CombatSection.svelte";
+  import Flex from "./lib/components/Flex.svelte";
   import Heading from "./lib/components/Heading.svelte";
   import HidePrint from "./lib/components/HidePrint.svelte";
   import Markdown from "./lib/components/Markdown.svelte";
@@ -22,17 +23,24 @@
 
 <div class:showEditables>
   <HidePrint>
-    <button type="button" onclick={loadCharacter}>
-      <Card>Load preset</Card>
-    </button>
-    <button type="button" onclick={toggleEditables}>
-      <Card>Toggle editables</Card>
-    </button>
+    <Flex>
+      <button type="button" onclick={loadCharacter}>
+        <Card>Load preset</Card>
+      </button>
+      <button type="button" onclick={toggleEditables}>
+        <Card>Toggle editables</Card>
+      </button>
+      <button
+        type="button"
+        onclick={async () => {
+          window.print();
+        }}
+      >
+        <Card>Print</Card>
+      </button>
+    </Flex>
+    <div style="height:5em;"></div>
   </HidePrint>
-
-  <Page multiple>
-    <SpellsSection />
-  </Page>
 
   <Page>
     <div class="inner">
@@ -94,6 +102,10 @@
         </div>
       </div>
     </div>
+  </Page>
+
+  <Page multiple>
+    <SpellsSection />
   </Page>
 
   <PencilSVG />

@@ -3,14 +3,15 @@
 
   type Props = {
     children?: Snippet;
-    absolute?: boolean;
   };
 
-  const { children, absolute }: Props = $props();
+  const { children }: Props = $props();
 </script>
 
-<div class="grid" class:absolute>
-  {@render children?.()}
+<div class="grid">
+  <div class="inner">
+    {@render children?.()}
+  </div>
 </div>
 
 <style lang="scss">
@@ -21,14 +22,6 @@
     flex-direction: column;
     padding: var(--gutter);
     z-index: 0;
-
-    &.absolute {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
 
     &::after {
       content: "";
@@ -43,14 +36,17 @@
         ),
         linear-gradient(90deg, var(--color-faded) 0.1em, transparent 0.1em);
       background-size: 1em 1em;
-      mix-blend-mode: multiply;
       filter: url("#pencil");
       z-index: -1;
-      pointer-events: none;
     }
 
     > :global(*) {
       flex-grow: 1;
     }
+  }
+
+  .inner {
+    position: relative;
+    z-index: 1;
   }
 </style>
