@@ -1,19 +1,19 @@
 <script lang="ts">
-  import { AVATAR_HEIGHT, AVATAR_WIDTH } from "../constants";
-  import { characterStore } from "../stores/character";
-  import { createImage } from "../utils";
-  import applyContrast from "../utils/canvas/applyContrast";
-  import applyGrayTones from "../utils/canvas/applyGrayTones";
-  import applyHalftone from "../utils/canvas/applyHalftone";
-  import drawImage from "../utils/canvas/drawImage";
-  import getCropDetails from "../utils/canvas/getCropDetails";
-  import Border from "./Border.svelte";
-  import Card from "./Card.svelte";
+  import { AVATAR_HEIGHT, AVATAR_WIDTH } from '../constants';
+  import { characterStore } from '../stores/character';
+  import { createImage } from '../utils';
+  import applyContrast from '../utils/canvas/applyContrast';
+  import applyGrayTones from '../utils/canvas/applyGrayTones';
+  import applyHalftone from '../utils/canvas/applyHalftone';
+  import drawImage from '../utils/canvas/drawImage';
+  import getCropDetails from '../utils/canvas/getCropDetails';
+  import Border from './Border.svelte';
+  import Card from './Card.svelte';
 
   const blob = $derived($characterStore.avatar.blob);
   let image = $state<HTMLImageElement | null>(null);
   let canvas = $state<HTMLCanvasElement | null>(null);
-  let context = $derived(canvas ? canvas.getContext("2d") : null);
+  let context = $derived(canvas ? canvas.getContext('2d') : null);
   let contrast = $derived($characterStore.avatar.contrast);
   let gray = $derived($characterStore.avatar.gray);
   let black = $derived($characterStore.avatar.black);
@@ -43,7 +43,7 @@
       image,
       $characterStore.avatar.x,
       $characterStore.avatar.y,
-      $characterStore.avatar.scale
+      $characterStore.avatar.scale,
     );
     if (panning === null) {
       applyContrast(canvas, contrast);
@@ -75,7 +75,27 @@
   }
   function onzoom(ev: WheelEvent) {
     ev.preventDefault();
-    $characterStore.avatar.scale += ev.deltaY / 1000;
+    if (!canvas) return;
+
+    const oldScale = $characterStore.avatar.scale;
+    const newScale = oldScale - ev.deltaY / 1000;
+
+    // Mouse position
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = ev.clientX - rect.left;
+    const mouseY = ev.clientY - rect.top;
+
+    // Convert mouse coordinates
+    const canvasMouseX = (mouseX / canvas.offsetWidth) * canvas.width;
+    const canvasMouseY = (mouseY / canvas.offsetHeight) * canvas.height;
+
+    // Calculate the point in the image space that the mouse is over
+    const imagePointX = (canvasMouseX - $characterStore.avatar.x) / oldScale;
+    const imagePointY = (canvasMouseY - $characterStore.avatar.y) / oldScale;
+
+    $characterStore.avatar.scale = newScale;
+    $characterStore.avatar.x = canvasMouseX - imagePointX * newScale;
+    $characterStore.avatar.y = canvasMouseY - imagePointY * newScale;
   }
 </script>
 
@@ -135,14 +155,14 @@
             const crop = await getCropDetails(
               file,
               AVATAR_WIDTH,
-              AVATAR_HEIGHT
+              AVATAR_HEIGHT,
             );
             $characterStore.avatar.blob = file;
             $characterStore.avatar.x = crop.x;
             $characterStore.avatar.y = crop.y;
             $characterStore.avatar.scale = crop.scale;
           }
-          ev.currentTarget.value = "";
+          ev.currentTarget.value = '';
         }}
       />
     </Card>
@@ -187,7 +207,7 @@
       z-index: 1;
       top: 0;
       left: 0;
-      filter: url("#pencil");
+      filter: url('#pencil');
       mix-blend-mode: multiply;
     }
   }
