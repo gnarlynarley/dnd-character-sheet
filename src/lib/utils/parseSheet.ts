@@ -1,45 +1,45 @@
-import z from "zod";
+import { z } from 'zod';
 import type {
   CharacterType,
   SkillType,
   AbilityType,
   ProficiencyType,
-} from "../models";
-import { parse } from "yaml";
+} from '../models';
+import { parse } from 'yaml';
 
 const skillSchema: z.ZodType<SkillType> = z.enum([
-  "acrobatics",
-  "animalHandling",
-  "arcana",
-  "athletics",
-  "deception",
-  "history",
-  "insight",
-  "intimidation",
-  "investigation",
-  "medicine",
-  "nature",
-  "perception",
-  "performance",
-  "persuasion",
-  "religion",
-  "sleightOfHand",
-  "stealth",
-  "survival",
+  'acrobatics',
+  'animalHandling',
+  'arcana',
+  'athletics',
+  'deception',
+  'history',
+  'insight',
+  'intimidation',
+  'investigation',
+  'medicine',
+  'nature',
+  'perception',
+  'performance',
+  'persuasion',
+  'religion',
+  'sleightOfHand',
+  'stealth',
+  'survival',
 ]);
 const abilitySchema: z.ZodType<AbilityType> = z.enum([
-  "str",
-  "dex",
-  "con",
-  "int",
-  "wis",
-  "cha",
+  'str',
+  'dex',
+  'con',
+  'int',
+  'wis',
+  'cha',
 ]);
 const proficiencySchema: z.ZodType<ProficiencyType> = z.enum([
-  "none",
-  "proficient",
-  "double",
-  "half",
+  'none',
+  'proficient',
+  'double',
+  'half',
 ]);
 
 const EMPTY_CHARACTER: CharacterType = {
@@ -52,16 +52,16 @@ const EMPTY_CHARACTER: CharacterType = {
     y: 0,
     scale: 1,
   },
-  name: "",
-  playerName: "",
+  name: '',
+  playerName: '',
   level: 1,
-  class: "",
-  subclass: "",
-  species: "",
-  size: "Medium",
+  class: '',
+  subclass: '',
+  species: '',
+  size: 'Medium',
   speed: 30,
-  background: "",
-  alignment: "",
+  background: '',
+  alignment: '',
   proficiencyBonus: 2,
   abilityScores: {
     str: 10,
@@ -73,14 +73,14 @@ const EMPTY_CHARACTER: CharacterType = {
   },
   abilityProficiencies: [],
   skillProficiencies: {},
-  languages: "",
+  languages: '',
   features: {
-    feats: "",
-    species: "",
-    class: "",
+    feats: '',
+    species: '',
+    class: '',
   },
   armorClass: 0,
-  hitDice: "",
+  hitDice: '',
   hitPoints: 0,
   weapons: [],
   spells: [],
@@ -109,7 +109,7 @@ export const characterSchema: z.ZodType<CharacterType> = z
     class: z.string().default(EMPTY_CHARACTER.class),
     subclass: z.string().default(EMPTY_CHARACTER.subclass),
     species: z.string().default(EMPTY_CHARACTER.species),
-    size: z.string().default("medium"),
+    size: z.string().default('medium'),
     speed: z.number().default(30),
     background: z.string().default(EMPTY_CHARACTER.background),
     alignment: z.string().default(EMPTY_CHARACTER.alignment),
@@ -132,7 +132,7 @@ export const characterSchema: z.ZodType<CharacterType> = z
     skillProficiencies: z
       .partialRecord(skillSchema, proficiencySchema)
       .nullish()
-      .transform((value): CharacterType["skillProficiencies"] => ({
+      .transform((value): CharacterType['skillProficiencies'] => ({
         ...EMPTY_CHARACTER.skillProficiencies,
         ...value,
       })),
@@ -148,24 +148,24 @@ export const characterSchema: z.ZodType<CharacterType> = z
     weapons: z
       .array(
         z.object({
-          name: z.string().default(""),
+          name: z.string().default(''),
           hit: z.number().default(0),
-          damage: z.string().default(""),
-          details: z.string().default(""),
-        })
+          damage: z.string().default(''),
+          details: z.string().default(''),
+        }),
       )
       .default(EMPTY_CHARACTER.weapons),
     spells: z
       .array(
         z.object({
-          name: z.coerce.string().default(""),
+          name: z.coerce.string().default(''),
           level: z.coerce.number().default(0),
-          castingTime: z.coerce.string().default(""),
-          range: z.coerce.string().default(""),
-          components: z.coerce.string().default(""),
-          duration: z.coerce.string().default(""),
-          description: z.coerce.string().default(""),
-        })
+          castingTime: z.coerce.string().default(''),
+          range: z.coerce.string().default(''),
+          components: z.coerce.string().default(''),
+          duration: z.coerce.string().default(''),
+          description: z.coerce.string().default(''),
+        }),
       )
       .nullish()
       .transform((value) => value ?? []),

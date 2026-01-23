@@ -1,21 +1,18 @@
 <script lang="ts">
-  import { characterStore } from "../stores/character";
-  import Border from "./Border.svelte";
-  import Flex from "./Flex.svelte";
-  import HidePrint from "./HidePrint.svelte";
-  import SpellCard from "./SpellCard.svelte";
-  import DragDropContainer from "./DragDropContainer.svelte";
-  import DraggableItem from "./DraggableItem.svelte";
+  import { characterStore } from '../stores/character';
+  import Border from './Border.svelte';
+  import HidePrint from './HidePrint.svelte';
+  import SpellCard from './SpellCard.svelte';
 
   function addSpell() {
     $characterStore.spells.push({
-      name: "",
+      name: '',
       level: 0,
-      castingTime: "",
-      range: "",
-      components: "",
-      duration: "",
-      description: "",
+      castingTime: '',
+      range: '',
+      components: '',
+      duration: '',
+      description: '',
     });
     $characterStore.spells = $characterStore.spells;
   }
@@ -26,17 +23,13 @@
 </script>
 
 <section>
-  <DragDropContainer items={$characterStore.spells} onReorder={handleReorder}>
-    <div class="items">
-      {#each $characterStore.spells as spell, index}
-        <DraggableItem {index}>
-          <div class="item">
-            <SpellCard {index} />
-          </div>
-        </DraggableItem>
-      {/each}
-    </div></DragDropContainer
-  >
+  <div class="items">
+    {#each $characterStore.spells as spell, index}
+      <div class="item">
+        <SpellCard {index} />
+      </div>
+    {/each}
+  </div>
   <HidePrint>
     <button type="button" onclick={addSpell}>
       <Border>Add spell</Border>

@@ -1,18 +1,17 @@
-import { writable } from "svelte/store";
-import { type CharacterType } from "../models";
+import { writable } from 'svelte/store';
+import { type CharacterType } from '../models';
 import {
   parseData,
   createEmptyCharacter,
   parseYaml,
-} from "../utils/parseSheet";
-import localforage from "localforage";
-import avatarSrc from "./belo.jpg";
-import beloSheet from "./belo.yml?raw";
-import getCropDetails from "../utils/canvas/getCropDetails";
-import { createImage } from "../utils";
-import { AVATAR_HEIGHT, AVATAR_WIDTH } from "../constants";
+} from '../utils/parseSheet';
+import localforage from 'localforage';
+import avatarSrc from './belo.jpg';
+import beloSheetUrl from './belo.yml?url';
+import getCropDetails from '../utils/canvas/getCropDetails';
+import { AVATAR_HEIGHT, AVATAR_WIDTH } from '../constants';
 
-const LOCAL_KEY = "character";
+const LOCAL_KEY = 'character';
 
 export const characterStore = writable<CharacterType>(createEmptyCharacter());
 
@@ -27,6 +26,7 @@ characterStore.subscribe((value) => {
 
 export async function loadCharacter() {
   const blob = await fetch(avatarSrc).then((b) => b.blob());
+  const beloSheet = await fetch(beloSheetUrl).then((r) => r.text());
   const character = parseYaml(beloSheet);
   const cover = await getCropDetails(blob, AVATAR_WIDTH, AVATAR_HEIGHT);
   character.avatar = {
