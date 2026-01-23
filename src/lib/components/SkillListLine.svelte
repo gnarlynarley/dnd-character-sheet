@@ -1,6 +1,10 @@
 <script lang="ts">
-  import type { AbilityType, ProficiencyType, SkillType } from '../models';
-  import { characterStore } from '../stores/character';
+  import type {
+    AbilityType,
+    ProficiencyType,
+    SkillType,
+  } from '../models';
+  import { character } from '../stores/character';
   import { getSkillModifier, getAbilityModifier, toggleAdd } from '../utils';
   import { t } from '../utils/translate';
   import Modifier from './Modifier.svelte';
@@ -14,19 +18,19 @@
   const { skill, ability }: Props = $props();
   const proficiency = $derived.by((): ProficiencyType => {
     if (skill === 'savingThrow') {
-      return $characterStore.abilityProficiencies.includes(ability)
+      return $character.abilityProficiencies.includes(ability)
         ? 'proficient'
         : 'none';
     }
 
-    return $characterStore.skillProficiencies[skill] ?? 'none';
+    return $character.skillProficiencies[skill] ?? 'none';
   });
   const modifier = $derived(
     getSkillModifier(
-      $characterStore.abilityScores[ability] ?? 0,
-      $characterStore.proficiencyBonus,
-      proficiency
-    )
+      $character.abilityScores[ability] ?? 0,
+      $character.proficiencyBonus,
+      proficiency,
+    ),
   );
 </script>
 
@@ -36,12 +40,12 @@
       () => proficiency,
       (v) => {
         if (skill === 'savingThrow') {
-          $characterStore.abilityProficiencies = toggleAdd(
-            $characterStore.abilityProficiencies,
-            ability
+          $character.abilityProficiencies = toggleAdd(
+            $character.abilityProficiencies,
+            ability,
           );
         } else {
-          $characterStore.skillProficiencies[skill] = v;
+          $character.skillProficiencies[skill] = v;
         }
       }
     }

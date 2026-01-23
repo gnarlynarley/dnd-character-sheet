@@ -1,18 +1,19 @@
 <script lang="ts">
-  import Avatar from "./lib/components/Avatar.svelte";
-  import Card from "./lib/components/Card.svelte";
-  import CombatSection from "./lib/components/CombatSection.svelte";
-  import Flex from "./lib/components/Flex.svelte";
-  import Heading from "./lib/components/Heading.svelte";
-  import HidePrint from "./lib/components/HidePrint.svelte";
-  import Markdown from "./lib/components/Markdown.svelte";
-  import Other from "./lib/components/Other.svelte";
-  import Page from "./lib/components/Page.svelte";
-  import PencilSVG from "./lib/components/PencilSVG.svelte";
-  import SkillList from "./lib/components/SkillList.svelte";
-  import SpellsSection from "./lib/components/SpellsSection.svelte";
-  import WeaponSection from "./lib/components/WeaponSection.svelte";
-  import { characterStore, loadCharacter } from "./lib/stores/character";
+  import Avatar from '$lib/components/Avatar.svelte';
+  import Button from '$lib/components/Button.svelte';
+  import Card from '$lib/components/Card.svelte';
+  import CombatSection from '$lib/components/CombatSection.svelte';
+  import Flex from '$lib/components/Flex.svelte';
+  import Heading from '$lib/components/Heading.svelte';
+  import HidePrint from '$lib/components/HidePrint.svelte';
+  import Markdown from '$lib/components/Markdown.svelte';
+  import Other from '$lib/components/Other.svelte';
+  import Page from '$lib/components/Page.svelte';
+  import PencilSVG from '$lib/components/PencilSVG.svelte';
+  import SkillList from '$lib/components/SkillList.svelte';
+  import SpellsSection from '$lib/components/SpellsSection.svelte';
+  import WeaponSection from '$lib/components/WeaponSection.svelte';
+  import { character, loadCharacter } from '$lib/stores/character';
 
   let showEditables = $state(true);
 
@@ -22,91 +23,89 @@
 </script>
 
 <div class:showEditables>
-  <HidePrint>
-    <Flex>
-      <button type="button" onclick={loadCharacter}>
-        <Card>Load preset</Card>
-      </button>
-      <button type="button" onclick={toggleEditables}>
-        <Card>Toggle editables</Card>
-      </button>
-      <button
-        type="button"
-        onclick={async () => {
-          window.print();
-        }}
-      >
-        <Card>Print</Card>
-      </button>
-    </Flex>
-    <div style="height:5em;"></div>
-  </HidePrint>
+  <Flex column xl>
+    <HidePrint>
+      <Flex padding justify="start">
+        <Button onclick={loadCharacter}>Load preset</Button>
+        <Button onclick={toggleEditables}>Toggle editables</Button>
+        <Button
+          type="button"
+          onclick={async () => {
+            window.print();
+          }}
+        >
+          Print
+        </Button>
+      </Flex>
+      <div style="height:5em;"></div>
+    </HidePrint>
 
-  <Page>
-    <div class="inner">
-      <div class="side">
-        <!-- svelte-ignore a11y_missing_content -->
-        <h1 class="name">
-          <input type="text" bind:value={$characterStore.name} />
-        </h1>
+    <Page>
+      <div class="inner">
+        <div class="side">
+          <!-- svelte-ignore a11y_missing_content -->
+          <h1 class="name">
+            <input type="text" bind:value={$character.name} />
+          </h1>
 
-        <div class="avatar">
-          <Avatar />
+          <div class="avatar">
+            <Avatar />
+          </div>
+          <div class="abilities">
+            <div class="line">
+              <SkillList ability="str" />
+              <SkillList ability="dex" />
+              <SkillList ability="con" />
+              <Card title="Heroic Inspiration" />
+              <Card title="Languages">
+                <span class="languages">
+                  <Markdown bind:code={$character.languages} />
+                </span>
+              </Card>
+            </div>
+            <div class="line">
+              <SkillList ability="int" />
+              <SkillList ability="wis" />
+              <SkillList ability="cha" />
+            </div>
+          </div>
         </div>
-        <div class="abilities">
-          <div class="line">
-            <SkillList ability="str" />
-            <SkillList ability="dex" />
-            <SkillList ability="con" />
-            <Card title="Heroic Inspiration" />
-            <Card title="Languages">
-              <span class="languages">
-                <Markdown bind:code={$characterStore.languages} />
-              </span>
+        <div class="main">
+          <div class="heading">
+            <Heading />
+          </div>
+          <div class="combat">
+            <CombatSection />
+          </div>
+          <div class="other">
+            <Other />
+          </div>
+          <div class="weapons">
+            <WeaponSection />
+          </div>
+          <div class="feats">
+            <Card grid title="Feats">
+              <Markdown bind:code={$character.features.feats} />
             </Card>
           </div>
-          <div class="line">
-            <SkillList ability="int" />
-            <SkillList ability="wis" />
-            <SkillList ability="cha" />
+          <div class="species">
+            <Card grid title="Species">
+              <Markdown bind:code={$character.features.species} />
+            </Card>
+          </div>
+          <div class="class">
+            <Card grid title="Class">
+              <Markdown bind:code={$character.features.class} />
+            </Card>
           </div>
         </div>
       </div>
-      <div class="main">
-        <div class="heading">
-          <Heading />
-        </div>
-        <div class="combat">
-          <CombatSection />
-        </div>
-        <div class="other">
-          <Other />
-        </div>
-        <div class="weapons">
-          <WeaponSection />
-        </div>
-        <div class="feats">
-          <Card grid title="Feats">
-            <Markdown bind:code={$characterStore.features.feats} />
-          </Card>
-        </div>
-        <div class="species">
-          <Card grid title="Species">
-            <Markdown bind:code={$characterStore.features.species} />
-          </Card>
-        </div>
-        <div class="class">
-          <Card grid title="Class">
-            <Markdown bind:code={$characterStore.features.class} />
-          </Card>
-        </div>
-      </div>
-    </div>
-  </Page>
+    </Page>
 
-  <Page multiple>
-    <SpellsSection />
-  </Page>
+    <Page multiple>
+      <SpellsSection />
+    </Page>
+  </Flex>
 
   <PencilSVG />
 </div>
@@ -169,11 +168,11 @@
   .main {
     display: grid;
     grid-template:
-      "heading heading other" auto
-      "combat combat other" auto
-      "weapons weapons weapons" auto
-      "feats class class" minmax(20em, auto)
-      "species class class" 1fr
+      'heading heading other' auto
+      'combat combat other' auto
+      'weapons weapons weapons' auto
+      'feats class class' minmax(20em, auto)
+      'species class class' 1fr
       / 1fr 1fr 9em;
     gap: var(--gutter);
 

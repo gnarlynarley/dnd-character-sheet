@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { characterStore } from "../stores/character";
+  import { character } from "../stores/character";
   import BorderLine from "./BorderLine.svelte";
   import Card from "./Card.svelte";
   import DeathSave from "./DeathSave.svelte";
@@ -15,7 +15,7 @@
       <input
         type="number"
         class="value"
-        bind:value={$characterStore.armorClass}
+        bind:value={$character.armorClass}
       />
     </div>
   </div>
@@ -33,7 +33,7 @@
             <input
               type="number"
               class="value"
-              bind:value={$characterStore.hitPoints}
+              bind:value={$character.hitPoints}
             />
             <BorderLine />
             <span>max</span>
@@ -55,7 +55,7 @@
           <input
             type="text"
             class="value"
-            bind:value={$characterStore.hitDice}
+            bind:value={$character.hitDice}
           />
           <BorderLine></BorderLine>
           <span>current</span>

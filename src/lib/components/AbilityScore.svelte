@@ -1,17 +1,17 @@
 <script lang="ts">
-  import { type AbilityType } from "../models";
-  import { characterStore } from "../stores/character";
-  import { getAbilityModifier } from "../utils";
-  import { t } from "../utils/translate";
-  import Border from "./Border.svelte";
-  import Modifier from "./Modifier.svelte";
+  import { type AbilityType } from '../models';
+  import { character } from '../stores/character';
+  import { getAbilityModifier } from '../utils';
+  import { t } from '../utils/translate';
+  import Border from './Border.svelte';
+  import Modifier from './Modifier.svelte';
 
   type Props = {
     ability: AbilityType;
   };
 
   const { ability }: Props = $props();
-  const value = $derived($characterStore.abilityScores[ability]);
+  const value = $derived($character.abilityScores[ability]);
 </script>
 
 <div class="item">
@@ -23,7 +23,7 @@
   </div>
   <span class="score">
     <Border rounded absolute noshadow small></Border>
-    <input type="number" bind:value={$characterStore.abilityScores[ability]} />
+    <input type="number" bind:value={$character.abilityScores[ability]} />
   </span>
 </div>
 

@@ -1,17 +1,18 @@
 <script lang="ts">
-  import Card from "./Card.svelte";
-  import { characterStore as store } from "../stores/character";
-  import type { CharacterWeaponType } from "../models";
-  import BorderLine from "./BorderLine.svelte";
-  import Border from "./Border.svelte";
-  import Flex from "./Flex.svelte";
+  import Card from './Card.svelte';
+  import { character as store } from '../stores/character';
+  import type { CharacterWeaponType } from '../models';
+  import BorderLine from './BorderLine.svelte';
+  import Border from './Border.svelte';
+  import Flex from './Flex.svelte';
+  import Button from './Button.svelte';
 
   const addLine = () => {
     $store.weapons.push({
-      name: "",
+      name: '',
       hit: 0,
-      damage: "",
-      details: "",
+      damage: '',
+      details: '',
     });
     $store.weapons = $store.weapons;
   };
@@ -48,19 +49,16 @@
         <input type="text" class="cell damage" bind:value={weapon.damage} />
         <BorderLine vertical />
         <input type="text" class="cell details" bind:value={weapon.details} />
-        <button
-          type="button"
-          class="delete-button"
-          onclick={() => deleteLine(weapon)}
-        >
-          <Border>delete</Border></button
-        >
+        <div class="delete-button">
+          <Button onclick={() => deleteLine(weapon)}>delete</Button>
+        </div>
       </div>
     {/each}
-    <button class="add-button" type="button" onclick={addLine}>
-      <Border nopadding absolute></Border>
-      <span>+</span>
-    </button>
+    <div class="add-button">
+      <Button onclick={addLine}>
+        <span>+</span>
+      </Button>
+    </div>
   </div>
 </Card>
 
@@ -99,11 +97,6 @@
     justify-content: center;
     align-items: center;
 
-    span {
-      position: relative;
-      z-index: 1;
-      font-size: 1.4em;
-    }
     .items:not(:hover) & {
       display: none;
     }

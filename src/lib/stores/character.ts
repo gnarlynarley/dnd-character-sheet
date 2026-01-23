@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { type CharacterType } from '../models';
+import { type CharacterType } from '$lib/models';
 import {
   parseData,
   createEmptyCharacter,
@@ -13,26 +13,26 @@ import { AVATAR_HEIGHT, AVATAR_WIDTH } from '../constants';
 
 const LOCAL_KEY = 'character';
 
-export const characterStore = writable<CharacterType>(createEmptyCharacter());
+export const character = writable<CharacterType>(createEmptyCharacter());
 
 localforage.getItem(LOCAL_KEY).then((value) => {
   const localCharacter = parseData(value);
-  characterStore.set(localCharacter);
+  character.set(localCharacter);
 });
 
-characterStore.subscribe((value) => {
+character.subscribe((value) => {
   localforage.setItem(LOCAL_KEY, value);
 });
 
 export async function loadCharacter() {
   const blob = await fetch(avatarSrc).then((b) => b.blob());
   const beloSheet = await fetch(beloSheetUrl).then((r) => r.text());
-  const character = parseYaml(beloSheet);
+  const parsed = parseYaml(beloSheet);
   const cover = await getCropDetails(blob, AVATAR_WIDTH, AVATAR_HEIGHT);
-  character.avatar = {
-    ...character.avatar,
+  parsed.avatar = {
+    ...parsed.avatar,
     blob,
     ...cover,
   };
-  characterStore.set(character);
+  character.set(parsed);
 }

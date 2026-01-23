@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { characterStore } from '../stores/character';
-  import Border from './Border.svelte';
+  import { character } from '../stores/character';
+  import Button from './Button.svelte';
   import HidePrint from './HidePrint.svelte';
   import SpellCard from './SpellCard.svelte';
 
   function addSpell() {
-    $characterStore.spells.push({
+    $character.spells.push({
       name: '',
       level: 0,
       castingTime: '',
@@ -14,26 +14,20 @@
       duration: '',
       description: '',
     });
-    $characterStore.spells = $characterStore.spells;
-  }
-
-  function handleReorder(reorderedSpells: typeof $characterStore.spells) {
-    $characterStore.spells = reorderedSpells;
+    $character.spells = $character.spells;
   }
 </script>
 
 <section>
   <div class="items">
-    {#each $characterStore.spells as spell, index}
+    {#each $character.spells as spell, index}
       <div class="item">
         <SpellCard {index} />
       </div>
     {/each}
   </div>
   <HidePrint>
-    <button type="button" onclick={addSpell}>
-      <Border>Add spell</Border>
-    </button>
+    <Button onclick={addSpell}>Add spell</Button>
   </HidePrint>
 </section>
 

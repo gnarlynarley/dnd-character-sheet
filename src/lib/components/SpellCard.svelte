@@ -1,10 +1,11 @@
 <script lang="ts">
-  import type { CharacterSpell } from "../models";
-  import { characterStore } from "../stores/character";
-  import Border from "./Border.svelte";
-  import Card from "./Card.svelte";
-  import Flex from "./Flex.svelte";
-  import Markdown from "./Markdown.svelte";
+  import type { CharacterSpell } from '../models';
+  import { character } from '../stores/character';
+  import Border from './Border.svelte';
+  import Button from './Button.svelte';
+  import Card from './Card.svelte';
+  import Flex from './Flex.svelte';
+  import Markdown from './Markdown.svelte';
 
   type Props = {
     index: number;
@@ -13,8 +14,8 @@
   const { index }: Props = $props();
 
   function deleteSpell() {
-    $characterStore.spells.splice(index, 1);
-    $characterStore.spells = $characterStore.spells;
+    $character.spells.splice(index, 1);
+    $character.spells = $character.spells;
   }
 </script>
 
@@ -22,49 +23,40 @@
   <Card>
     <Flex column>
       <div class="name">
-        <input type="text" bind:value={$characterStore.spells[index].name} />
+        <input type="text" bind:value={$character.spells[index].name} />
       </div>
 
       <Flex column sm>
         <div class="line">
           <div class="label">Level</div>
-          <input
-            type="number"
-            bind:value={$characterStore.spells[index].level}
-          />
+          <input type="number" bind:value={$character.spells[index].level} />
         </div>
         <div class="line">
           <div class="label">Casting Time</div>
           <input
             type="text"
-            bind:value={$characterStore.spells[index].castingTime}
+            bind:value={$character.spells[index].castingTime}
           />
         </div>
         <div class="line">
           <div class="label">Range</div>
-          <input type="text" bind:value={$characterStore.spells[index].range} />
+          <input type="text" bind:value={$character.spells[index].range} />
         </div>
         <div class="line">
           <div class="label">Components</div>
-          <input
-            type="text"
-            bind:value={$characterStore.spells[index].components}
-          />
+          <input type="text" bind:value={$character.spells[index].components} />
         </div>
         <div class="line">
           <div class="label">Duration</div>
-          <input
-            type="text"
-            bind:value={$characterStore.spells[index].duration}
-          />
+          <input type="text" bind:value={$character.spells[index].duration} />
         </div>
       </Flex>
 
-      <Markdown bind:code={$characterStore.spells[index].description} />
+      <Markdown bind:code={$character.spells[index].description} />
     </Flex>
-    <button class="delete-button" type="button" onclick={deleteSpell}>
-      <Border>Delete</Border>
-    </button>
+    <div class="delete-button">
+      <Button onclick={deleteSpell}>Delete</Button>
+    </div>
   </Card>
 </div>
 
@@ -85,7 +77,7 @@
     .label {
       flex-shrink: 0;
       &::after {
-        content: ":";
+        content: ':';
       }
     }
 

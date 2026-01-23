@@ -1,5 +1,5 @@
 <script>
-  import { characterStore } from "../stores/character";
+  import { character } from "../stores/character";
   import { getAbilityModifier, parseModifier } from "../utils";
   import Border from "./Border.svelte";
   import Flex from "./Flex.svelte";
@@ -10,7 +10,7 @@
     <Flex column>
       <span class="label">size</span>
       <span class="value">
-        <input type="text" bind:value={$characterStore.size} />
+        <input type="text" bind:value={$character.size} />
       </span>
     </Flex>
   </Border>
@@ -18,7 +18,7 @@
     <Flex column>
       <span class="label">initiative</span>
       <span class="value">
-        {parseModifier(getAbilityModifier($characterStore.abilityScores.dex))}
+        {parseModifier(getAbilityModifier($character.abilityScores.dex))}
       </span>
     </Flex>
   </Border>
@@ -26,7 +26,7 @@
     <Flex column>
       <span class="label">speed</span>
       <span class="value">
-        <input type="number" bind:value={$characterStore.speed} />
+        <input type="number" bind:value={$character.speed} />
       </span>
     </Flex>
   </Border>
@@ -34,7 +34,7 @@
     <Flex column>
       <span class="label">Proficiency Bonus</span>
       <span class="value">
-        <input type="number" bind:value={$characterStore.proficiencyBonus} />
+        <input type="number" bind:value={$character.proficiencyBonus} />
       </span>
     </Flex>
   </Border>

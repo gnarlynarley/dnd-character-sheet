@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { characterStore } from '../stores/character';
+  import { character } from '../stores/character';
   import Border from './Border.svelte';
   import BorderLine from './BorderLine.svelte';
   import Flex from './Flex.svelte';
@@ -8,12 +8,12 @@
 <Border>
   <div class="inner">
     <div class="field">
-      <input class="value" bind:value={$characterStore.playerName} />
+      <input class="value" bind:value={$character.playerName} />
       <BorderLine />
       <div class="label">Player name</div>
     </div>
     <div class="field">
-      <input type="text" class="value" bind:value={$characterStore.alignment} />
+      <input type="text" class="value" bind:value={$character.alignment} />
       <BorderLine />
       <div class="label">Alignment</div>
     </div>
@@ -21,29 +21,29 @@
       <input
         type="text"
         class="value"
-        bind:value={$characterStore.background}
+        bind:value={$character.background}
       />
       <BorderLine />
       <div class="label">Background</div>
     </div>
     <div class="field">
-      <input type="text" class="value" bind:value={$characterStore.class} />
+      <input type="text" class="value" bind:value={$character.class} />
       <BorderLine />
       <div class="label">Class</div>
     </div>
     <div class="field">
-      <input type="text" class="value" bind:value={$characterStore.species} />
+      <input type="text" class="value" bind:value={$character.species} />
       <BorderLine />
       <div class="label">Species</div>
     </div>
     <div class="field">
-      <input type="text" class="value" bind:value={$characterStore.subclass} />
+      <input type="text" class="value" bind:value={$character.subclass} />
       <BorderLine />
       <div class="label">Subclass</div>
     </div>
     <div class="level">
       <Flex column sm align="center">
-        <input class="value" type="number" bind:value={$characterStore.level} />
+        <input class="value" type="number" bind:value={$character.level} />
         <BorderLine />
         <div class="label">Level</div>
       </Flex>

@@ -1,17 +1,25 @@
-@import "@fontsource/patrick-hand";
-@import "@fontsource-variable/merriweather";
+@import '@fontsource/patrick-hand';
+@import '@fontsource-variable/merriweather';
 
 :root {
+  --color-accent: #ffb703;
   --color-paper: #ece7e2;
   --color-ink: #222;
   --color-faded: color-mix(in srgb, var(--color-paper), black 10%);
-  --color-editable: color-mix(in oklab, var(--color-paper), rgb(255, 224, 86) 30%);
+  --color-editable: color-mix(
+    in oklab,
+    var(--color-paper),
+    rgb(255, 224, 86) 30%
+  );
   --gutter: 1em;
-  --font-written: "Patrick Hand", cursive;
-  --font-base: "Merriweather Variable", serif;
+  --font-written: 'Patrick Hand', cursive;
+  --font-base: 'Merriweather Variable', serif;
   --border: 0.2em solid var(--color-ink);
   --border-sm: 0.1em solid var(--color-ink);
-  --shadow: drop-shadow(0.5em 0.5em 0 var(--color-faded));
+  --shadow-distance: 0.5em;
+  --shadow: drop-shadow(
+    var(--shadow-distance) var(--shadow-distance) 0 var(--color-faded)
+  );
 
   font-family: var(--font-base);
   background-color: var(--color-paper);
@@ -63,6 +71,6 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"] {
+input[type='number'] {
   appearance: textfield;
 }

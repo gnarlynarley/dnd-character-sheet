@@ -15,7 +15,7 @@
     entries(skillToAbilityMap).flatMap(([skill, a]) => {
       if (ability !== a) return [];
       return { skill, ability: a };
-    })
+    }),
   );
 </script>
 

@@ -1,32 +1,46 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
+  import type { Snippet } from 'svelte';
 
   type Props = {
     children?: Snippet;
+    padding?: boolean;
     full?: boolean;
     column?: boolean;
     nogap?: boolean;
-    justify?: "start" | "center" | "end" | "between";
-    align?: "start" | "center" | "end";
+    justify?: 'start' | 'center' | 'end' | 'between';
+    align?: 'start' | 'center' | 'end';
     sm?: boolean;
+    xl?: boolean;
   };
 
-  const { children, full, column, nogap, justify, align, sm }: Props = $props();
+  const {
+    children,
+    padding,
+    full,
+    column,
+    nogap,
+    justify,
+    align,
+    sm,
+    xl,
+  }: Props = $props();
 </script>
 
 <div
   class="flex"
+  class:padding
   class:column
   class:full
   class:nogap
-  class:justifyStart={justify === "start"}
-  class:justifyCenter={justify === "center"}
-  class:justifyEnd={justify === "end"}
-  class:justifyBetween={justify === "between"}
-  class:alignStart={align === "start"}
-  class:alignCenter={align === "center"}
-  class:alignEnd={align === "end"}
+  class:justifyStart={justify === 'start'}
+  class:justifyCenter={justify === 'center'}
+  class:justifyEnd={justify === 'end'}
+  class:justifyBetween={justify === 'between'}
+  class:alignStart={align === 'start'}
+  class:alignCenter={align === 'center'}
+  class:alignEnd={align === 'end'}
   class:sm
+  class:xl
 >
   {@render children?.()}
 </div>
@@ -37,12 +51,20 @@
     flex-grow: var(--flex-grow, 1);
     flex-shrink: var(--flex-shrink, 1);
 
+    &.padding {
+      padding: var(--gutter);
+    }
+
     &:not(.nogap) {
       gap: var(--gutter);
     }
 
     &.sm {
       gap: calc(var(--gutter) * 0.5);
+    }
+
+    &.xl {
+      gap: calc(var(--gutter) * 1.5);
     }
 
     &.full {

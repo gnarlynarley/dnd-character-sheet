@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
+  import type { Snippet } from 'svelte';
 
   type Props = {
     children?: Snippet;
@@ -46,7 +46,7 @@
   }
 
   .inner {
-    font-size: 0.95cqw;
+    font-size: 0.9cqw;
     width: 100%;
     height: 100%;
     display: flex;

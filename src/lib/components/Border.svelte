@@ -12,6 +12,7 @@
     faded?: boolean;
     small?: boolean;
     nogrow?: boolean;
+    withHover?: boolean;
   };
 
   const {
@@ -25,6 +26,7 @@
     faded,
     small,
     nogrow,
+    withHover,
   }: Props = $props();
 </script>
 
@@ -39,6 +41,7 @@
   class:faded
   class:small
   class:nogrow
+  class:withHover
 >
   <div class="inner">
     {@render children?.()}
@@ -52,6 +55,7 @@
     z-index: 0;
     padding: var(--gutter);
     flex-grow: 1;
+    display: flex;
 
     &::after {
       content: '';
@@ -72,8 +76,20 @@
     &.nopadding {
       padding: 0;
     }
-    &.rounded::after {
-      border-radius: 50%;
+    &.rounded {
+      aspect-ratio: 1/1;
+      align-items: center;
+      justify-content: center;
+      flex-grow: 0;
+
+      .inner {
+        align-items: center;
+        justify-content: center;
+      }
+
+      &::after {
+        border-radius: 50%;
+      }
     }
 
     &.noshadow {
@@ -104,11 +120,24 @@
     &.nogrow {
       flex-grow: 0;
     }
+
+    &.withHover {
+      &:active {
+        translate: var(--shadow-distance) var(--shadow-distance);
+        &::after {
+          filter: none;
+        }
+      }
+      &:hover::after {
+        background-color: var(--color-accent);
+      }
+    }
   }
 
   .inner {
     padding: var(--border-size);
     position: relative;
     z-index: 1;
+    flex-grow: 1;
   }
 </style>

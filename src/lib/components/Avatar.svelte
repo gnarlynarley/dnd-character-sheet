@@ -1,6 +1,6 @@
 <script lang="ts">
   import { AVATAR_HEIGHT, AVATAR_WIDTH } from '../constants';
-  import { characterStore } from '../stores/character';
+  import { character } from '../stores/character';
   import { createImage } from '../utils';
   import applyContrast from '../utils/canvas/applyContrast';
   import applyGrayTones from '../utils/canvas/applyGrayTones';
@@ -9,14 +9,16 @@
   import getCropDetails from '../utils/canvas/getCropDetails';
   import Border from './Border.svelte';
   import Card from './Card.svelte';
+  import Flex from './Flex.svelte';
 
-  const blob = $derived($characterStore.avatar.blob);
+  const blob = $derived($character.avatar.blob);
+  let editEnabled = $state(false);
   let image = $state<HTMLImageElement | null>(null);
   let canvas = $state<HTMLCanvasElement | null>(null);
   let context = $derived(canvas ? canvas.getContext('2d') : null);
-  let contrast = $derived($characterStore.avatar.contrast);
-  let gray = $derived($characterStore.avatar.gray);
-  let black = $derived($characterStore.avatar.black);
+  let contrast = $derived($character.avatar.contrast);
+  let gray = $derived($character.avatar.gray);
+  let black = $derived($character.avatar.black);
 
   let panning: {
     x: number;
@@ -41,9 +43,9 @@
     drawImage(
       canvas,
       image,
-      $characterStore.avatar.x,
-      $characterStore.avatar.y,
-      $characterStore.avatar.scale,
+      $character.avatar.x,
+      $character.avatar.y,
+      $character.avatar.scale,
     );
     if (panning === null) {
       applyContrast(canvas, contrast);
@@ -53,32 +55,36 @@
   });
 
   function startPan(ev: PointerEvent) {
+    if (!editEnabled) return;
     panning = {
-      x: $characterStore.avatar.x,
-      y: $characterStore.avatar.y,
+      x: $character.avatar.x,
+      y: $character.avatar.y,
       pointerX: ev.clientX,
       pointerY: ev.clientY,
     };
   }
   function onPanning(ev: PointerEvent) {
+    if (!editEnabled) return;
     if (!panning) return;
     if (!canvas) return;
     const relativeX = ev.clientX - panning.pointerX;
     const relativeY = ev.clientY - panning.pointerY;
     const canvasScale =
-      (canvas.width / canvas.offsetWidth) * $characterStore.avatar.scale;
-    $characterStore.avatar.x = panning.x + relativeX * canvasScale;
-    $characterStore.avatar.y = panning.y + relativeY * canvasScale;
+      (canvas.width / canvas.offsetWidth) * $character.avatar.scale;
+    $character.avatar.x = panning.x + relativeX * canvasScale;
+    $character.avatar.y = panning.y + relativeY * canvasScale;
   }
   function endPan() {
+    if (!editEnabled) return;
     panning = null;
   }
   function onzoom(ev: WheelEvent) {
+    if (!editEnabled) return;
     ev.preventDefault();
     if (!canvas) return;
 
-    const oldScale = $characterStore.avatar.scale;
-    const newScale = oldScale - ev.deltaY / 1000;
+    const oldScale = $character.avatar.scale;
+    const newScale = Math.min(Math.max(0.1, oldScale - ev.deltaY / 1000), 10);
 
     // Mouse position
     const rect = canvas.getBoundingClientRect();
@@ -90,12 +96,12 @@
     const canvasMouseY = (mouseY / canvas.offsetHeight) * canvas.height;
 
     // Calculate the point in the image space that the mouse is over
-    const imagePointX = (canvasMouseX - $characterStore.avatar.x) / oldScale;
-    const imagePointY = (canvasMouseY - $characterStore.avatar.y) / oldScale;
+    const imagePointX = (canvasMouseX - $character.avatar.x) / oldScale;
+    const imagePointY = (canvasMouseY - $character.avatar.y) / oldScale;
 
-    $characterStore.avatar.scale = newScale;
-    $characterStore.avatar.x = canvasMouseX - imagePointX * newScale;
-    $characterStore.avatar.y = canvasMouseY - imagePointY * newScale;
+    $character.avatar.scale = newScale;
+    $character.avatar.x = canvasMouseX - imagePointX * newScale;
+    $character.avatar.y = canvasMouseY - imagePointY * newScale;
   }
 </script>
 
@@ -119,52 +125,60 @@
 
   <div class="controls">
     <Card>
-      <div>
+      <Flex column>
+        <label>
+          <Flex justify="start">
+            <span>Edit</span>
+            <input type="checkbox" bind:checked={editEnabled} />
+          </Flex>
+        </label>
+        <div>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            bind:value={$character.avatar.contrast}
+          />
+        </div>
+        <div>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            bind:value={$character.avatar.gray}
+          />
+        </div>
+        <div>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            bind:value={$character.avatar.black}
+          />
+        </div>
         <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.01"
-          bind:value={$characterStore.avatar.contrast}
+          type="file"
+          accept="image/*"
+          oninput={async (ev) => {
+            const file = ev.currentTarget.files?.[0];
+            if (file) {
+              const crop = await getCropDetails(
+                file,
+                AVATAR_WIDTH,
+                AVATAR_HEIGHT,
+              );
+              $character.avatar.blob = file;
+              $character.avatar.x = crop.x;
+              $character.avatar.y = crop.y;
+              $character.avatar.scale = crop.scale;
+            }
+            ev.currentTarget.value = '';
+          }}
         />
-      </div>
-      <div>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.01"
-          bind:value={$characterStore.avatar.gray}
-        />
-      </div>
-      <div>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.01"
-          bind:value={$characterStore.avatar.black}
-        />
-      </div>
-      <input
-        type="file"
-        accept="image/*"
-        oninput={async (ev) => {
-          const file = ev.currentTarget.files?.[0];
-          if (file) {
-            const crop = await getCropDetails(
-              file,
-              AVATAR_WIDTH,
-              AVATAR_HEIGHT,
-            );
-            $characterStore.avatar.blob = file;
-            $characterStore.avatar.x = crop.x;
-            $characterStore.avatar.y = crop.y;
-            $characterStore.avatar.scale = crop.scale;
-          }
-          ev.currentTarget.value = '';
-        }}
-      />
+      </Flex>
     </Card>
   </div>
 </div>
@@ -174,7 +188,7 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    z-index: 10;
+    z-index: 1;
     opacity: 0;
 
     &:hover {
@@ -183,7 +197,6 @@
   }
   .container {
     position: relative;
-    aspect-ratio: 1/1;
   }
   .background {
     position: absolute;
