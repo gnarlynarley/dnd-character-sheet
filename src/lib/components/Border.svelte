@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
+  import type { Snippet } from 'svelte';
 
   type Props = {
     children?: Snippet;
@@ -29,6 +29,7 @@
 </script>
 
 <div
+  class="container"
   class:nopadding
   class:grid
   class:absolute
@@ -39,20 +40,21 @@
   class:small
   class:nogrow
 >
-  {@render children?.()}
+  <div class="inner">
+    {@render children?.()}
+  </div>
 </div>
 
 <style lang="scss">
-  div {
+  .container {
     --border-size: 1pt;
     position: relative;
+    z-index: 0;
     padding: var(--gutter);
     flex-grow: 1;
-    background-color: var(--color-paper);
-    filter: var(--shadow);
 
     &::after {
-      content: "";
+      content: '';
       display: block;
       width: calc(100% + (var(--border-size) * 2));
       height: calc(100% + (var(--border-size) * 2));
@@ -60,10 +62,11 @@
       top: calc(var(--border-size) * -1);
       left: calc(var(--border-size) * -1);
       border: var(--border);
-      filter: url(#pencil);
+      filter: url(#pencil) var(--shadow);
       pointer-events: none;
       border-radius: 0.3em;
-      mix-blend-mode: multiply;
+      background-color: var(--color-paper);
+      z-index: 0;
     }
 
     &.nopadding {
@@ -101,5 +104,11 @@
     &.nogrow {
       flex-grow: 0;
     }
+  }
+
+  .inner {
+    padding: var(--border-size);
+    position: relative;
+    z-index: 1;
   }
 </style>
