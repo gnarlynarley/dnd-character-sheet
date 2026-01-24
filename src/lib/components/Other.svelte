@@ -14,7 +14,7 @@
 <Flex column justify="between">
   <Border nogrow>
     <Flex column>
-      <span class="label">size</span>
+      <span class="label">Size</span>
       <span class="value">
         <input type="text" bind:value={$character.size} />
       </span>
@@ -22,7 +22,7 @@
   </Border>
   <Border nogrow>
     <Flex column>
-      <span class="label">initiative</span>
+      <span class="label">Initiative</span>
       <span class="value">
         {parseModifier(getAbilityModifier($character.abilityScores.dex))}
       </span>
@@ -30,7 +30,7 @@
   </Border>
   <Border nogrow>
     <Flex column>
-      <span class="label">speed</span>
+      <span class="label">Speed</span>
       <span class="value">
         <input type="number" bind:value={$character.speed} />
       </span>

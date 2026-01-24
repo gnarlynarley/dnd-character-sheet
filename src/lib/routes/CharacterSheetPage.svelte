@@ -1,6 +1,7 @@
 <script lang="ts">
   import CharacterSheet from '$lib/components/CharacterSheet.svelte';
   import { loadCharacter } from '$lib/stores/character';
+  import { link } from 'svelte-spa-router';
 
   type Params = {
     slug: string;
@@ -15,5 +16,8 @@
 {#if character}
   <CharacterSheet {character} />
 {:else}
-  <h1>No character found for slug: {params.slug}</h1>
+  <h1>
+    No character found for slug: <code>{params.slug}</code>
+  </h1>
+  <a href="/" use:link>Go back to character select</a>
 {/if}
