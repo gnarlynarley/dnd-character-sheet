@@ -1,6 +1,6 @@
 <script lang="ts">
   import { type AbilityType } from '../models';
-  import { character } from '../stores/character';
+  import { type CharacterSvelteStore } from '../stores/character';
   import { getAbilityModifier } from '../utils';
   import { t } from '../utils/translate';
   import Border from './Border.svelte';
@@ -8,9 +8,11 @@
 
   type Props = {
     ability: AbilityType;
+    character: CharacterSvelteStore;
   };
 
-  const { ability }: Props = $props();
+  const { ability, character }: Props = $props();
+
   const value = $derived($character.abilityScores[ability]);
 </script>
 
@@ -61,7 +63,6 @@
       position: relative;
       font-size: 1.2em;
       text-align: center;
-      mix-blend-mode: multiply;
     }
   }
 </style>

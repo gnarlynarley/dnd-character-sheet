@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { CharacterSvelteStore } from '$lib/stores/character';
   import { type AbilityType, skillToAbilityMap } from '../models';
   import { entries } from '../utils';
   import AbilityScore from './AbilityScore.svelte';
@@ -8,9 +9,10 @@
 
   type Props = {
     ability: AbilityType;
+    character: CharacterSvelteStore;
   };
 
-  const { ability }: Props = $props();
+  const { ability, character }: Props = $props();
   const skills = $derived(
     entries(skillToAbilityMap).flatMap(([skill, a]) => {
       if (ability !== a) return [];
@@ -21,13 +23,13 @@
 
 <Border>
   <div class="inner">
-    <AbilityScore {ability} />
+    <AbilityScore {ability} {character} />
     <BorderLine />
-    <SkillListLine skill="savingThrow" {ability} />
+    <SkillListLine skill="savingThrow" {ability} {character} />
     {#if skills.length > 0}
       <BorderLine />
       {#each skills as item}
-        <SkillListLine skill={item.skill} {ability} />
+        <SkillListLine skill={item.skill} {ability} {character} />
       {/each}
     {/if}
   </div>

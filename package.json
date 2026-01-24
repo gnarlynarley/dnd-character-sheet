@@ -26,6 +26,7 @@
     "localforage": "^1.10.0",
     "marked": "^17.0.1",
     "sass-embedded": "^1.97.2",
+    "svelte-spa-router": "^4.0.1",
     "yaml": "^2.8.2",
     "zod": "^4.3.5"
   }

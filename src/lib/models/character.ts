@@ -1,58 +1,140 @@
-export type CharacterWeaponType = {
-  name: string;
-  hit: number;
-  damage: string;
-  details: string;
-};
-export type CharacterSpell = {
-  name: string;
-  level: number;
-  castingTime: string;
-  range: string;
-  components: string;
-  duration: string;
-  description: string;
-};
-export type CharacterAvatar = {
-  blob: Blob | null;
-  contrast: number;
-  gray: number;
-  black: number;
-  x: number;
-  y: number;
-  scale: number;
-};
-export type CharacterType = {
-  avatar: CharacterAvatar;
-  name: string;
-  playerName: string;
-  level: number;
-  class: string;
-  subclass: string;
-  species: string;
-  size: string;
-  speed: number;
-  background: string;
-  alignment: string;
-  armorClass: number;
-  hitDice: string;
-  hitPoints: number;
-  proficiencyBonus: number;
-  abilityScores: Record<AbilityType, number>;
-  abilityProficiencies: AbilityType[];
-  skillProficiencies: Partial<Record<SkillType, ProficiencyType>>;
-  languages: string;
-  features: {
-    feats: string;
-    species: string;
-    class: string;
-  };
-  weapons: CharacterWeaponType[];
-  spells: CharacterSpell[];
-};
-export type ProficiencyType = 'none' | 'proficient' | 'double' | 'half';
-export type AbilityType = 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';
-export type SkillType = keyof typeof skillToAbilityMap;
+import { z } from 'zod';
+
+export const skillSchema = z.enum([
+  'acrobatics',
+  'animalHandling',
+  'arcana',
+  'athletics',
+  'deception',
+  'history',
+  'insight',
+  'intimidation',
+  'investigation',
+  'medicine',
+  'nature',
+  'perception',
+  'performance',
+  'persuasion',
+  'religion',
+  'sleightOfHand',
+  'stealth',
+  'survival',
+]);
+export const abilitySchema = z.enum(['str', 'dex', 'con', 'int', 'wis', 'cha']);
+export const proficiencySchema = z.enum([
+  'none',
+  'proficient',
+  'double',
+  'half',
+]);
+export const characterWeaponSchema = z.object({
+  name: z.string().optional().default(''),
+  hit: z.number().optional().default(0),
+  damage: z.string().optional().default(''),
+  details: z.string().optional().default(''),
+});
+export const characterSpellSchema = z.object({
+  name: z.string().optional().default(''),
+  level: z.number().optional().default(0),
+  castingTime: z.string().optional().default(''),
+  range: z.string().optional().default(''),
+  components: z.string().optional().default(''),
+  duration: z.string().optional().default(''),
+  description: z.string().optional().default(''),
+});
+export const characterAvatarSchema = z.object({
+  blob: z.instanceof(Blob).nullable().default(null),
+  contrast: z.number().optional().default(1),
+  gray: z.number().optional().default(0.5),
+  black: z.number().optional().default(0.25),
+  x: z.number().optional().default(0),
+  y: z.number().optional().default(0),
+  scale: z.number().optional().default(1),
+});
+export const characterSchema = z.object({
+  slug: z.string().nonempty(),
+  avatar: characterAvatarSchema.optional().default({
+    blob: null,
+    contrast: 1,
+    gray: 0.5,
+    black: 0.25,
+    x: 0,
+    y: 0,
+    scale: 1,
+  }),
+  name: z.string().optional().default(''),
+  playerName: z.string().optional().default(''),
+  level: z.number().optional().default(1),
+  class: z.string().optional().default(''),
+  subclass: z.string().optional().default(''),
+  species: z.string().optional().default(''),
+  size: z.string().optional().default(''),
+  speed: z.number().optional().default(30),
+  background: z.string().optional().default(''),
+  alignment: z.string().optional().default(''),
+  armorClass: z.number().optional().default(10),
+  hitDice: z.string().optional().default('1d8'),
+  hitPoints: z.number().optional().default(1),
+  proficiencyBonus: z.number().optional().default(2),
+  abilityScores: z
+    .record(abilitySchema, z.number().optional().default(10))
+    .optional()
+    .default({
+      str: 10,
+      dex: 10,
+      con: 10,
+      int: 10,
+      wis: 10,
+      cha: 10,
+    }),
+  abilityProficiencies: z.array(abilitySchema).optional().default([]),
+  skillProficiencies: z
+    .record(skillSchema, proficiencySchema.optional().default('none'))
+    .optional()
+    .default({
+      acrobatics: 'none',
+      animalHandling: 'none',
+      arcana: 'none',
+      athletics: 'none',
+      deception: 'none',
+      history: 'none',
+      insight: 'none',
+      intimidation: 'none',
+      investigation: 'none',
+      medicine: 'none',
+      nature: 'none',
+      perception: 'none',
+      performance: 'none',
+      persuasion: 'none',
+      religion: 'none',
+      sleightOfHand: 'none',
+      stealth: 'none',
+      survival: 'none',
+    }),
+  languages: z.string().optional().default(''),
+  features: z
+    .object({
+      feats: z.string().optional().default(''),
+      species: z.string().optional().default(''),
+      class: z.string().optional().default(''),
+    })
+    .optional()
+    .default({
+      feats: '',
+      species: '',
+      class: '',
+    }),
+  weapons: z.array(characterWeaponSchema).optional().default([]),
+  spells: z.array(characterSpellSchema).optional().default([]),
+});
+
+export type CharacterWeaponType = z.infer<typeof characterWeaponSchema>;
+export type CharacterSpell = z.infer<typeof characterSpellSchema>;
+export type CharacterAvatar = z.infer<typeof characterAvatarSchema>;
+export type CharacterType = z.infer<typeof characterSchema>;
+export type ProficiencyType = z.infer<typeof proficiencySchema>;
+export type AbilityType = z.infer<typeof abilitySchema>;
+export type SkillType = z.infer<typeof skillSchema>;
 
 export const skillToAbilityMap = {
   acrobatics: 'dex',

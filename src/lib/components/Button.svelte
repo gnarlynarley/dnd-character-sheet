@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
-  import Border from './Border.svelte';
+  import ButtonStyling from './ButtonStyling.svelte';
 
   type Props = {
     children?: Snippet;
@@ -12,9 +12,9 @@
 </script>
 
 <button {type} {onclick}>
-  <Border withHover>
+  <ButtonStyling>
     {@render children?.()}
-  </Border>
+  </ButtonStyling>
 </button>
 
 <style>
@@ -22,5 +22,6 @@
     all: unset;
     cursor: pointer;
     display: inline-block;
+    font-family: var(--font-written);
   }
 </style>

@@ -1,16 +1,14 @@
 export default function applyHalftone(
   canvas: HTMLCanvasElement,
+  context: CanvasRenderingContext2D,
   dotSize = 6, // radius of max dot
-  angle = 45
+  angle = 45,
 ) {
-  const ctx = canvas.getContext("2d", { willReadFrequently: true });
-  if (!ctx) return;
-
   const w = canvas.width | 0;
   const h = canvas.height | 0;
   if (w <= 0 || h <= 0) return;
 
-  const src = ctx.getImageData(0, 0, w, h);
+  const src = context.getImageData(0, 0, w, h);
   const d = src.data;
 
   // Treat very dark pixels as "ink" that must be preserved (lines/values).
@@ -38,17 +36,17 @@ export default function applyHalftone(
     ink[i] = y <= INK_THRESH ? 1 : 0;
   }
 
-  const off = document.createElement("canvas");
+  const off = document.createElement('canvas');
   off.width = w;
   off.height = h;
-  const octx = off.getContext("2d");
+  const octx = off.getContext('2d');
   if (!octx) return;
 
   // White paper background, black dots
   octx.clearRect(0, 0, w, h);
-  octx.fillStyle = "#fff";
+  octx.fillStyle = '#fff';
   octx.fillRect(0, 0, w, h);
-  octx.fillStyle = "#000";
+  octx.fillStyle = '#000';
 
   const rad = (angle * Math.PI) / 180;
   const ca = Math.cos(rad);
@@ -110,5 +108,5 @@ export default function applyHalftone(
     }
   }
 
-  ctx.putImageData(out, 0, 0);
+  context.putImageData(out, 0, 0);
 }

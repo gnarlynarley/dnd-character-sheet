@@ -1,4 +1,4 @@
-import type { ProficiencyType } from "../models";
+import type { ProficiencyType } from '$lib/models';
 
 export function parseModifier(modifier: number): string {
   return modifier > 0 ? `+${modifier}` : modifier.toString();
@@ -9,16 +9,16 @@ export function getAbilityModifier(abilityScore: number): number {
 }
 
 export function getProficiencyMultiplier(
-  proficiencyType: ProficiencyType
+  proficiencyType: ProficiencyType,
 ): number {
   switch (proficiencyType) {
-    case "none":
+    case 'none':
       return 0;
-    case "proficient":
+    case 'proficient':
       return 1;
-    case "double":
+    case 'double':
       return 2;
-    case "half":
+    case 'half':
       return 0.5;
   }
 }
@@ -26,7 +26,7 @@ export function getProficiencyMultiplier(
 export function getSkillModifier(
   abilityScore: number,
   proficiencyBonus: number,
-  proficiencyType: ProficiencyType
+  proficiencyType: ProficiencyType,
 ): number {
   const multiplier = getProficiencyMultiplier(proficiencyType);
   const abilityModifier = getAbilityModifier(abilityScore);
@@ -35,7 +35,7 @@ export function getSkillModifier(
 }
 
 export function entries<TKey extends string, TValue>(
-  obj: Record<TKey, TValue>
+  obj: Record<TKey, TValue>,
 ): [TKey, TValue][] {
   return Object.entries(obj) as [TKey, TValue][];
 }
@@ -46,7 +46,7 @@ export function createImage(blob: Blob): Promise<DisposableImage> {
   const url = URL.createObjectURL(blob);
 
   return new Promise<DisposableImage>((resolve, reject) => {
-    const image: any = document.createElement("img");
+    const image: any = document.createElement('img');
     image.dispose = () => {
       URL.revokeObjectURL(url);
     };
@@ -54,7 +54,7 @@ export function createImage(blob: Blob): Promise<DisposableImage> {
       resolve(image);
     };
     image.onerror = () => {
-      reject(new Error("Image could not be loaded"));
+      reject(new Error('Image could not be loaded'));
     };
     image.src = url;
   });
@@ -78,4 +78,11 @@ export function toggleAdd<T>(arr: T[], value: T): T[] {
   }
 
   return result;
+}
+
+export function slugify(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9\-]/g, '');
 }

@@ -2,17 +2,19 @@ avatar:
   contrast: 0
   gray: 0.40
   black: 0.45
-name: "Belo Wanderlust"
+name: 'Belo Wanderlust'
 level: 3
-playerName: "Narley"
-class: "Rogue"
-subclass: "Thief"
-alignment: "Neutral"
-species: "Gnoll"
-background: "Scribe"
+playerName: 'Narley'
+class: 'Rogue'
+subclass: 'Thief'
+alignment: 'Neutral'
+species: 'Gnoll'
+background: 'Scribe'
 proficiencyBonus: 2
 hitPoints: 36
 hitDice: 2d8
+size: Medium
+speed: 30
 armorClass: 15
 abilityScores:
   str: 10
@@ -25,8 +27,8 @@ abilityProficiencies:
   - int
   - dex
 skillProficiencies:
-  arcana: "proficient"
-  sleightOfHand: "double"
+  arcana: 'proficient'
+  sleightOfHand: 'double'
 languages: Common, Gnollish
 features:
   feats: |

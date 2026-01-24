@@ -1,24 +1,20 @@
 <script lang="ts">
   import { AVATAR_HEIGHT, AVATAR_WIDTH } from '../constants';
-  import { character } from '../stores/character';
-  import { createImage } from '../utils';
-  import applyContrast from '../utils/canvas/applyContrast';
-  import applyGrayTones from '../utils/canvas/applyGrayTones';
-  import applyHalftone from '../utils/canvas/applyHalftone';
-  import drawImage from '../utils/canvas/drawImage';
+  import { type CharacterSvelteStore } from '../stores/character';
   import getCropDetails from '../utils/canvas/getCropDetails';
+  import AvatarImage from './AvatarImage.svelte';
   import Border from './Border.svelte';
   import Card from './Card.svelte';
   import Flex from './Flex.svelte';
 
-  const blob = $derived($character.avatar.blob);
+  type Props = {
+    character: CharacterSvelteStore;
+  };
+
+  const { character }: Props = $props();
+
   let editEnabled = $state(false);
-  let image = $state<HTMLImageElement | null>(null);
-  let canvas = $state<HTMLCanvasElement | null>(null);
-  let context = $derived(canvas ? canvas.getContext('2d') : null);
-  let contrast = $derived($character.avatar.contrast);
-  let gray = $derived($character.avatar.gray);
-  let black = $derived($character.avatar.black);
+  let container = $state<HTMLDivElement | null>(null);
 
   let panning: {
     x: number;
@@ -26,33 +22,6 @@
     pointerX: number;
     pointerY: number;
   } | null = $state(null);
-
-  $effect(() => {
-    if (blob) {
-      createImage(blob).then((result) => {
-        image = result;
-      });
-    } else {
-      image = null;
-    }
-  });
-
-  $effect(() => {
-    if (!image || !context || !canvas) return;
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    drawImage(
-      canvas,
-      image,
-      $character.avatar.x,
-      $character.avatar.y,
-      $character.avatar.scale,
-    );
-    if (panning === null) {
-      applyContrast(canvas, contrast);
-      applyGrayTones(canvas, context, gray, black);
-      applyHalftone(canvas, 6, 30);
-    }
-  });
 
   function startPan(ev: PointerEvent) {
     if (!editEnabled) return;
@@ -66,11 +35,11 @@
   function onPanning(ev: PointerEvent) {
     if (!editEnabled) return;
     if (!panning) return;
-    if (!canvas) return;
+    if (!container) return;
     const relativeX = ev.clientX - panning.pointerX;
     const relativeY = ev.clientY - panning.pointerY;
     const canvasScale =
-      (canvas.width / canvas.offsetWidth) * $character.avatar.scale;
+      (AVATAR_HEIGHT / AVATAR_WIDTH) * $character.avatar.scale;
     $character.avatar.x = panning.x + relativeX * canvasScale;
     $character.avatar.y = panning.y + relativeY * canvasScale;
   }
@@ -81,19 +50,19 @@
   function onzoom(ev: WheelEvent) {
     if (!editEnabled) return;
     ev.preventDefault();
-    if (!canvas) return;
+    if (!container) return;
 
     const oldScale = $character.avatar.scale;
     const newScale = Math.min(Math.max(0.1, oldScale - ev.deltaY / 1000), 10);
 
     // Mouse position
-    const rect = canvas.getBoundingClientRect();
+    const rect = container.getBoundingClientRect();
     const mouseX = ev.clientX - rect.left;
     const mouseY = ev.clientY - rect.top;
 
     // Convert mouse coordinates
-    const canvasMouseX = (mouseX / canvas.offsetWidth) * canvas.width;
-    const canvasMouseY = (mouseY / canvas.offsetHeight) * canvas.height;
+    const canvasMouseX = (mouseX / container.offsetWidth) * AVATAR_WIDTH;
+    const canvasMouseY = (mouseY / container.offsetHeight) * AVATAR_HEIGHT;
 
     // Calculate the point in the image space that the mouse is over
     const imagePointX = (canvasMouseX - $character.avatar.x) / oldScale;
@@ -108,15 +77,13 @@
 <svelte:window onmouseup={endPan} onpointermove={onPanning} />
 
 <div class="container">
-  <div class="canvas">
-    <canvas
-      bind:this={canvas}
-      width={AVATAR_WIDTH}
-      height={AVATAR_HEIGHT}
-      onpointerdown={startPan}
-      onwheel={onzoom}
-    >
-    </canvas>
+  <div
+    bind:this={container}
+    class="canvas"
+    onpointerdown={startPan}
+    onwheel={onzoom}
+  >
+    <AvatarImage avatar={$character.avatar} disableEffects={panning !== null} />
   </div>
 
   <div class="background">
@@ -221,7 +188,6 @@
       top: 0;
       left: 0;
       filter: url('#pencil');
-      mix-blend-mode: multiply;
     }
   }
 </style>

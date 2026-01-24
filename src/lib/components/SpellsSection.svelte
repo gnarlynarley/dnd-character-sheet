@@ -1,8 +1,14 @@
 <script lang="ts">
-  import { character } from '../stores/character';
   import Button from './Button.svelte';
   import HidePrint from './HidePrint.svelte';
   import SpellCard from './SpellCard.svelte';
+  import type { CharacterSvelteStore } from '$lib/stores/character';
+
+  type Props = {
+    character: CharacterSvelteStore;
+  };
+
+  const { character }: Props = $props();
 
   function addSpell() {
     $character.spells.push({
@@ -22,7 +28,7 @@
   <div class="items">
     {#each $character.spells as spell, index}
       <div class="item">
-        <SpellCard {index} />
+        <SpellCard {index} {character} />
       </div>
     {/each}
   </div>

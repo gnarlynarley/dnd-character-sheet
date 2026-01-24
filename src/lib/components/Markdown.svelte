@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { parse } from "marked";
-  import Textarea from "./Textarea.svelte";
+  import { parse } from 'marked';
+  import Textarea from './Textarea.svelte';
 
   type Props = {
     code: string;
@@ -36,6 +36,8 @@
 
 <style>
   .content {
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 0.5em;

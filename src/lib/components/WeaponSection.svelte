@@ -1,25 +1,30 @@
 <script lang="ts">
   import Card from './Card.svelte';
-  import { character as store } from '../stores/character';
+  import type { CharacterSvelteStore } from '$lib/stores/character';
   import type { CharacterWeaponType } from '../models';
   import BorderLine from './BorderLine.svelte';
-  import Border from './Border.svelte';
   import Flex from './Flex.svelte';
   import Button from './Button.svelte';
 
+  type Props = {
+    character: CharacterSvelteStore;
+  };
+
+  const { character }: Props = $props();
+
   const addLine = () => {
-    $store.weapons.push({
+    $character.weapons.push({
       name: '',
       hit: 0,
       damage: '',
       details: '',
     });
-    $store.weapons = $store.weapons;
+    $character.weapons = $character.weapons;
   };
   const deleteLine = (weapon: CharacterWeaponType) => {
-    const index = $store.weapons.indexOf(weapon);
-    $store.weapons.splice(index, 1);
-    $store.weapons = $store.weapons;
+    const index = $character.weapons.indexOf(weapon);
+    $character.weapons.splice(index, 1);
+    $character.weapons = $character.weapons;
   };
 </script>
 
@@ -34,7 +39,7 @@
       <BorderLine vertical />
       <div class="cell details">Details</div>
     </div>
-    {#each $store.weapons as weapon}
+    {#each $character.weapons as weapon}
       <BorderLine />
       <div class="line">
         <input type="text" class="cell name" bind:value={weapon.name} />

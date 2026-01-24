@@ -1,11 +1,7 @@
 <script lang="ts">
-  import type {
-    AbilityType,
-    ProficiencyType,
-    SkillType,
-  } from '../models';
-  import { character } from '../stores/character';
-  import { getSkillModifier, getAbilityModifier, toggleAdd } from '../utils';
+  import type { AbilityType, ProficiencyType, SkillType } from '../models';
+  import { type CharacterSvelteStore } from '../stores/character';
+  import { getSkillModifier, toggleAdd } from '../utils';
   import { t } from '../utils/translate';
   import Modifier from './Modifier.svelte';
   import ProficiencyToggle from './ProficiencyToggle.svelte';
@@ -13,9 +9,11 @@
   type Props = {
     skill: SkillType | 'savingThrow';
     ability: AbilityType;
+    character: CharacterSvelteStore;
   };
 
-  const { skill, ability }: Props = $props();
+  const { skill, ability, character }: Props = $props();
+
   const proficiency = $derived.by((): ProficiencyType => {
     if (skill === 'savingThrow') {
       return $character.abilityProficiencies.includes(ability)

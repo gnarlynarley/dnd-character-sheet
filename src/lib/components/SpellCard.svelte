@@ -1,7 +1,5 @@
 <script lang="ts">
-  import type { CharacterSpell } from '../models';
-  import { character } from '../stores/character';
-  import Border from './Border.svelte';
+  import { type CharacterSvelteStore } from '../stores/character';
   import Button from './Button.svelte';
   import Card from './Card.svelte';
   import Flex from './Flex.svelte';
@@ -9,9 +7,11 @@
 
   type Props = {
     index: number;
+
+    character: CharacterSvelteStore;
   };
 
-  const { index }: Props = $props();
+  const { index, character }: Props = $props();
 
   function deleteSpell() {
     $character.spells.splice(index, 1);

@@ -1,8 +1,14 @@
 <script lang="ts">
-  import { character } from '../stores/character';
+  import type { CharacterSvelteStore } from '$lib/stores/character';
   import Border from './Border.svelte';
   import BorderLine from './BorderLine.svelte';
   import Flex from './Flex.svelte';
+
+  type Props = {
+    character: CharacterSvelteStore;
+  };
+
+  const { character }: Props = $props();
 </script>
 
 <Border>
@@ -18,11 +24,7 @@
       <div class="label">Alignment</div>
     </div>
     <div class="field">
-      <input
-        type="text"
-        class="value"
-        bind:value={$character.background}
-      />
+      <input type="text" class="value" bind:value={$character.background} />
       <BorderLine />
       <div class="label">Background</div>
     </div>

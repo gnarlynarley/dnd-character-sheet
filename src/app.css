@@ -20,6 +20,7 @@
   --shadow: drop-shadow(
     var(--shadow-distance) var(--shadow-distance) 0 var(--color-faded)
   );
+  --paper: url('#pencil');
 
   font-family: var(--font-base);
   background-color: var(--color-paper);
@@ -38,6 +39,11 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+a {
+  color: currentColor;
+  font: inherit;
 }
 
 button {

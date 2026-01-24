@@ -53,6 +53,7 @@
   }
 
   .padding {
+    display: flex;
     padding: var(--gutter);
   }
 

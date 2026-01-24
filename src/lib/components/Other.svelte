@@ -1,8 +1,14 @@
-<script>
-  import { character } from "../stores/character";
-  import { getAbilityModifier, parseModifier } from "../utils";
-  import Border from "./Border.svelte";
-  import Flex from "./Flex.svelte";
+<script lang="ts">
+  import type { CharacterSvelteStore } from '$lib/stores/character';
+  import { getAbilityModifier, parseModifier } from '../utils';
+  import Border from './Border.svelte';
+  import Flex from './Flex.svelte';
+
+  type Props = {
+    character: CharacterSvelteStore;
+  };
+
+  const { character }: Props = $props();
 </script>
 
 <Flex column justify="between">

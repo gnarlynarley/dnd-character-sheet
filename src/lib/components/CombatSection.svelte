@@ -1,10 +1,16 @@
 <script lang="ts">
-  import { character } from "../stores/character";
-  import BorderLine from "./BorderLine.svelte";
-  import Card from "./Card.svelte";
-  import DeathSave from "./DeathSave.svelte";
-  import Flex from "./Flex.svelte";
-  import FlexPush from "./FlexPush.svelte";
+  import type { CharacterSvelteStore } from '$lib/stores/character';
+  import BorderLine from './BorderLine.svelte';
+  import Card from './Card.svelte';
+  import DeathSave from './DeathSave.svelte';
+  import Flex from './Flex.svelte';
+  import FlexPush from './FlexPush.svelte';
+
+  type Props = {
+    character: CharacterSvelteStore;
+  };
+
+  const { character }: Props = $props();
 </script>
 
 <div class="container">
@@ -12,11 +18,7 @@
     <div class="inner">
       <div class="label">Armor<br />Class</div>
       <BorderLine />
-      <input
-        type="number"
-        class="value"
-        bind:value={$character.armorClass}
-      />
+      <input type="number" class="value" bind:value={$character.armorClass} />
     </div>
   </div>
   <Card>
@@ -52,11 +54,7 @@
           <span>spend</span>
         </Flex>
         <Flex column full>
-          <input
-            type="text"
-            class="value"
-            bind:value={$character.hitDice}
-          />
+          <input type="text" class="value" bind:value={$character.hitDice} />
           <BorderLine></BorderLine>
           <span>current</span>
         </Flex>
@@ -101,10 +99,10 @@
     flex-grow: 0;
 
     &::after {
-      content: "";
+      content: '';
       border: var(--border);
       border-radius: 0.4em 0.4em 10em 10em;
-      filter: var(--shadow) url("#pencil");
+      filter: var(--shadow) url('#pencil');
       position: absolute;
       top: 0;
       left: 0;
@@ -132,7 +130,6 @@
 
     .value {
       width: 2em;
-      mix-blend-mode: multiply;
     }
   }
 

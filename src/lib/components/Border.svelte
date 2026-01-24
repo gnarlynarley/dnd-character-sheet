@@ -92,8 +92,8 @@
       }
     }
 
-    &.noshadow {
-      filter: none;
+    &.noshadow::after {
+      filter: url(#pencil);
     }
 
     &.transparent {
