@@ -5,6 +5,7 @@
   import DeathSave from './DeathSave.svelte';
   import Flex from './Flex.svelte';
   import FlexPush from './FlexPush.svelte';
+  import Input from './Input.svelte';
 
   type Props = {
     character: CharacterSvelteStore;
@@ -18,7 +19,9 @@
     <div class="inner">
       <div class="label">Armor<br />Class</div>
       <BorderLine />
-      <input type="number" class="value" bind:value={$character.armorClass} />
+      <div class="value">
+        <Input bind:value={$character.armorClass} />
+      </div>
     </div>
   </div>
   <Card>
@@ -32,11 +35,9 @@
           </Flex>
           <BorderLine vertical />
           <Flex column align="center" justify="end" full>
-            <input
-              type="number"
-              class="value"
-              bind:value={$character.hitPoints}
-            />
+            <div class="value">
+              <Input bind:value={$character.hitPoints} />
+            </div>
             <BorderLine />
             <span>max</span>
           </Flex>
@@ -54,7 +55,9 @@
           <span>spend</span>
         </Flex>
         <Flex column full>
-          <input type="text" class="value" bind:value={$character.hitDice} />
+          <div class="value">
+            <Input bind:value={$character.hitDice} />
+          </div>
           <BorderLine></BorderLine>
           <span>current</span>
         </Flex>
@@ -89,6 +92,7 @@
     font-size: 2em;
     font-family: var(--font-written);
     text-align: center;
+    width: 100%;
   }
   .armor {
     z-index: 0;
@@ -133,9 +137,6 @@
     }
   }
 
-  .value {
-    justify-self: center;
-  }
   .inner {
     display: flex;
     gap: 1em;

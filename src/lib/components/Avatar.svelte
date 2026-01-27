@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { appSettings } from '$lib/stores/app-settings';
   import { AVATAR_HEIGHT, AVATAR_WIDTH } from '../constants';
   import { type CharacterSvelteStore } from '../stores/character';
   import getCropDetails from '../utils/canvas/getCropDetails';
@@ -13,7 +14,7 @@
 
   const { character }: Props = $props();
 
-  let editEnabled = $state(false);
+  let editEnabled = $derived($appSettings.edit);
   let container = $state<HTMLDivElement | null>(null);
 
   let panning: {
@@ -90,64 +91,60 @@
     <Border absolute />
   </div>
 
-  <div class="controls">
-    <Card>
-      <Flex column>
-        <label>
-          <Flex justify="start">
-            <span>Edit</span>
-            <input type="checkbox" bind:checked={editEnabled} />
-          </Flex>
-        </label>
-        <div>
+  {#if $appSettings.edit}
+    <div class="controls">
+      <Card>
+        <Flex column sm>
+          <div>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              bind:value={$character.avatar.contrast}
+            />
+          </div>
+          <div>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              bind:value={$character.avatar.gray}
+            />
+          </div>
+          <div>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              bind:value={$character.avatar.black}
+            />
+          </div>
           <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            bind:value={$character.avatar.contrast}
+            type="file"
+            accept="image/*"
+            oninput={async (ev) => {
+              const file = ev.currentTarget.files?.[0];
+              if (file) {
+                const crop = await getCropDetails(
+                  file,
+                  AVATAR_WIDTH,
+                  AVATAR_HEIGHT,
+                );
+                $character.avatar.blob = file;
+                $character.avatar.x = crop.x;
+                $character.avatar.y = crop.y;
+                $character.avatar.scale = crop.scale;
+              }
+              ev.currentTarget.value = '';
+            }}
           />
-        </div>
-        <div>
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            bind:value={$character.avatar.gray}
-          />
-        </div>
-        <div>
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            bind:value={$character.avatar.black}
-          />
-        </div>
-        <input
-          type="file"
-          accept="image/*"
-          oninput={async (ev) => {
-            const file = ev.currentTarget.files?.[0];
-            if (file) {
-              const crop = await getCropDetails(
-                file,
-                AVATAR_WIDTH,
-                AVATAR_HEIGHT,
-              );
-              $character.avatar.blob = file;
-              $character.avatar.x = crop.x;
-              $character.avatar.y = crop.y;
-              $character.avatar.scale = crop.scale;
-            }
-            ev.currentTarget.value = '';
-          }}
-        />
-      </Flex>
-    </Card>
-  </div>
+        </Flex>
+      </Card>
+    </div>
+  {/if}
 </div>
 
 <style lang="scss">
@@ -156,11 +153,6 @@
     bottom: 0;
     right: 0;
     z-index: 1;
-    opacity: 0;
-
-    &:hover {
-      opacity: 1;
-    }
   }
   .container {
     position: relative;
@@ -173,21 +165,5 @@
     bottom: 0;
     height: 100%;
     display: flex;
-  }
-
-  .canvas {
-    position: relative;
-    background: red;
-
-    canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-      position: relative;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      filter: url('#pencil');
-    }
   }
 </style>

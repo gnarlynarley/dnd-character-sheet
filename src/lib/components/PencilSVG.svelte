@@ -2,12 +2,20 @@
   let scale = $state(1);
 
   function onresize() {
-    scale = window.innerWidth / 1000;
+    scale = window.innerWidth / (1000 * window.devicePixelRatio);
   }
   onresize();
+
+  function beforeprint() {
+    scale = 1;
+  }
 </script>
 
-<svelte:window {onresize} />
+<svelte:window
+  {onresize}
+  on:beforeprint={beforeprint}
+  on:afterprint={onresize}
+/>
 
 <svg width="0" height="0" style="display: none;">
   <filter id="pencil">

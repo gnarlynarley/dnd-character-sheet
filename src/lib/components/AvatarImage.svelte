@@ -41,7 +41,7 @@
     if (!disableEffects) {
       applyContrast(canvas, context, contrast);
       applyGrayTones(canvas, context, gray, black);
-      applyHalftone(canvas, context, 6, 30);
+      applyHalftone(canvas, context, 8, 30);
       applyTransparency(canvas, context);
     }
   });
@@ -65,7 +65,11 @@
       top: 0;
       left: 0;
       filter: url('#pencil');
-      mix-blend-mode: multiply;
+      background-color: var(--color-paper);
+
+      // @media screen and (prefers-color-scheme: dark) {
+      //   background-color: var(--color-ink);
+      // }
     }
   }
 </style>

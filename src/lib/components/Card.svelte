@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
-  import Border from "./Border.svelte";
-  import BorderLine from "./BorderLine.svelte";
-  import Grid from "./Grid.svelte";
+  import type { Snippet } from 'svelte';
+  import Border from './Border.svelte';
+  import BorderLine from './BorderLine.svelte';
+  import Grid from './Grid.svelte';
 
   type Props = {
     title?: string;
@@ -59,7 +59,6 @@
 
   h1 {
     text-align: center;
-    background: var(--color-paper);
     padding: calc(var(--gutter) * 0.2) var(--gutter);
   }
 </style>

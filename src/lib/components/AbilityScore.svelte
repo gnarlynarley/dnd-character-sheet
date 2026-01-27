@@ -4,6 +4,7 @@
   import { getAbilityModifier } from '../utils';
   import { t } from '../utils/translate';
   import Border from './Border.svelte';
+  import Input from './Input.svelte';
   import Modifier from './Modifier.svelte';
 
   type Props = {
@@ -25,7 +26,9 @@
   </div>
   <span class="score">
     <Border rounded absolute noshadow small></Border>
-    <input type="number" bind:value={$character.abilityScores[ability]} />
+    <div class="input">
+      <Input bind:value={$character.abilityScores[ability]} />
+    </div>
   </span>
 </div>
 
@@ -59,7 +62,7 @@
     align-items: center;
     font-family: var(--font-written);
 
-    input {
+    .input {
       position: relative;
       font-size: 1.2em;
       text-align: center;

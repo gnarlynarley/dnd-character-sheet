@@ -18,47 +18,46 @@
   } from '$lib/stores/character';
   import ButtonStyling from './ButtonStyling.svelte';
   import { link } from 'svelte-spa-router';
+  import Scrollbar from './Scrollbar.svelte';
+  import { appSettings } from '$lib/stores/app-settings';
+  import Input from './Input.svelte';
 
   type Props = {
     character: CharacterSvelteStore;
   };
   const { character }: Props = $props();
 
-  let showEditables = $state(true);
-
   const toggleEditables = () => {
-    showEditables = !showEditables;
+    $appSettings.edit = !$appSettings.edit;
   };
 </script>
 
-<div class:showEditables>
+<div class:showEditables={!$appSettings.edit}>
   <Flex column xl>
-    <HidePrint>
-      <div class="toolbar">
-        <Flex padding justify="start">
-          <Button onclick={toggleEditables}>Toggle editables</Button>
-          <Button
-            type="button"
-            onclick={async () => {
-              window.print();
-            }}
-          >
-            Print
-          </Button>
-          <Button
-            onclick={async () => {
-              await loadExampleCharacter($character.slug, character);
-            }}
-          >
-            Load Belo
-          </Button>
+    <div class="toolbar hide-print">
+      <Flex padding justify="start">
+        <Button onclick={toggleEditables}>Toggle editables</Button>
+        <Button
+          type="button"
+          onclick={async () => {
+            window.print();
+          }}
+        >
+          Print
+        </Button>
+        <Button
+          onclick={async () => {
+            await loadExampleCharacter($character.slug, character);
+          }}
+        >
+          Load Belo
+        </Button>
 
-          <a href="/" use:link>
-            <ButtonStyling>View all characters</ButtonStyling>
-          </a>
-        </Flex>
-      </div>
-    </HidePrint>
+        <a href="/" use:link>
+          <ButtonStyling>View all characters</ButtonStyling>
+        </a>
+      </Flex>
+    </div>
 
     <div class="pages">
       <Page>
@@ -66,7 +65,7 @@
           <div class="side">
             <!-- svelte-ignore a11y_missing_content -->
             <h1 class="name">
-              <input type="text" bind:value={$character.name} />
+              <Input bind:value={$character.name} />
             </h1>
 
             <div class="avatar">
@@ -111,12 +110,16 @@
             </div>
             <div class="species">
               <Card grid title="Species">
-                <Markdown bind:code={$character.features.species} />
+                <Scrollbar>
+                  <Markdown bind:code={$character.features.species} />
+                </Scrollbar>
               </Card>
             </div>
             <div class="class">
               <Card grid title="Class">
-                <Markdown bind:code={$character.features.class} />
+                <Scrollbar>
+                  <Markdown bind:code={$character.features.class} />
+                </Scrollbar>
               </Card>
             </div>
           </div>
@@ -136,7 +139,7 @@
     width: 100%;
     top: 0;
     z-index: 1;
-    background-color: color-mix(in srgb, var(--color-paper) 80%, transparent);
+    background-color: color-mix(in srgb, var(--color-paper) 90%, transparent);
     margin-bottom: var(--gutter);
     backdrop-filter: blur(5px);
     border-bottom: var(--color-faded) 1px solid;

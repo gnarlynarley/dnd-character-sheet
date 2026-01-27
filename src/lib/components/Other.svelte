@@ -3,6 +3,7 @@
   import { getAbilityModifier, parseModifier } from '../utils';
   import Border from './Border.svelte';
   import Flex from './Flex.svelte';
+  import Input from './Input.svelte';
 
   type Props = {
     character: CharacterSvelteStore;
@@ -16,7 +17,7 @@
     <Flex column>
       <span class="label">Size</span>
       <span class="value">
-        <input type="text" bind:value={$character.size} />
+        <Input bind:value={$character.size} />
       </span>
     </Flex>
   </Border>
@@ -32,7 +33,7 @@
     <Flex column>
       <span class="label">Speed</span>
       <span class="value">
-        <input type="number" bind:value={$character.speed} />
+        <Input bind:value={$character.speed} />
       </span>
     </Flex>
   </Border>
@@ -40,7 +41,7 @@
     <Flex column>
       <span class="label">Proficiency Bonus</span>
       <span class="value">
-        <input type="number" bind:value={$character.proficiencyBonus} />
+        <Input bind:value={$character.proficiencyBonus} />
       </span>
     </Flex>
   </Border>
@@ -54,11 +55,5 @@
     font-family: var(--font-written);
     font-size: 1.4em;
     text-align: center;
-
-    input {
-      font: inherit;
-      width: 4em;
-      margin-inline: auto;
-    }
   }
 </style>

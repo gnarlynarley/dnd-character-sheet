@@ -2,7 +2,7 @@ export default function applyGrayTones(
   canvas: HTMLCanvasElement,
   context: CanvasRenderingContext2D,
   gray: number,
-  black: number
+  black: number,
 ) {
   const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
   const data = imageData.data;

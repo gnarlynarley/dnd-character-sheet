@@ -1,6 +1,7 @@
 <script lang="ts">
   import { parse } from 'marked';
   import Textarea from './Textarea.svelte';
+  import { appSettings } from '$lib/stores/app-settings';
 
   type Props = {
     code: string;
@@ -8,30 +9,19 @@
 
   let { code = $bindable() }: Props = $props();
   const parsed = $derived(parse(code));
-  let edit = $state(false);
+  let edit = $derived($appSettings.edit);
 </script>
 
 {#if edit}
   <div class="content">
-    <Textarea
-      bind:value={code}
-      autofocus
-      onfocusout={() => {
-        edit = false;
-      }}
-    />
+    <Textarea bind:value={code} autofocus />
   </div>
 {:else}
-  <button
-    class="content"
-    onclick={() => {
-      edit = true;
-    }}
-  >
+  <div class="content">
     {#if parsed}
       {@html parsed}
     {/if}
-  </button>
+  </div>
 {/if}
 
 <style>

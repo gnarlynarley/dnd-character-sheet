@@ -1,5 +1,5 @@
-@import '@fontsource/patrick-hand';
-@import '@fontsource-variable/merriweather';
+@use '@fontsource/patrick-hand';
+@use '@fontsource-variable/merriweather';
 
 :root {
   --color-accent: #ffb703;
@@ -22,17 +22,21 @@
   );
   --paper: url('#pencil');
 
-  font-family: var(--font-base);
-  background-color: var(--color-paper);
-}
+  // @media screen and (prefers-color-scheme: dark) {
+  //   --color-paper: #181818;
+  //   --color-ink: #ece7e2;
+  //   --color-accent: #cf871a;
+  // }
 
-@media print {
-  :root {
+  @media print {
     --color-editable: transparent;
     --color-paper: #fff;
   }
-}
 
+  font-family: var(--font-base);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
 *,
 *::before,
 *::after {
@@ -44,6 +48,7 @@
 a {
   color: currentColor;
   font: inherit;
+  text-decoration: none;
 }
 
 button {
@@ -63,10 +68,6 @@ textarea {
   text-align: inherit;
   display: block;
   min-width: none;
-  flex-shrink: 1;
-}
-input {
-  line-height: 1;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -79,4 +80,11 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type='number'] {
   appearance: textfield;
+}
+
+.hide-print {
+  @media print {
+    display: none;
+    visibility: hidden;
+  }
 }

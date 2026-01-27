@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { appSettings } from '$lib/stores/app-settings';
   import type { AbilityType, ProficiencyType, SkillType } from '../models';
   import { type CharacterSvelteStore } from '../stores/character';
   import { getSkillModifier, toggleAdd } from '../utils';
@@ -37,6 +38,7 @@
     bind:value={
       () => proficiency,
       (v) => {
+        if (!$appSettings.edit) return;
         if (skill === 'savingThrow') {
           $character.abilityProficiencies = toggleAdd(
             $character.abilityProficiencies,

@@ -51,11 +51,14 @@
 <style lang="scss">
   .container {
     --border-size: 1pt;
+    --border-radius: 0.3em;
     position: relative;
     z-index: 0;
-    padding: var(--gutter);
+    padding: calc(var(--gutter) + var(--border-size));
     flex-grow: 1;
     display: flex;
+    box-shadow: 0.5em 0.5em 0 var(--color-faded);
+    border-radius: var(--border-radius);
 
     &::after {
       content: '';
@@ -66,9 +69,9 @@
       top: calc(var(--border-size) * -1);
       left: calc(var(--border-size) * -1);
       border: var(--border);
-      filter: url(#pencil) var(--shadow);
+      filter: url(#pencil);
       pointer-events: none;
-      border-radius: 0.3em;
+      border-radius: var(--border-radius);
       background-color: var(--color-paper);
       z-index: 0;
     }
@@ -92,8 +95,8 @@
       }
     }
 
-    &.noshadow::after {
-      filter: url(#pencil);
+    &.noshadow {
+      box-shadow: none;
     }
 
     &.transparent {

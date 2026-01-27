@@ -3,6 +3,7 @@
   import Button from './Button.svelte';
   import Card from './Card.svelte';
   import Flex from './Flex.svelte';
+  import Input from './Input.svelte';
   import Markdown from './Markdown.svelte';
 
   type Props = {
@@ -23,32 +24,39 @@
   <Card>
     <Flex column>
       <div class="name">
-        <input type="text" bind:value={$character.spells[index].name} />
+        <Input bind:value={$character.spells[index].name} />
       </div>
 
       <Flex column sm>
         <div class="line">
           <div class="label">Level</div>
-          <input type="number" bind:value={$character.spells[index].level} />
+          <div class="value">
+            <Input bind:value={$character.spells[index].level} />
+          </div>
         </div>
         <div class="line">
           <div class="label">Casting Time</div>
-          <input
-            type="text"
-            bind:value={$character.spells[index].castingTime}
-          />
+          <div class="value">
+            <Input bind:value={$character.spells[index].castingTime} />
+          </div>
         </div>
         <div class="line">
           <div class="label">Range</div>
-          <input type="text" bind:value={$character.spells[index].range} />
+          <div class="value">
+            <Input bind:value={$character.spells[index].range} />
+          </div>
         </div>
         <div class="line">
           <div class="label">Components</div>
-          <input type="text" bind:value={$character.spells[index].components} />
+          <div class="value">
+            <Input bind:value={$character.spells[index].components} />
+          </div>
         </div>
         <div class="line">
           <div class="label">Duration</div>
-          <input type="text" bind:value={$character.spells[index].duration} />
+          <div class="value">
+            <Input bind:value={$character.spells[index].duration} />
+          </div>
         </div>
       </Flex>
 
@@ -76,12 +84,13 @@
 
     .label {
       flex-shrink: 0;
+
       &::after {
         content: ':';
       }
     }
 
-    input {
+    .value {
       font-size: 1.4em;
     }
   }

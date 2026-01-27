@@ -5,12 +5,15 @@
   import BorderLine from './BorderLine.svelte';
   import Flex from './Flex.svelte';
   import Button from './Button.svelte';
+  import Input from './Input.svelte';
+  import { appSettings } from '$lib/stores/app-settings';
 
   type Props = {
     character: CharacterSvelteStore;
   };
 
   const { character }: Props = $props();
+  const edit = $derived($appSettings.edit);
 
   const addLine = () => {
     $character.weapons.push({
@@ -29,7 +32,7 @@
 </script>
 
 <Card>
-  <div class="items">
+  <div class="items" class:edit>
     <div class="line heading">
       <div class="cell name">Name</div>
       <BorderLine vertical />
@@ -42,28 +45,44 @@
     {#each $character.weapons as weapon}
       <BorderLine />
       <div class="line">
-        <input type="text" class="cell name" bind:value={weapon.name} />
+        <div class="cell name">
+          <Input bind:value={weapon.name} />
+        </div>
         <BorderLine vertical />
         <div class="cell">
           <Flex align="center" nogap>
             <span>+</span>
-            <input type="number" class="hit" bind:value={weapon.hit} />
+            <div class="hit">
+              <Input bind:value={weapon.hit} />
+            </div>
           </Flex>
         </div>
         <BorderLine vertical />
-        <input type="text" class="cell damage" bind:value={weapon.damage} />
-        <BorderLine vertical />
-        <input type="text" class="cell details" bind:value={weapon.details} />
-        <div class="delete-button">
-          <Button onclick={() => deleteLine(weapon)}>delete</Button>
+        <div class="cell damage">
+          <Input bind:value={weapon.damage} />
         </div>
+        <BorderLine vertical />
+        <div class="cell details">
+          <Input bind:value={weapon.details} />
+        </div>
+        {#if edit}
+          <button
+            class="delete-button"
+            type="button"
+            onclick={() => deleteLine(weapon)}
+          >
+            delete
+          </button>
+        {/if}
       </div>
     {/each}
-    <div class="add-button">
-      <Button onclick={addLine}>
-        <span>+</span>
-      </Button>
-    </div>
+    {#if edit}
+      <Flex>
+        <Button onclick={addLine}>
+          <span>Add line</span>
+        </Button>
+      </Flex>
+    {/if}
   </div>
 </Card>
 
@@ -73,6 +92,7 @@
     display: flex;
     flex-direction: column;
     gap: calc(var(--gutter) * 0.5);
+    flex-grow: 1;
   }
 
   .line {
@@ -80,6 +100,10 @@
     display: grid;
     grid-template-columns: 1fr auto 3em auto 1fr auto 1fr;
     gap: var(--gutter);
+
+    .edit & {
+      grid-template-columns: 1fr auto 3em auto 1fr auto 1fr 3em;
+    }
 
     > .cell {
       field-sizing: content;
@@ -89,33 +113,6 @@
     &:not(.heading) > .cell {
       font-family: var(--font-written);
       font-size: 1.6em;
-    }
-  }
-
-  .add-button {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 1.4em;
-    height: 1.4em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .items:not(:hover) & {
-      display: none;
-    }
-  }
-
-  .delete-button {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    translate: 0 -50%;
-
-    .line:not(:hover) & {
-      display: none;
-      visibility: hidden;
     }
   }
 </style>

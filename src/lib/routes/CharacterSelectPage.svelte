@@ -60,7 +60,7 @@
   </Modal>
 {/if}
 
-<div class="container">
+<Flex column xl>
   <div class="grid">
     {#each characters as character}
       <CharacterCard
@@ -70,25 +70,30 @@
     {/each}
   </div>
 
-  <BorderLine />
   <Flex column align="center">
     <Border>
-      <input
-      type="text"
-      bind:value={newCharacterName}
-      placeholder="New Character Name"
-      required
-    />
-      <Button onclick={handleCreateCharacter}>Create New Character</Button>
+      <Flex column>
+        <input
+          type="text"
+          bind:value={newCharacterName}
+          placeholder="New Character Name"
+          required
+        />
+        <Button onclick={handleCreateCharacter}>Create New Character</Button>
+      </Flex>
     </Border>
   </Flex>
-</div>
+</Flex>
 
 <style>
   .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1em;
+    padding: var(--gutter);
+  }
+
+  input {
     padding: var(--gutter);
   }
 </style>
