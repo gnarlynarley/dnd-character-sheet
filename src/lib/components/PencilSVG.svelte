@@ -2,12 +2,12 @@
   let scale = $state(1);
 
   function onresize() {
-    scale = window.innerWidth / (1000 * window.devicePixelRatio);
+    scale = window.innerWidth / 1200;
   }
   onresize();
 
   function beforeprint() {
-    scale = 1;
+    scale = 0.9;
   }
 </script>
 

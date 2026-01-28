@@ -77,75 +77,76 @@
 
 <svelte:window onmouseup={endPan} onpointermove={onPanning} />
 
-<div class="container">
-  <div
-    bind:this={container}
-    class="canvas"
-    onpointerdown={startPan}
-    onwheel={onzoom}
-  >
-    <AvatarImage avatar={$character.avatar} disableEffects={panning !== null} />
-  </div>
-
-  <div class="background">
-    <Border absolute />
-  </div>
-
-  {#if $appSettings.edit}
-    <div class="controls">
-      <Card>
-        <Flex column sm>
-          <div>
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.01"
-              bind:value={$character.avatar.contrast}
-            />
-          </div>
-          <div>
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.01"
-              bind:value={$character.avatar.gray}
-            />
-          </div>
-          <div>
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.01"
-              bind:value={$character.avatar.black}
-            />
-          </div>
-          <input
-            type="file"
-            accept="image/*"
-            oninput={async (ev) => {
-              const file = ev.currentTarget.files?.[0];
-              if (file) {
-                const crop = await getCropDetails(
-                  file,
-                  AVATAR_WIDTH,
-                  AVATAR_HEIGHT,
-                );
-                $character.avatar.blob = file;
-                $character.avatar.x = crop.x;
-                $character.avatar.y = crop.y;
-                $character.avatar.scale = crop.scale;
-              }
-              ev.currentTarget.value = '';
-            }}
-          />
-        </Flex>
-      </Card>
+<Border nopadding>
+  <div class="container">
+    <div
+      bind:this={container}
+      class="canvas"
+      onpointerdown={startPan}
+      onwheel={onzoom}
+    >
+      <AvatarImage
+        avatar={$character.avatar}
+        disableEffects={panning !== null}
+      />
     </div>
-  {/if}
-</div>
+
+    {#if $appSettings.edit}
+      <div class="controls">
+        <Card>
+          <Flex column sm>
+            <div>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                bind:value={$character.avatar.contrast}
+              />
+            </div>
+            <div>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                bind:value={$character.avatar.gray}
+              />
+            </div>
+            <div>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                bind:value={$character.avatar.black}
+              />
+            </div>
+            <input
+              type="file"
+              accept="image/*"
+              oninput={async (ev) => {
+                const file = ev.currentTarget.files?.[0];
+                if (file) {
+                  const crop = await getCropDetails(
+                    file,
+                    AVATAR_WIDTH,
+                    AVATAR_HEIGHT,
+                  );
+                  $character.avatar.blob = file;
+                  $character.avatar.x = crop.x;
+                  $character.avatar.y = crop.y;
+                  $character.avatar.scale = crop.scale;
+                }
+                ev.currentTarget.value = '';
+              }}
+            />
+          </Flex>
+        </Card>
+      </div>
+    {/if}
+  </div>
+</Border>
 
 <style lang="scss">
   .controls {
@@ -156,14 +157,5 @@
   }
   .container {
     position: relative;
-  }
-  .background {
-    position: absolute;
-    height: 80%;
-    width: 100%;
-    left: 0;
-    bottom: 0;
-    height: 100%;
-    display: flex;
   }
 </style>

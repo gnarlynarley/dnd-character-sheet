@@ -5,7 +5,6 @@
   import CombatSection from '$lib/components/CombatSection.svelte';
   import Flex from '$lib/components/Flex.svelte';
   import Heading from '$lib/components/Heading.svelte';
-  import HidePrint from '$lib/components/HidePrint.svelte';
   import Markdown from '$lib/components/Markdown.svelte';
   import Other from '$lib/components/Other.svelte';
   import Page from '$lib/components/Page.svelte';
@@ -16,8 +15,6 @@
     loadExampleCharacter,
     type CharacterSvelteStore,
   } from '$lib/stores/character';
-  import ButtonStyling from './ButtonStyling.svelte';
-  import { link } from 'svelte-spa-router';
   import Scrollbar from './Scrollbar.svelte';
   import { appSettings } from '$lib/stores/app-settings';
   import Input from './Input.svelte';
@@ -52,10 +49,6 @@
         >
           Load Belo
         </Button>
-
-        <a href="/" use:link>
-          <ButtonStyling>View all characters</ButtonStyling>
-        </a>
       </Flex>
     </div>
 
