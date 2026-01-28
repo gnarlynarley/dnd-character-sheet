@@ -86,3 +86,7 @@ export function slugify(value: string): string {
     .replace(/\s+/g, '-')
     .replace(/[^a-z0-9\-]/g, '');
 }
+
+export function unique<T>(arr: T[]): T[] {
+  return Array.from(new Set(arr));
+}

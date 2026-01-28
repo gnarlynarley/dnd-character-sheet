@@ -38,6 +38,8 @@
     flex-shrink: 0;
     position: relative;
     filter: url(#pencil);
+    background-color: var(--color-editable);
+    outline: var(--color-editable) 0.3em solid;
 
     &::before,
     &::after {
@@ -47,6 +49,7 @@
       width: 1.6em;
       height: 1.6em;
       background: var(--color-paper);
+      background-color: var(--color-editable);
       border-radius: 50%;
       border: var(--border);
     }

@@ -1,0 +1,47 @@
+<script lang="ts">
+  import { appSettings } from '$lib/stores/app-settings';
+  import type { CharacterSvelteStore } from '$lib/stores/character';
+  import BorderLine from './BorderLine.svelte';
+  import Button from './Button.svelte';
+  import Flex from './Flex.svelte';
+  import Input from './Input.svelte';
+
+  type Props = {
+    character: CharacterSvelteStore;
+  };
+
+  const { character }: Props = $props();
+
+  function addSpellSlot() {
+    $character.spellSlots.push({ level: 1, amount: 0 });
+    $character.spellSlots = $character.spellSlots;
+  }
+</script>
+
+<Flex column sm>
+  <div class="line">
+    <strong>Level</strong>
+    <BorderLine vertical />
+    <strong>Slots</strong>
+  </div>
+  <BorderLine />
+  {#each $character.spellSlots as slot}
+    <div class="line">
+      <Input bind:value={slot.level} />
+      <BorderLine vertical />
+      <Input bind:value={slot.amount} />
+    </div>
+    <BorderLine />
+  {/each}
+  {#if $appSettings.edit}
+    <Button onclick={addSpellSlot}>Add spellslot level</Button>
+  {/if}
+</Flex>
+
+<style>
+  .line {
+    display: grid;
+    grid-template-columns: 3em auto 1fr;
+    gap: var(--gutter);
+  }
+</style>

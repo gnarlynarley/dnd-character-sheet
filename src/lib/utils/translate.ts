@@ -23,6 +23,7 @@ const TRANSLATIONS = {
   int: 'Intelligence',
   wis: 'Wisdom',
   cha: 'Charisma',
+  none: 'None',
   savingThrow: 'Saving Throw',
 } as const;
 

@@ -3,7 +3,7 @@
 
   type Props = {
     children?: Snippet;
-    padding?: boolean;
+    padding?: boolean | 'vertical' | 'horizontal';
     full?: boolean;
     column?: boolean;
     nogap?: boolean;
@@ -28,7 +28,8 @@
 
 <div
   class="flex"
-  class:padding
+  class:paddingVertical={padding === 'vertical' || padding === true}
+  class:paddingHorizontal={padding === 'horizontal' || padding === true}
   class:column
   class:full
   class:nogap
@@ -51,8 +52,11 @@
     flex-grow: var(--flex-grow, 1);
     flex-shrink: var(--flex-shrink, 1);
 
-    &.padding {
-      padding: var(--gutter);
+    &.paddingVertical {
+      padding-block: var(--gutter);
+    }
+    &.paddingHorizontal {
+      padding-inline: var(--gutter);
     }
 
     &:not(.nogap) {

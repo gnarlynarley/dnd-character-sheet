@@ -21,6 +21,15 @@ export const skillSchema = z.enum([
   'survival',
 ]);
 export const abilitySchema = z.enum(['str', 'dex', 'con', 'int', 'wis', 'cha']);
+export const abilityAndNoneSchema = z.enum([
+  'none',
+  'str',
+  'dex',
+  'con',
+  'int',
+  'wis',
+  'cha',
+]);
 export const proficiencySchema = z.enum([
   'none',
   'proficient',
@@ -126,6 +135,16 @@ export const characterSchema = z.object({
     }),
   weapons: z.array(characterWeaponSchema).optional().default([]),
   spells: z.array(characterSpellSchema).optional().default([]),
+  spellcastingAbility: abilityAndNoneSchema.optional().default('none'),
+  spellSlots: z
+    .array(
+      z.object({
+        level: z.number().optional().default(1),
+        amount: z.number().optional().default(0),
+      }),
+    )
+    .optional()
+    .default([]),
 });
 
 export type CharacterWeaponType = z.infer<typeof characterWeaponSchema>;
@@ -134,6 +153,7 @@ export type CharacterAvatar = z.infer<typeof characterAvatarSchema>;
 export type CharacterType = z.infer<typeof characterSchema>;
 export type ProficiencyType = z.infer<typeof proficiencySchema>;
 export type AbilityType = z.infer<typeof abilitySchema>;
+export type AbilityAndNoneType = z.infer<typeof abilityAndNoneSchema>;
 export type SkillType = z.infer<typeof skillSchema>;
 
 export const skillToAbilityMap = {
@@ -157,3 +177,12 @@ export const skillToAbilityMap = {
   survival: 'wis',
 } as const satisfies Record<string, AbilityType>;
 export const skills = Object.keys(skillToAbilityMap) as SkillType[];
+export const abilitiesAndNone: AbilityAndNoneType[] = [
+  'none',
+  'str',
+  'dex',
+  'con',
+  'int',
+  'wis',
+  'cha',
+] as const;

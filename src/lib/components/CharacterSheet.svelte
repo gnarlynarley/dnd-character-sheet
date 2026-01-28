@@ -18,6 +18,7 @@
   import Scrollbar from './Scrollbar.svelte';
   import { appSettings } from '$lib/stores/app-settings';
   import Input from './Input.svelte';
+  import Border from './Border.svelte';
 
   type Props = {
     character: CharacterSvelteStore;
@@ -52,77 +53,77 @@
       </Flex>
     </div>
 
-    <div class="pages">
-      <Page>
-        <div class="inner">
-          <div class="side">
-            <!-- svelte-ignore a11y_missing_content -->
-            <h1 class="name">
-              <Input bind:value={$character.name} />
-            </h1>
+    <Page>
+      <div class="inner">
+        <div class="side">
+          <!-- svelte-ignore a11y_missing_content -->
+          <h1 class="name">
+            <Input bind:value={$character.name} />
+          </h1>
 
-            <div class="avatar">
+          <div class="avatar">
+            <Border nopadding>
               <Avatar {character} />
-            </div>
-            <div class="abilities">
-              <div class="line">
-                <SkillList ability="str" {character} />
-                <SkillList ability="dex" {character} />
-                <SkillList ability="con" {character} />
-                <Card title="Heroic Inspiration" />
-                <Card title="Languages">
-                  <span class="languages">
-                    <Markdown bind:code={$character.languages} />
-                  </span>
-                </Card>
-              </div>
-              <div class="line">
-                <SkillList ability="int" {character} />
-                <SkillList ability="wis" {character} />
-                <SkillList ability="cha" {character} />
-              </div>
-            </div>
+            </Border>
           </div>
-          <div class="main">
-            <div class="heading">
-              <Heading {character} />
-            </div>
-            <div class="combat">
-              <CombatSection {character} />
-            </div>
-            <div class="other">
-              <Other {character} />
-            </div>
-            <div class="weapons">
-              <WeaponSection {character} />
-            </div>
-            <div class="feats">
-              <Card grid title="Feats">
-                <Markdown bind:code={$character.features.feats} />
+          <div class="abilities">
+            <div class="line">
+              <SkillList ability="str" {character} />
+              <SkillList ability="dex" {character} />
+              <SkillList ability="con" {character} />
+              <Card title="Heroic Inspiration" />
+              <Card title="Languages">
+                <span class="languages">
+                  <Markdown bind:code={$character.languages} />
+                </span>
               </Card>
             </div>
-            <div class="species">
-              <Card grid title="Species">
-                <Scrollbar>
-                  <Markdown bind:code={$character.features.species} />
-                </Scrollbar>
-              </Card>
-            </div>
-            <div class="class">
-              <Card grid title="Class">
-                <Scrollbar>
-                  <Markdown bind:code={$character.features.class} />
-                </Scrollbar>
-              </Card>
+            <div class="line">
+              <SkillList ability="int" {character} />
+              <SkillList ability="wis" {character} />
+              <SkillList ability="cha" {character} />
             </div>
           </div>
         </div>
-      </Page>
+        <div class="main">
+          <div class="heading">
+            <Heading {character} />
+          </div>
+          <div class="combat">
+            <CombatSection {character} />
+          </div>
+          <div class="other">
+            <Other {character} />
+          </div>
+          <div class="weapons">
+            <WeaponSection {character} />
+          </div>
+          <div class="feats">
+            <Card grid title="Feats">
+              <Markdown bind:code={$character.features.feats} />
+            </Card>
+          </div>
+          <div class="species">
+            <Card grid title="Species">
+              <Scrollbar>
+                <Markdown bind:code={$character.features.species} />
+              </Scrollbar>
+            </Card>
+          </div>
+          <div class="class">
+            <Card grid title="Class">
+              <Scrollbar>
+                <Markdown bind:code={$character.features.class} />
+              </Scrollbar>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </Page>
 
-      <Page multiple>
-        <SpellsSection {character} />
-      </Page>
-    </div>
+    <Page multiple>
+      <SpellsSection {character} />
+    </Page>
   </Flex>
 </div>
 
@@ -136,11 +137,6 @@
     margin-bottom: var(--gutter);
     backdrop-filter: blur(5px);
     border-bottom: var(--color-faded) 1px solid;
-  }
-
-  .pages {
-    position: relative;
-    z-index: 0;
   }
 
   .showEditables {

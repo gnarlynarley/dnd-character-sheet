@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { appSettings } from '$lib/stores/app-settings';
   import { type CharacterSvelteStore } from '../stores/character';
   import Button from './Button.svelte';
   import Card from './Card.svelte';
@@ -23,7 +24,7 @@
 <div class="wrapper">
   <Card>
     <Flex column>
-      <div class="name">
+      <div class="name value">
         <Input bind:value={$character.spells[index].name} />
       </div>
 
@@ -62,9 +63,12 @@
 
       <Markdown bind:code={$character.spells[index].description} />
     </Flex>
-    <div class="delete-button">
-      <Button onclick={deleteSpell}>Delete</Button>
-    </div>
+
+    {#if $appSettings.edit}
+      <div class="delete-button">
+        <Button onclick={deleteSpell}>Delete</Button>
+      </div>
+    {/if}
   </Card>
 </div>
 
@@ -75,6 +79,10 @@
 
   .name {
     font-size: 3em;
+  }
+
+  .value {
+    font-family: var(--font-written);
   }
 
   .line {

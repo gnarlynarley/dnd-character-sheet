@@ -37,12 +37,18 @@
   background-color: var(--color-paper);
   color: var(--color-ink);
 }
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
 }
 
 a {
@@ -87,4 +93,8 @@ input[type='number'] {
     display: none;
     visibility: hidden;
   }
+}
+
+.written {
+  font-family: var(--font-written);
 }

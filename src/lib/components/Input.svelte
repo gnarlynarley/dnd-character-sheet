@@ -23,5 +23,6 @@
     flex-shrink: 1;
     min-width: fit-content;
     width: 100%;
+    height: 1.4em;
   }
 </style>
