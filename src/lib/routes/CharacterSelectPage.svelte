@@ -10,6 +10,7 @@
     deleteCharacter,
     loadAllCharacters,
   } from '$lib/stores/character';
+  import { addNotification } from '$lib/stores/notifications';
   import { slugify } from '$lib/utils';
 
   let characters = $state(await loadAllCharacters());
@@ -22,6 +23,10 @@
       return;
     }
     const slug = slugify(trimmed);
+    if (characters.find((c) => c.slug === slug)) {
+      addNotification('A character with that name already exists.', 'error');
+      return;
+    }
     const newCharacter = await createCharacterData(slug, trimmed);
     characters.push(newCharacter);
     newCharacterName = '';

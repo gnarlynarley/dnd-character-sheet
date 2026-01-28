@@ -1,4 +1,5 @@
 <script lang="ts">
+  import LoadingBoundary from '$lib/components/LoadingBoundary.svelte';
   import NotificationContainer from '$lib/components/notifications/NotificationContainer.svelte';
   import PencilSVG from '$lib/components/PencilSVG.svelte';
   import SiteHeader from '$lib/components/SiteHeader.svelte';
@@ -7,8 +8,10 @@
 </script>
 
 <main>
-  <SiteHeader />
-  <Router {routes} />
-  <PencilSVG />
-  <NotificationContainer />
+  <LoadingBoundary>
+    <SiteHeader />
+    <Router {routes} />
+    <PencilSVG />
+    <NotificationContainer />
+  </LoadingBoundary>
 </main>

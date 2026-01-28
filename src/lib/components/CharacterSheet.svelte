@@ -20,6 +20,7 @@
   import Input from './Input.svelte';
   import { exportToYaml } from '$lib/utils/parseSheet';
   import { addNotification } from '$lib/stores/notifications';
+  import CharacterSheetBack from './CharacterSheetBack.svelte';
 
   type Props = {
     character: CharacterSvelteStore;
@@ -129,9 +130,11 @@
       </div>
     </Page>
 
-    <Page multiple>
+    <CharacterSheetBack {character} />
+
+    <!-- <Page multiple>
       <SpellsSection {character} />
-    </Page>
+    </Page> -->
   </Flex>
 </div>
 

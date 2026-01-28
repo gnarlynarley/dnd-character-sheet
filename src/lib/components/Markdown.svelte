@@ -48,7 +48,7 @@
 {:else}
   <div class="content">
     {#if parsed}
-      {@html parsed}
+      <!-- {@html parsed} -->
     {/if}
   </div>
 {/if}
