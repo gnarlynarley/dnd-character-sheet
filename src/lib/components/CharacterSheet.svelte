@@ -18,7 +18,8 @@
   import Scrollbar from './Scrollbar.svelte';
   import { appSettings } from '$lib/stores/app-settings';
   import Input from './Input.svelte';
-  import Border from './Border.svelte';
+  import { exportToYaml } from '$lib/utils/parseSheet';
+  import { addNotification } from '$lib/stores/notifications';
 
   type Props = {
     character: CharacterSvelteStore;
@@ -35,6 +36,15 @@
     <div class="toolbar hide-print">
       <Flex padding justify="start">
         <Button onclick={toggleEditables}>Toggle editables</Button>
+        <Button
+          onclick={async () => {
+            const yml = await exportToYaml($character);
+            await navigator.clipboard.writeText(yml);
+            addNotification('Copied to clipboard');
+          }}
+        >
+          Export to yaml
+        </Button>
         <Button
           type="button"
           onclick={async () => {
@@ -62,9 +72,7 @@
           </h1>
 
           <div class="avatar">
-            <Border nopadding>
-              <Avatar {character} />
-            </Border>
+            <Avatar {character} />
           </div>
           <div class="abilities">
             <div class="line">

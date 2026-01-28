@@ -49,7 +49,7 @@
       width: 1.6em;
       height: 1.6em;
       background: var(--color-paper);
-      background-color: var(--color-editable);
+      background-color: var(--color-paper);
       border-radius: 50%;
       border: var(--border);
     }

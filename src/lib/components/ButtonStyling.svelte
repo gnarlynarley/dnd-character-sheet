@@ -9,7 +9,7 @@
   const { children }: Props = $props();
 </script>
 
-<Border withHover>
+<Border withHover nopadding>
   <div class="inner">
     {@render children?.()}
   </div>
@@ -19,5 +19,6 @@
   .inner {
     font-family: var(--font-written);
     font-size: 1.4em;
+    padding: calc(var(--gutter) / 2) var(--gutter);
   }
 </style>

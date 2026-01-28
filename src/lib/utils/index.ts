@@ -90,3 +90,21 @@ export function slugify(value: string): string {
 export function unique<T>(arr: T[]): T[] {
   return Array.from(new Set(arr));
 }
+
+export function deleteProperty<T extends object, K extends keyof T>(
+  obj: T,
+  key: K,
+): Omit<T, K> {
+  const { [key]: _removed, ...rest } = obj;
+  return rest;
+}
+
+export function createId(): string {
+  return (Date.now() + Math.floor(Math.random() * 1000)).toString(36);
+}
+
+export async function compressString(input: string): Promise<string> {
+  const LZString = await import('lz-string');
+  const compressed = LZString.compressToEncodedURIComponent(input);
+  return compressed;
+}
