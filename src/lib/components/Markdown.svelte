@@ -48,7 +48,7 @@
 {:else}
   <div class="content">
     {#if parsed}
-      <!-- {@html parsed} -->
+      {@html parsed}
     {/if}
   </div>
 {/if}
@@ -69,7 +69,16 @@
     background-color: var(--color-editable);
 
     :global(h1) {
-      font-size: 1.4em;
+      font-size: 1.6em;
+    }
+    :global(h2) {
+      font-size: 1.3em;
+    }
+    :global(h3),
+    :global(h4),
+    :global(h5),
+    :global(h6) {
+      font-size: 1.2em;
     }
 
     button {

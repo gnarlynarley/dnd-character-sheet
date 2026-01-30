@@ -1,19 +1,25 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
+  import type { Snippet } from 'svelte';
 
   type Props = {
     children?: Snippet;
+    hide?: boolean;
   };
 
-  const { children }: Props = $props();
+  const { children, hide = true }: Props = $props();
 </script>
 
-<div>{@render children?.()}</div>
+<div class:hide>{@render children?.()}</div>
 
-<style>
+<style lang="scss">
   div {
-    @media print {
-      display: none;
+    flex-grow: 1;
+    display: flex;
+
+    &.hide {
+      @media print {
+        display: none;
+      }
     }
   }
 </style>

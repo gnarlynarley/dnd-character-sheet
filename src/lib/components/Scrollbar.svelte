@@ -5,11 +5,13 @@
     children?: Snippet;
   };
 
+  let container = $state<HTMLDivElement | null>(null);
+  let inner = $state<HTMLDivElement | null>(null);
   const { children }: Props = $props();
 </script>
 
-<div class="wrapper">
-  <div class="inner">
+<div class="wrapper" bind:this={container}>
+  <div class="inner" bind:this={inner}>
     {@render children?.()}
   </div>
 </div>

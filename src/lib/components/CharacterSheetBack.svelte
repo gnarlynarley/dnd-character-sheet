@@ -1,39 +1,125 @@
 <script lang="ts">
+  import { characterSpellSchema } from '$lib/models';
+  import { appSettings } from '$lib/stores/app-settings';
   import type { CharacterSvelteStore } from '$lib/stores/character';
+  import { getAbilityModifier } from '$lib/utils';
+  import Border from './Border.svelte';
+  import BorderLine from './BorderLine.svelte';
+  import Button from './Button.svelte';
   import Card from './Card.svelte';
+  import Checkbox from './Checkbox.svelte';
+  import Flex from './Flex.svelte';
+  import HidePrint from './HidePrint.svelte';
   import Input from './Input.svelte';
+  import InventorySection from './InventorySection.svelte';
+  import Markdown from './Markdown.svelte';
+  import Modifier from './Modifier.svelte';
   import Page from './Page.svelte';
+  import SpellSlots from './SpellSlots.svelte';
+  import Table from './Table.svelte';
+  import Textarea from './Textarea.svelte';
 
   type Props = {
     character: CharacterSvelteStore;
   };
 
   const { character }: Props = $props();
+  const spellCastingModifier = $derived.by(() => {
+    const ability = $character.spellcastingAbility;
+    if (ability === 'none') return 0;
+    return getAbilityModifier($character.abilityScores[ability]);
+  });
+  const spellSave = $derived(
+    8 + spellCastingModifier + $character.proficiencyBonus,
+  );
+
+  function addSpell() {
+    character.update((char) => {
+      char.spells.push(
+        characterSpellSchema.parse({
+          name: '',
+          notes: '',
+          prepared: false,
+        }),
+      );
+      return char;
+    });
+  }
 </script>
 
 <Page>
   <div class="wrapper">
-    <div class="spells">
-      <Card title="Spells">
-        <div class="spell-wrapper">
-          {#each $character.spells as spell}
-            <div class="spell">
-              <h3>
-                <Input bind:value={spell.name} />
-              </h3>
-            </div>
-          {/each}
-        </div>
-      </Card>
-    </div>
+    <HidePrint hide={$character.spells.length === 0}>
+      <div class="side">
+        <Flex column>
+          <div class="spells">
+            <Card title="Spells">
+              <Flex column>
+                <Flex column justify="start" align="start">
+                  <Flex nogrow>
+                    <Border noshadow small>
+                      <Flex sm>
+                        <Flex column align="center" sm>
+                          <p>Spell DC</p>
+                          <BorderLine />
+                          <p class="value big">{spellSave}</p>
+                        </Flex>
+                        <BorderLine vertical />
+                        <Flex column align="center" sm>
+                          <p>Spellcasting</p>
+                          <BorderLine />
+                          <p class="value big">
+                            <Modifier modifier={spellCastingModifier} />
+                          </p>
+                        </Flex>
+                        <BorderLine vertical />
+                        <div>
+                          <SpellSlots {character} />
+                        </div>
+                      </Flex>
+                    </Border>
+                  </Flex>
+                  <Table cells={3}>
+                    <Table row>
+                      <Table cell></Table>
+                      <Table cell>
+                        <strong>Spell Name</strong>
+                      </Table>
+                      <Table cell>
+                        <strong>Notes</strong>
+                      </Table>
+                    </Table>
+                    {#each $character.spells as spell}
+                      <Table row>
+                        <Table cell>
+                          <Checkbox bind:checked={spell.prepared} />
+                        </Table>
+                        <Table cell>
+                          <div class="value">
+                            <Input bind:value={spell.name} />
+                          </div>
+                        </Table>
+                        <Table cell>
+                          <div class="value">
+                            <Textarea bind:value={spell.notes} nopadding />
+                          </div>
+                        </Table>
+                      </Table>
+                    {/each}
+                  </Table>
+                  {#if $appSettings.edit}
+                    <Button onclick={addSpell}>Add spell</Button>
+                  {/if}
+                </Flex>
+              </Flex>
+            </Card>
+          </div>
+        </Flex>
+      </div>
+    </HidePrint>
     <div class="inventory">
       <Card title="Inventory">
-        <p>inventory</p>
-      </Card>
-    </div>
-    <div class="bio">
-      <Card title="Biography">
-        <p>bio</p>
+        <InventorySection {character} />
       </Card>
     </div>
   </div>
@@ -42,25 +128,33 @@
 <style lang="scss">
   .wrapper {
     flex-grow: 1;
-    display: grid;
+    display: flex;
     gap: var(--gutter);
-    grid-template:
-      'spells inventory'
-      'bio inventory'
-      / 30% 1fr;
   }
 
-  @each $name in spells, inventory, bio {
-    .#{$name} {
-      // Styles for each spell can go here
-      grid-area: $name;
-      flex-grow: 1;
-      flex-shrink: 0;
-      display: flex;
+  .spells {
+    display: flex;
+    flex-grow: 1;
+  }
+
+  .side {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+
+  .inventory {
+    display: flex;
+    flex-grow: 1;
+  }
+
+  .value {
+    font-family: var(--font-written);
+    font-size: 1.4em;
+
+    &.big {
+      font-size: 3em;
     }
-  }
-
-  .spell-wrapper {
-    display: grid;
   }
 </style>

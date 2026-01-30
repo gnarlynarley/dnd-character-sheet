@@ -11,6 +11,7 @@
     align?: 'start' | 'center' | 'end';
     sm?: boolean;
     xl?: boolean;
+    nogrow?: boolean;
   };
 
   const {
@@ -23,6 +24,7 @@
     align,
     sm,
     xl,
+    nogrow,
   }: Props = $props();
 </script>
 
@@ -42,6 +44,7 @@
   class:alignEnd={align === 'end'}
   class:sm
   class:xl
+  class:nogrow
 >
   {@render children?.()}
 </div>
@@ -51,6 +54,11 @@
     display: flex;
     flex-grow: var(--flex-grow, 1);
     flex-shrink: var(--flex-shrink, 1);
+    width: 100%;
+
+    &.nogrow {
+      flex-grow: 0;
+    }
 
     &.paddingVertical {
       padding-block: var(--gutter);

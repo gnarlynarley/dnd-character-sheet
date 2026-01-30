@@ -50,6 +50,7 @@ export const characterSpellSchema = z.object({
   components: z.string().optional().default(''),
   duration: z.string().optional().default(''),
   description: z.string().optional().default(''),
+  notes: z.string().optional().default(''),
   prepared: z.boolean().optional().default(true),
 });
 export const characterAvatarSchema = z.object({
@@ -146,6 +147,7 @@ export const characterSchema = z.object({
     )
     .optional()
     .default([]),
+  inventory: z.array(z.string()).optional().default([]),
 });
 
 export type CharacterWeaponType = z.infer<typeof characterWeaponSchema>;

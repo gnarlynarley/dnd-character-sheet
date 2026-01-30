@@ -38,7 +38,7 @@
             <div class="value">
               <Input bind:value={$character.hitPoints} />
             </div>
-            <!-- <BorderLine /> -->
+            <BorderLine />
             <span>max</span>
           </Flex>
         </Flex>

@@ -108,3 +108,13 @@ export async function compressString(input: string): Promise<string> {
   const compressed = LZString.compressToEncodedURIComponent(input);
   return compressed;
 }
+
+export function sliceOnce(input: string, separator: string): [string, string] {
+  const index = input.indexOf(separator);
+  if (index === -1) {
+    return [input, ''];
+  }
+  const firstPart = input.slice(0, index);
+  const secondPart = input.slice(index + separator.length);
+  return [firstPart.trim(), secondPart.trim()];
+}

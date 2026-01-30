@@ -50,7 +50,7 @@
 
 <style lang="scss">
   .container {
-    --border-size: 1.5pt;
+    // --border-size: 1pt;
     --border-radius: 0.3em;
     --color-border: var(--color-ink);
     position: relative;
@@ -70,8 +70,8 @@
       top: calc(var(--border-size) * -1);
       left: calc(var(--border-size) * -1);
       border: var(--border-size) solid var(--color-border);
-      border-bottom-width: calc(var(--border-size) * 1.5);
-      border-right-width: calc(var(--border-size) * 1.5);
+      border-bottom-width: calc(var(--border-size) * 1.2);
+      border-right-width: calc(var(--border-size) * 1.2);
       filter: url(#pencil);
       pointer-events: none;
       border-radius: var(--border-radius);
@@ -107,7 +107,7 @@
     }
 
     &.small::after {
-      --border-size: 0.5pt;
+      --border-size: 0.1em;
     }
 
     &.absolute {

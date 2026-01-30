@@ -43,7 +43,9 @@
       <div class="cell details">Details</div>
     </div>
     {#each $character.weapons as weapon}
-      <BorderLine />
+      <div class="seperator">
+        <BorderLine />
+      </div>
       <div class="line">
         <div class="cell name">
           <Input bind:value={weapon.name} />
@@ -88,22 +90,28 @@
 
 <style lang="scss">
   .items {
+    --cells: 7;
     position: relative;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(var(--cells), auto) 1fr;
     gap: calc(var(--gutter) * 0.5);
     flex-grow: 1;
+
+    &.edit {
+      --cells: 8;
+    }
+  }
+
+  .seperator {
+    grid-column: 1 / -1;
   }
 
   .line {
     position: relative;
     display: grid;
-    grid-template-columns: 1fr auto 3em auto 1fr auto 1fr;
+    grid-template-columns: subgrid;
+    grid-column: 1 / -1;
     gap: var(--gutter);
-
-    .edit & {
-      grid-template-columns: 1fr auto 3em auto 1fr auto 1fr 3em;
-    }
 
     > .cell {
       field-sizing: content;

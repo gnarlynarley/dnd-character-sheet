@@ -131,10 +131,6 @@
     </Page>
 
     <CharacterSheetBack {character} />
-
-    <!-- <Page multiple>
-      <SpellsSection {character} />
-    </Page> -->
   </Flex>
 </div>
 

@@ -8,7 +8,7 @@
 
 <style>
   div {
-    filter: url("#pencil");
+    filter: url('#pencil');
 
     &.spread {
       margin-left: calc(var(--gutter) * -1);

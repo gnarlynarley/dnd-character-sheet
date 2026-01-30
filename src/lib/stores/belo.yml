@@ -66,23 +66,17 @@ features:
     # Level 2: Cunning Action
     Your quick thinking and agility allow you to move and act quickly. On your turn, you can take one of the following actions as a Bonus Action: Dash, Disengage, or Hide.
 
-    # Level 3: Fast Hands
-    As a Bonus Action, you can do one of the following.
+    # Arcane Trickster
 
-    Sleight of Hand. Make a Dexterity (Sleight of Hand) check to pick a lock or disarm a trap with Thieves' Tools or to pick a pocket.
+    ## Level 3: Spellcasting
 
-    Use an Object. Take the Utilize action, or take the Magic action to use a magic item that requires that action.
+    You can use an Arcane Focus as a Spellcasting Focus for your Wizard spells.
 
-    # Level 3: Second-Story Work
-    You've trained to get into especially hard-to-reach places, granting you these benefits.
+    ## Level 3: Mage Hand Legerdemain
 
-    # Limber.
-    You gain a Climb Speed equal to your Speed.
+    When you cast Mage Hand, you can cast it as a Bonus Action, and you can make the spectral hand Invisible. You can control the hand as a Bonus Action, and through it, you can make Dexterity (Sleight of Hand) checks.
 
-    # Jumper.
-    You can determine your jump distance using your Dexterity rather than your Strength.
-
-    Level 3: Steady Aim
+    ## Level 3: Steady Aim
     As a Bonus Action, you give yourself Advantage on your next attack roll on the current turn. You can use this feature only if you haven't moved during this turn, and after you use it, your Speed is 0 until the end of the current turn.
 weapons:
   - name: Dagger
@@ -90,11 +84,19 @@ weapons:
     damage: 1d6
     details: Piercing
 spells:
+  - name: Mage Hand
+    level: 0
+    notes: Create a spectral hand that can manipulate objects.
+  - name: Mind Sliver
+    level: 0
+    notes: 1d6 psychic damage and -1d4 on next saving throw.
   - name: Minor Illusion
+    level: 0
     castingTime: Action
     range: 30 feet
     components: S, M (a bit of fleece)
     duration: 1 minute
+    notes: Create a sound or image of an object.
     description: |
       You create a sound or an image of an object within range that lasts for the duration. See the descriptions below for the effects of each. The illusion ends if you cast this spell again.
 
@@ -103,3 +105,48 @@ spells:
       Sound. If you create a sound, its volume can range from a whisper to a scream. It can be your voice, someone else's voice, a lion's roar, a beating of drums, or any other sound you choose. The sound continues unabated throughout the duration, or you can make discrete sounds at different times before the spell ends.
 
       Image. If you create an image of an object—such as a chair, muddy footprints, or a small chest—it must be no larger than a 5-foot Cube. The image can't create sound, light, smell, or any other sensory effect. Physical interaction with the image reveals it to be an illusion, since things can pass through it.
+  - name: Charm Person
+    level: 1
+    castingTime: 1 action
+    range: 30 feet
+    components: V, S
+    duration: 1 hour
+    notes: Attempt to charm a humanoid.
+  - name: Disguise Self
+    level: 1
+    castingTime: 1 action
+    range: Self
+    components: V, S
+    duration: 1 hour
+    notes: Change your appearance.
+  - name: Fog Cloud
+    level: 1
+    castingTime: 1 action
+    range: 120 feet
+    components: V, S
+    duration: Concentration, up to 1 hour
+    notes: Create a 20-foot-radius sphere of fog.
+spellcastingAbility: int
+spellSlots:
+  - level: 1
+    amount: 2
+inventory:
+  - Leather Armor
+  - 2 Daggers
+  - Shortsword
+  - Shortbow
+  - 20 Arrows
+  - Quiver
+  - Thieves' Tools
+  - Burglar's Pack
+  - Backpack
+  - Ball Bearings
+  - Bell
+  - 10 Candles
+  - Crowbar
+  - Hooded Lantern
+  - 7 flasks of Oil
+  - 5 days of Rations
+  - Rope
+  - Tinderbox
+  - Waterskin

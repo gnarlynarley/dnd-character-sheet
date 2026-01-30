@@ -1,10 +1,13 @@
 <script lang="ts">
+  import { appSettings } from '$lib/stores/app-settings';
+
   type Props = {
     value: string;
     autofocus?: boolean;
+    nopadding?: boolean;
   };
 
-  let { value = $bindable(), autofocus }: Props = $props();
+  let { value = $bindable(), autofocus, nopadding }: Props = $props();
   let textarea: HTMLTextAreaElement | null = $state(null);
 
   const resize = () => {
@@ -26,14 +29,27 @@
 
 <svelte:window onresize={resize} />
 
-<textarea bind:this={textarea} bind:value oninput={resize}></textarea>
+{#if $appSettings.edit}
+  <textarea
+    bind:this={textarea}
+    bind:value
+    oninput={resize}
+    class="textarea"
+    class:nopadding
+  ></textarea>
+{:else}
+  <div class="textarea" class:nopadding>{value}</div>
+{/if}
 
-<style>
-  textarea {
+<style lang="scss">
+  .textarea {
     font: inherit;
     padding: 0.3em;
     flex-grow: 1;
     font-family: var(--font-written);
-    font-size: 1.2rem;
+
+    &.nopadding {
+      padding: 0;
+    }
   }
 </style>
