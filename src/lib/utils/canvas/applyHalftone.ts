@@ -13,7 +13,7 @@ export default function applyHalftone(
 
   // Treat very dark pixels as "ink" that must be preserved (lines/values).
   // If you need more/less preservation, tweak this constant.
-  const INK_THRESH = 30; // 0..255
+  const INK_THRESH = 150; // 0..255
 
   const n = w * h;
   const lum = new Uint8Array(n);

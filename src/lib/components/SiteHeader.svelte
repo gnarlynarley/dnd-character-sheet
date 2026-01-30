@@ -1,5 +1,5 @@
 <script>
-  import { link } from 'svelte-spa-router';
+  import {} from 'svelte-spa-router';
   import BorderLine from './BorderLine.svelte';
   import { links } from '$lib/routes';
   import Link from './Link.svelte';
@@ -8,6 +8,10 @@
     {
       href: links.characterSelect(),
       label: 'Character select',
+    },
+    {
+      href: links.gridGenerator(),
+      label: 'Grid generator',
     },
   ];
 </script>

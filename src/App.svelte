@@ -7,11 +7,11 @@
   import Router from 'svelte-spa-router';
 </script>
 
+<PencilSVG />
 <main>
   <LoadingBoundary>
     <SiteHeader />
     <Router {routes} />
-    <PencilSVG />
     <NotificationContainer />
   </LoadingBoundary>
 </main>

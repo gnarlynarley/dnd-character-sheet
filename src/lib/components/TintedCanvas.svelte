@@ -26,6 +26,7 @@
   .wrapper {
     position: relative;
     z-index: 0;
+    flex-grow: 1;
 
     @media screen {
       background-color: var(--color-white);
@@ -41,6 +42,7 @@
         background: var(--color-black);
         mix-blend-mode: lighten;
         z-index: 1;
+        pointer-events: none;
       }
     }
   }

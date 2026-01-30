@@ -1,21 +1,16 @@
 <script lang="ts">
-  let scale = $state(1);
-
-  function onresize() {
-    scale = window.innerWidth / 1200;
-  }
-  onresize();
+  const DEFAULT_SCALE = 2.2;
+  let scale = $state(DEFAULT_SCALE);
 
   function beforeprint() {
     scale = 0.9;
   }
+  function afterprint() {
+    scale = DEFAULT_SCALE;
+  }
 </script>
 
-<svelte:window
-  {onresize}
-  on:beforeprint={beforeprint}
-  on:afterprint={onresize}
-/>
+<svelte:window on:beforeprint={beforeprint} on:afterprint={afterprint} />
 
 <svg width="0" height="0" style="display: none;">
   <filter id="pencil">

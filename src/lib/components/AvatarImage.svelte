@@ -39,7 +39,7 @@
     if (!disableEffects) {
       applyContrast(canvas, context, contrast);
       applyGrayTones(canvas, context, gray, black);
-      applyHalftone(canvas, context, 2.5, 30);
+      applyHalftone(canvas, context, 4, 45);
     }
   });
 </script>
