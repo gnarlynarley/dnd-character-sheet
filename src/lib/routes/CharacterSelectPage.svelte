@@ -50,10 +50,14 @@
     await deleteCharacter(slug);
     characters = characters.filter((c) => c.slug !== slug);
   }
+
+  function onsubmit(event: Event) {
+    event.preventDefault();
+  }
 </script>
 
 {#if characterSlugToDelete}
-  <Modal>
+  <Modal onclose={handleCloseDeleteModal}>
     <Flex column>
       <h2>Confirm Deletion</h2>
       <p>Are you sure you want to delete this character?</p>
@@ -67,7 +71,7 @@
 
 <Flex column xl>
   <div class="grid">
-    {#each characters as character}
+    {#each characters as character (character.slug)}
       <CharacterCard
         {character}
         onDelete={() => handleOpenDeleteModal(character.slug)}
@@ -75,16 +79,22 @@
     {/each}
   </div>
 
-  <Flex column align="center">
+  <Flex column align="start" padding>
     <Border>
       <Flex column>
-        <input
-          type="text"
-          bind:value={newCharacterName}
-          placeholder="New Character Name"
-          required
-        />
-        <Button onclick={handleCreateCharacter}>Create New Character</Button>
+        <form {onsubmit}>
+          <Flex column>
+            <input
+              required
+              type="text"
+              bind:value={newCharacterName}
+              placeholder="New Character Name"
+            />
+            <Button type="submit" onclick={handleCreateCharacter}>
+              Create New Character
+            </Button>
+          </Flex>
+        </form>
       </Flex>
     </Border>
   </Flex>

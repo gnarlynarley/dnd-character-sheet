@@ -72,7 +72,7 @@
                       </Flex>
                     </Border>
                   </Flex>
-                  <Table cells={3}>
+                  <Table cells={3} fillCell={3}>
                     <Table row>
                       <Table cell></Table>
                       <Table cell>
@@ -82,7 +82,7 @@
                         <strong>Notes</strong>
                       </Table>
                     </Table>
-                    {#each $character.spells as spell}
+                    {#each $character.spells as spell, index}
                       <Table row>
                         <Table cell>
                           <Checkbox bind:checked={spell.prepared} />
@@ -94,7 +94,7 @@
                         </Table>
                         <Table cell>
                           <div class="value">
-                            <Textarea bind:value={spell.notes} nopadding />
+                            <Input bind:value={spell.notes} />
                           </div>
                         </Table>
                       </Table>
@@ -145,6 +145,7 @@
   .value {
     font-family: var(--font-written);
     font-size: 1.4em;
+    flex-grow: 1;
 
     &.big {
       font-size: 3em;

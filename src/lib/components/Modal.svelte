@@ -5,10 +5,21 @@
   type Props = {
     children?: Snippet;
     title?: string;
+    onclose?: () => void;
   };
 
-  const { children, title }: Props = $props();
+  const { children, title, onclose }: Props = $props();
+
+  function handleEscape(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      event.stopPropagation();
+      event.preventDefault();
+      onclose?.();
+    }
+  }
 </script>
+
+<svelte:window on:keydown={handleEscape} />
 
 <div class="modal">
   <div>

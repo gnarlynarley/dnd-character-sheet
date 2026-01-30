@@ -53,17 +53,17 @@ features:
 
     You are especially adept at collaborating with your allies mid-combat. Whenever you deal damage to a hostile creature with at least one of your allies within its reach, you can deal extra damage to that creature equal to your proficiency bonus × 2 , then one of your allies can immediately use their reaction to move up to half their speed without provoking opportunity attacks from the creature. Once you use this feature, you can not use it again until you complete a short or long rest.
   class: |
-    # Level 1: Sneak Attack
+    ## Level 1: Sneak Attack
     You know how to strike subtly and exploit a foe's distraction. Once per turn, you can deal an extra **1d6** damage to one creature you hit with an attack roll if you have Advantage on the roll and the attack uses a Finesse or a Ranged weapon. The extra damage's type is the same as the weapon's type.
 
     You don't need Advantage on the attack roll if at least one of your allies is within 5 feet of the target, the ally doesn't have the Incapacitated condition, and you don't have Disadvantage on the attack roll.
 
     The extra damage increases as you gain Rogue levels, as shown in the Sneak Attack column of the Rogue Features table.
 
-    # Level 1: Thieves' Cant
+    ## Level 1: Thieves' Cant
     You picked up various languages in the communities where you plied your roguish talents. You know Thieves' Cant and one other language of your choice, which you choose from the language tables in chapter 2.
 
-    # Level 2: Cunning Action
+    ## Level 2: Cunning Action
     Your quick thinking and agility allow you to move and act quickly. On your turn, you can take one of the following actions as a Bonus Action: Dash, Disengage, or Hide.
 
     # Arcane Trickster

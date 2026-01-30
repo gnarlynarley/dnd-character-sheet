@@ -29,7 +29,7 @@
     "color": "^5.0.3",
     "localforage": "^1.10.0",
     "lz-string": "^1.5.0",
-    "marked": "^17.0.1",
+    "micromark": "^4.0.2",
     "sass-embedded": "^1.97.2",
     "svelte-spa-router": "^4.0.1",
     "valibot": "^1.2.0",

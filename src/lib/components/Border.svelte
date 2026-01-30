@@ -50,9 +50,8 @@
 
 <style lang="scss">
   .container {
-    // --border-size: 1pt;
     --border-radius: 0.3em;
-    --color-border: var(--color-ink);
+    --color-border: currentColor;
     position: relative;
     z-index: 0;
     padding: calc(var(--gutter) + var(--border-size));
@@ -70,8 +69,8 @@
       top: calc(var(--border-size) * -1);
       left: calc(var(--border-size) * -1);
       border: var(--border-size) solid var(--color-border);
-      border-bottom-width: calc(var(--border-size) * 1.2);
-      border-right-width: calc(var(--border-size) * 1.2);
+      border-bottom-width: calc(var(--border-size) * 1.5);
+      border-right-width: calc(var(--border-size) * 1.5);
       filter: url(#pencil);
       pointer-events: none;
       border-radius: var(--border-radius);

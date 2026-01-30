@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { parse } from 'marked';
+  import { micromark } from 'micromark';
   import Textarea from './Textarea.svelte';
   import { appSettings } from '$lib/stores/app-settings';
   import Flex from './Flex.svelte';
@@ -9,7 +9,7 @@
   };
 
   let { code = $bindable() }: Props = $props();
-  const parsed = $derived(parse(code));
+  const parsed = $derived(micromark(code));
   let edit = $derived($appSettings.edit);
   let dialog: HTMLDialogElement | null = $state(null);
 

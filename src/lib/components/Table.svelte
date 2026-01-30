@@ -31,12 +31,7 @@
   });
 </script>
 
-<div
-  class:table={row === false && cell === false}
-  class:row
-  class:cell
-  {style}
->
+<div class:table={row === false && cell === false} class:row class:cell {style}>
   {@render children?.()}
 </div>
 {#if row}
@@ -69,15 +64,7 @@
     display: flex;
     padding-right: var(--gutter);
     height: 100%;
-
-    &:not(:last-child)::after {
-      content: '';
-      border-right: 0.1em solid var(--color-ink);
-      justify-self: flex-end;
-      margin-left: auto;
-      padding-left: var(--gutter);
-      filter: url('#pencil');
-    }
+    align-items: center;
   }
 
   .divider {

@@ -61,7 +61,7 @@
           <strong>Item</strong>
         </Table>
         <Table cell>
-          <strong>Description</strong>
+          <strong>Notes</strong>
         </Table>
       </Table>
       {#each parsed as item}

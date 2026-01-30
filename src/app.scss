@@ -5,7 +5,7 @@
   --color-accent: #ffb703;
   --color-paper: #ece7e2;
   --color-ink: #222;
-  --color-faded: color-mix(in srgb, var(--color-paper), black 10%);
+  --color-faded: color-mix(in srgb, var(--color-paper), black 5%);
   --color-editable: color-mix(
     in oklab,
     var(--color-paper),
@@ -14,7 +14,7 @@
   --gutter: 1em;
   --font-written: 'Patrick Hand', cursive;
   --font-base: 'Merriweather Variable', serif;
-  --border-size: 0.2em;
+  --border-size: 0.15em;
   --border: var(--border-size) solid var(--color-ink);
   --border-sm: 0.1em solid var(--color-ink);
   --shadow-distance: 0.5em;
