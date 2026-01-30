@@ -5,7 +5,6 @@ import beloSheetUrl from './belo.yml?url';
 import getCropDetails from '../utils/canvas/getCropDetails';
 import { AVATAR_HEIGHT, AVATAR_WIDTH } from '../constants';
 import localforage from 'localforage';
-import { parse } from 'yaml';
 
 export type CharacterSvelteStore = Writable<CharacterType>;
 
@@ -73,6 +72,7 @@ export async function loadExampleCharacter(
   slug: string,
   store: CharacterSvelteStore,
 ) {
+  const { parse } = await import('yaml');
   const blob = await fetch(avatarSrc).then((b) => b.blob());
   const beloSheet = await fetch(beloSheetUrl).then((r) => r.text());
   const parsed = parse(beloSheet);
