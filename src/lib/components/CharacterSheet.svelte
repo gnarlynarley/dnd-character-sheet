@@ -3,7 +3,7 @@
   import Flex from '$lib/components/Flex.svelte';
   import {
     loadExampleCharacter,
-    type CharacterSvelteStore,
+    saveCharacterData,
   } from '$lib/stores/character';
   import { appSettings } from '$lib/stores/app-settings';
   import { exportToYaml } from '$lib/utils/parseSheet';
@@ -15,12 +15,26 @@
   import FileInputButton from './FileInputButton.svelte';
   import FlexPush from './FlexPush.svelte';
   import { tick } from 'svelte';
-  import BorderLine from './BorderLine.svelte';
+  import { writable } from 'svelte/store';
+  import { isEqual } from '$lib/utils/isEqual';
+  import OverlayBox from './OverlayBox.svelte';
+  import type { CharacterType } from '$lib/models';
 
   type Props = {
-    character: CharacterSvelteStore;
+    characterData: CharacterType;
   };
-  const { character }: Props = $props();
+  let { characterData = $bindable() }: Props = $props();
+  let character = $state(writable(structuredClone(characterData)));
+
+  $effect(() => {
+    character = writable(structuredClone(characterData));
+  });
+
+  const hasChanges = $derived($appSettings.hasChanges);
+
+  $effect(() => {
+    $appSettings.hasChanges = !isEqual(characterData, $character);
+  });
 
   const toggleEditables = () => {
     $appSettings.edit = !$appSettings.edit;
@@ -41,6 +55,11 @@
       addNotification('Something went wrong with importing.');
     }
   }
+
+  async function save() {
+    await saveCharacterData($character);
+    characterData = $character;
+  }
 </script>
 
 <div class:showEditables={!$appSettings.edit}>
@@ -50,46 +69,50 @@
     <CharacterSheetBack {character} />
 
     <div class="toolbar hide-print">
-      <BorderLine />
-      <Flex padding justify="start">
-        <Button onclick={toggleEditables}>Toggle editables</Button>
-        <FlexPush />
-        <Button onclick={exportCharacterSheet}>Export</Button>
-        <FileInputButton
-          accept="application/zip"
-          onchange={importCharacterSheet}
-        >
-          Import
-        </FileInputButton>
-        <Button
-          onclick={async () => {
-            const yml = await exportToYaml($character);
-            await navigator.clipboard.writeText(yml);
-            addNotification('Copied to clipboard');
-          }}
-        >
-          Export to yaml
-        </Button>
-        <Button
-          type="button"
-          onclick={async () => {
-            const lastEdit = $appSettings.edit;
-            $appSettings.edit = false;
-            await tick();
-            window.print();
-            $appSettings.edit = lastEdit;
-          }}
-        >
-          Print
-        </Button>
-        <Button
-          onclick={async () => {
-            await loadExampleCharacter($character.slug, character);
-          }}
-        >
-          Load Example
-        </Button>
-      </Flex>
+      <OverlayBox>
+        <Flex padding justify="start">
+          <Button onclick={toggleEditables}>Toggle editables</Button>
+          {#if hasChanges}
+            <Button onclick={save}>Save changes</Button>
+          {/if}
+          <FlexPush />
+          <Button onclick={exportCharacterSheet}>Export</Button>
+          <FileInputButton
+            accept="application/zip"
+            onchange={importCharacterSheet}
+          >
+            Import
+          </FileInputButton>
+          <Button
+            onclick={async () => {
+              const yml = await exportToYaml($character);
+              await navigator.clipboard.writeText(yml);
+              addNotification('Copied to clipboard');
+            }}
+          >
+            Export to yaml
+          </Button>
+          <Button
+            type="button"
+            onclick={async () => {
+              const lastEdit = $appSettings.edit;
+              $appSettings.edit = false;
+              await tick();
+              window.print();
+              $appSettings.edit = lastEdit;
+            }}
+          >
+            Print
+          </Button>
+          <Button
+            onclick={async () => {
+              await loadExampleCharacter($character.slug, character);
+            }}
+          >
+            Load Example
+          </Button>
+        </Flex>
+      </OverlayBox>
     </div>
   </Flex>
 </div>
@@ -100,9 +123,6 @@
     width: 100%;
     bottom: 0;
     z-index: 1;
-    background-color: color-mix(in srgb, var(--color-paper) 95%, transparent);
-    margin-bottom: var(--gutter);
-    backdrop-filter: blur(3px);
   }
 
   .showEditables {

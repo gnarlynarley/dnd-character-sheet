@@ -81,17 +81,19 @@
                   </Flex>
                   <Table cells={3} fillCell={3}>
                     <Table row>
-                      <Table cell></Table>
                       <Table cell>
-                        <strong>Spell Name</strong>
+                        <span>Prepared</span>
                       </Table>
                       <Table cell>
-                        <strong>Notes</strong>
+                        <span>Spell Name</span>
+                      </Table>
+                      <Table cell>
+                        <span>Notes</span>
                       </Table>
                     </Table>
                     {#each $character.spells as spell, index}
                       <Table row>
-                        <Table cell>
+                        <Table cell centered>
                           <Checkbox bind:checked={spell.prepared} />
                         </Table>
                         <Table cell>

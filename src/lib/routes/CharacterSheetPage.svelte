@@ -1,6 +1,6 @@
 <script lang="ts">
   import CharacterSheet from '$lib/components/CharacterSheet.svelte';
-  import { loadCharacter } from '$lib/stores/character';
+  import { loadCharacterData } from '$lib/stores/character';
   import { link } from 'svelte-spa-router';
 
   type Params = {
@@ -10,11 +10,11 @@
     params: Params;
   };
   const { params }: Props = $props();
-  const character = $derived(await loadCharacter(params.slug));
+  let characterData = $derived(await loadCharacterData(params.slug));
 </script>
 
-{#if character}
-  <CharacterSheet {character} />
+{#if characterData}
+  <CharacterSheet bind:characterData />
 {:else}
   <h1>
     No character found for slug: <code>{params.slug}</code>

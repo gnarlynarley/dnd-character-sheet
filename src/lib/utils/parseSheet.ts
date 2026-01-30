@@ -52,7 +52,7 @@ export async function exportToYaml(
   let copy = structuredClone(character);
   copy = compressObject(copy);
   copy = deleteProperty(copy, 'slug');
-  copy = deleteProperty(copy, 'avatar');
+  if (copy.avatar) copy.avatar.blob = null;
 
   if (copy.spellSlots?.length === 0) {
     copy = deleteProperty(copy, 'spellSlots');

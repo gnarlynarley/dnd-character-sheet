@@ -15,3 +15,11 @@
     <NotificationContainer />
   </LoadingBoundary>
 </main>
+
+<style>
+  main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+</style>

@@ -33,8 +33,8 @@ export async function createCharacterData(
 }
 
 export async function createCharacter(slug: string) {
-  await createCharacterData(slug);
-  return loadCharacter(slug);
+  const data = await createCharacterData(slug);
+  return data;
 }
 
 export async function loadCharacterData(
@@ -47,22 +47,8 @@ export async function loadCharacterData(
   return parseSchema(characterSchema, stored);
 }
 
-export async function loadCharacter(
-  slug: string,
-): Promise<CharacterSvelteStore | null> {
-  const characterData = await loadCharacterData(slug);
-  if (characterData === null) {
-    return null;
-  }
-  const store = writable<CharacterType>(characterData);
-
-  store.subscribe(async (value) => {
-    if (value.slug) {
-      await characterStorage.setItem(value.slug, value);
-    }
-  });
-
-  return store;
+export async function saveCharacterData(character: CharacterType) {
+  await characterStorage.setItem(character.slug, character);
 }
 
 export async function deleteCharacter(slug: string) {

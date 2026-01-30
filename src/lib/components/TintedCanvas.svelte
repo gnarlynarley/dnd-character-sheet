@@ -14,7 +14,7 @@
   }: Props = $props();
 
   $effect(() => {
-    context = canvas?.getContext('2d') ?? null;
+    context = canvas?.getContext('2d', { willReadFrequently: true }) ?? null;
   });
 </script>
 

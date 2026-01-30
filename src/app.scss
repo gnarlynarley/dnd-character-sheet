@@ -7,7 +7,7 @@
   --color-accent: #ffb703;
   --color-paper: var(--color-white);
   --color-ink: var(--color-black);
-  --color-faded: color-mix(in srgb, var(--color-paper), black 5%);
+  --color-faded: color-mix(in srgb, var(--color-ink) 10%, var(--color-paper));
   --color-editable: color-mix(
     in oklab,
     var(--color-paper),
@@ -19,7 +19,7 @@
   --border-size: 0.1rem;
   --border: var(--border-size) solid var(--color-ink);
   --border-sm: 0.1rem solid var(--color-ink);
-  --shadow-distance: 0.5rem;
+  --shadow-distance: 0.5em;
   --shadow: drop-shadow(
     var(--shadow-distance) var(--shadow-distance) 0 var(--color-faded)
   );

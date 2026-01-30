@@ -1,10 +1,10 @@
 <script lang="ts">
-  import Border from '$lib/components/Border.svelte';
-  import BorderLine from '$lib/components/BorderLine.svelte';
   import Button from '$lib/components/Button.svelte';
   import CharacterCard from '$lib/components/CharacterCard.svelte';
   import Flex from '$lib/components/Flex.svelte';
+  import FlexPush from '$lib/components/FlexPush.svelte';
   import Modal from '$lib/components/Modal.svelte';
+  import OverlayBox from '$lib/components/OverlayBox.svelte';
   import {
     createCharacterData,
     deleteCharacter,
@@ -69,27 +69,7 @@
   </Modal>
 {/if}
 
-<Flex column xl>
-  <Flex column align="start" padding>
-    <Border>
-      <Flex>
-        <form {onsubmit}>
-          <Flex>
-            <input
-              required
-              type="text"
-              bind:value={newCharacterName}
-              placeholder="New Character Name"
-            />
-            <Button type="submit" onclick={handleCreateCharacter}>
-              Create New Character
-            </Button>
-          </Flex>
-        </form>
-      </Flex>
-    </Border>
-  </Flex>
-
+<Flex column>
   <div class="grid">
     {#each characters as character (character.slug)}
       <CharacterCard
@@ -97,6 +77,32 @@
         onDelete={() => handleOpenDeleteModal(character.slug)}
       />
     {/each}
+  </div>
+
+  <FlexPush />
+
+  <div class="toolbar">
+    <OverlayBox>
+      <Flex column xl>
+        <Flex column align="start" padding>
+          <Flex>
+            <form {onsubmit}>
+              <Flex>
+                <input
+                  required
+                  type="text"
+                  bind:value={newCharacterName}
+                  placeholder="New Character Name"
+                />
+                <Button type="submit" onclick={handleCreateCharacter}>
+                  Create New Character
+                </Button>
+              </Flex>
+            </form>
+          </Flex>
+        </Flex>
+      </Flex>
+    </OverlayBox>
   </div>
 </Flex>
 
@@ -106,6 +112,14 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 1em;
     padding: var(--gutter);
+  }
+
+  .toolbar {
+    position: sticky;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
   }
 
   input {

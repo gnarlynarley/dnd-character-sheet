@@ -16,6 +16,11 @@
     $character.spellSlots.push({ level: 1, amount: 0 });
     $character.spellSlots = $character.spellSlots;
   }
+
+  function deleteSpellSlot(index: number) {
+    $character.spellSlots.splice(index, 1);
+    $character.spellSlots = $character.spellSlots;
+  }
 </script>
 
 <Flex column sm>
@@ -25,7 +30,7 @@
     <span>Slots</span>
   </div>
   <BorderLine />
-  {#each $character.spellSlots as slot}
+  {#each $character.spellSlots as slot, index}
     <div class="line">
       <div class="value">
         <Input bind:value={slot.level} />
@@ -34,6 +39,11 @@
       <div class="value">
         <Input bind:value={slot.amount} />
       </div>
+      {#if $appSettings.edit}
+        <button type="button" onclick={() => deleteSpellSlot(index)}>
+          delete
+        </button>
+      {/if}
     </div>
     <BorderLine />
   {/each}

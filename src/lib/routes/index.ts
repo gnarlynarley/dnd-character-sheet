@@ -1,7 +1,12 @@
 import CharacterSelectPage from './CharacterSelectPage.svelte';
 import CharacterSheetPage from './CharacterSheetPage.svelte';
 
+export const links = {
+  characterSelect: () => '/',
+  characterSheet: (slug: string) => `/sheet/${slug}`,
+};
+
 export const routes = {
-  '/': CharacterSelectPage,
-  '/character/:slug': CharacterSheetPage,
+  [links.characterSelect()]: CharacterSelectPage,
+  [links.characterSheet(':slug')]: CharacterSheetPage,
 };

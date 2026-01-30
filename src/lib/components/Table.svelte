@@ -8,6 +8,7 @@
     cell?: boolean;
     cells?: number;
     fillCell?: number;
+    centered?: boolean;
   };
 
   const {
@@ -16,6 +17,7 @@
     cell = false,
     cells,
     fillCell,
+    centered,
   }: Props = $props();
 
   const style = $derived.by(() => {
@@ -31,7 +33,13 @@
   });
 </script>
 
-<div class:table={row === false && cell === false} class:row class:cell {style}>
+<div
+  class:table={row === false && cell === false}
+  class:row
+  class:cell
+  class:centered
+  {style}
+>
   {@render children?.()}
 </div>
 {#if row}
@@ -65,6 +73,10 @@
     padding-right: var(--gutter);
     height: 100%;
     align-items: center;
+
+    &.centered {
+      justify-content: center;
+    }
   }
 
   .divider {

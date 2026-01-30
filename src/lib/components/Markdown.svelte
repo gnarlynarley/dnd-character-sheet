@@ -98,6 +98,7 @@
     height: 100%;
     max-width: 60em;
     padding: var(--gutter);
+    font-size: 1rem;
 
     &[open] {
       display: flex;

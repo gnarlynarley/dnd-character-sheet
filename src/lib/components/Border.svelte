@@ -57,7 +57,8 @@
     padding: calc(var(--gutter) + var(--border-size));
     flex-grow: 1;
     display: flex;
-    box-shadow: 0.5em 0.5em 0 var(--color-faded);
+    box-shadow: var(--shadow-distance) var(--shadow-distance) 0
+      var(--color-faded);
     border-radius: var(--border-radius);
 
     &::after {
@@ -128,10 +129,7 @@
 
     &.withHover {
       &:active {
-        translate: var(--shadow-distance) var(--shadow-distance);
-        &::after {
-          filter: none;
-        }
+        scale: 0.95;
       }
       &:hover::after {
         background-color: var(--color-accent);

@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { CharacterType } from '$lib/models';
+  import { links } from '$lib/routes';
   import AvatarImage from './AvatarImage.svelte';
   import Border from './Border.svelte';
   import BorderLine from './BorderLine.svelte';
@@ -38,7 +39,7 @@
     <BorderLine />
     <div class="bottom">
       <Flex justify="start">
-        <a href={`/character/${character.slug}`} use:link>
+        <a href={links.characterSheet(character.slug)} use:link>
           <ButtonStyling>
             <span>View Sheet </span>
           </ButtonStyling>

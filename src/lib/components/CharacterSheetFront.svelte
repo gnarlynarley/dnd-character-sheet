@@ -10,7 +10,6 @@
   import WeaponSection from '$lib/components/WeaponSection.svelte';
   import { type CharacterSvelteStore } from '$lib/stores/character';
   import Scrollbar from './Scrollbar.svelte';
-  import { appSettings } from '$lib/stores/app-settings';
   import Input from './Input.svelte';
 
   type Props = {
