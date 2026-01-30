@@ -70,20 +70,11 @@
 {/if}
 
 <Flex column xl>
-  <div class="grid">
-    {#each characters as character (character.slug)}
-      <CharacterCard
-        {character}
-        onDelete={() => handleOpenDeleteModal(character.slug)}
-      />
-    {/each}
-  </div>
-
   <Flex column align="start" padding>
     <Border>
-      <Flex column>
+      <Flex>
         <form {onsubmit}>
-          <Flex column>
+          <Flex>
             <input
               required
               type="text"
@@ -98,6 +89,15 @@
       </Flex>
     </Border>
   </Flex>
+
+  <div class="grid">
+    {#each characters as character (character.slug)}
+      <CharacterCard
+        {character}
+        onDelete={() => handleOpenDeleteModal(character.slug)}
+      />
+    {/each}
+  </div>
 </Flex>
 
 <style>

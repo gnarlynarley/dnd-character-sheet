@@ -10,6 +10,10 @@
   import { addNotification } from '$lib/stores/notifications';
   import CharacterSheetBack from './CharacterSheetBack.svelte';
   import CharacterSheetFront from './CharacterSheetFront.svelte';
+  import { createSaveData, parseSaveData } from '$lib/utils/savedata';
+  import { downloadBlob } from '$lib/utils';
+  import FileInputButton from './FileInputButton.svelte';
+  import FlexPush from './FlexPush.svelte';
 
   type Props = {
     character: CharacterSvelteStore;
@@ -19,6 +23,22 @@
   const toggleEditables = () => {
     $appSettings.edit = !$appSettings.edit;
   };
+
+  async function exportCharacterSheet() {
+    const savedata = await createSaveData($character);
+    await downloadBlob(savedata, savedata.name);
+  }
+
+  async function importCharacterSheet(file: File | null) {
+    try {
+      if (!file) return;
+      const characterData = await parseSaveData(file);
+      character.set(characterData);
+    } catch (err) {
+      console.error(err);
+      addNotification('Something went wrong with importing.');
+    }
+  }
 </script>
 
 <div class:showEditables={!$appSettings.edit}>
@@ -26,6 +46,14 @@
     <div class="toolbar hide-print">
       <Flex padding justify="start">
         <Button onclick={toggleEditables}>Toggle editables</Button>
+        <FlexPush />
+        <Button onclick={exportCharacterSheet}>Export</Button>
+        <FileInputButton
+          accept="application/zip"
+          onchange={importCharacterSheet}
+        >
+          Import
+        </FileInputButton>
         <Button
           onclick={async () => {
             const yml = await exportToYaml($character);
@@ -48,7 +76,7 @@
             await loadExampleCharacter($character.slug, character);
           }}
         >
-          Load Belo
+          Load Example
         </Button>
       </Flex>
     </div>

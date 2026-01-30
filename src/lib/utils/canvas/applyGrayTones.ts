@@ -19,7 +19,7 @@ export default function applyGrayTones(
     // Threshold to black or white
     let value = 0;
     if (average > grayAverage) {
-      value = 200;
+      value = 190;
     }
     if (average > blackAverage) {
       value = 255;

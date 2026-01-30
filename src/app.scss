@@ -3,7 +3,7 @@
 
 :root {
   --color-accent: #ffb703;
-  --color-paper: #ece7e2;
+  --color-paper: #e6dcd2;
   --color-ink: #222;
   --color-faded: color-mix(in srgb, var(--color-paper), black 5%);
   --color-editable: color-mix(
@@ -82,6 +82,10 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+button {
+  font: inherit;
 }
 
 /* Firefox */

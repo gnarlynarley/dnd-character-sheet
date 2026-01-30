@@ -56,7 +56,7 @@ export const characterSpellSchema = v.object({
 });
 export const characterAvatarSchema = v.object({
   blob: v.optional(v.nullable(v.instance(Blob)), null),
-  contrast: v.optional(v.number(), 1),
+  contrast: v.optional(v.number(), 0),
   gray: v.optional(v.number(), 0.5),
   black: v.optional(v.number(), 0.25),
   x: v.optional(v.number(), 0),
@@ -152,6 +152,10 @@ export const characterSchema = v.object({
   ),
   inventory: v.optional(v.array(v.string()), []),
 });
+
+export function parseCharacter(data: unknown): CharacterType {
+  return v.parse(characterSchema, data);
+}
 
 export { parse } from 'valibot';
 
