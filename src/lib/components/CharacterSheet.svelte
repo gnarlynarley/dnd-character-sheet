@@ -14,6 +14,8 @@
   import { downloadBlob } from '$lib/utils';
   import FileInputButton from './FileInputButton.svelte';
   import FlexPush from './FlexPush.svelte';
+  import { tick } from 'svelte';
+  import BorderLine from './BorderLine.svelte';
 
   type Props = {
     character: CharacterSvelteStore;
@@ -43,7 +45,12 @@
 
 <div class:showEditables={!$appSettings.edit}>
   <Flex column xl>
+    <CharacterSheetFront {character} />
+
+    <CharacterSheetBack {character} />
+
     <div class="toolbar hide-print">
+      <BorderLine />
       <Flex padding justify="start">
         <Button onclick={toggleEditables}>Toggle editables</Button>
         <FlexPush />
@@ -66,7 +73,11 @@
         <Button
           type="button"
           onclick={async () => {
+            const lastEdit = $appSettings.edit;
+            $appSettings.edit = false;
+            await tick();
             window.print();
+            $appSettings.edit = lastEdit;
           }}
         >
           Print
@@ -80,10 +91,6 @@
         </Button>
       </Flex>
     </div>
-
-    <CharacterSheetFront {character} />
-
-    <CharacterSheetBack {character} />
   </Flex>
 </div>
 
@@ -91,12 +98,11 @@
   .toolbar {
     position: sticky;
     width: 100%;
-    top: 0;
+    bottom: 0;
     z-index: 1;
-    background-color: color-mix(in srgb, var(--color-paper) 90%, transparent);
+    background-color: color-mix(in srgb, var(--color-paper) 95%, transparent);
     margin-bottom: var(--gutter);
-    backdrop-filter: blur(5px);
-    border-bottom: var(--color-faded) 1px solid;
+    backdrop-filter: blur(3px);
   }
 
   .showEditables {

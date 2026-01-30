@@ -20,16 +20,20 @@
 
 <Flex column sm>
   <div class="line">
-    <strong>Level</strong>
+    <span>Level</span>
     <BorderLine vertical />
-    <strong>Slots</strong>
+    <span>Slots</span>
   </div>
   <BorderLine />
   {#each $character.spellSlots as slot}
     <div class="line">
-      <Input bind:value={slot.level} />
+      <div class="value">
+        <Input bind:value={slot.level} />
+      </div>
       <BorderLine vertical />
-      <Input bind:value={slot.amount} />
+      <div class="value">
+        <Input bind:value={slot.amount} />
+      </div>
     </div>
     <BorderLine />
   {/each}
@@ -43,5 +47,10 @@
     display: grid;
     grid-template-columns: 3em auto 1fr;
     gap: var(--gutter);
+  }
+
+  .value {
+    font-family: var(--font-written);
+    font-size: 1.4em;
   }
 </style>

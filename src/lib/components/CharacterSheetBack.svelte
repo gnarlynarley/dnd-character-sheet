@@ -38,6 +38,13 @@
       return char;
     });
   }
+
+  function deleteSpell(index: number) {
+    character.update((char) => {
+      char.spells.splice(index, 1);
+      return char;
+    });
+  }
 </script>
 
 <Page>
@@ -97,6 +104,16 @@
                             <Input bind:value={spell.notes} />
                           </div>
                         </Table>
+                        {#if $appSettings.edit}
+                          <Table cell>
+                            <button
+                              type="button"
+                              onclick={() => deleteSpell(index)}
+                            >
+                              delete
+                            </button>
+                          </Table>
+                        {/if}
                       </Table>
                     {/each}
                   </Table>

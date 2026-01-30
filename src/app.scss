@@ -2,9 +2,11 @@
 @use '@fontsource-variable/merriweather';
 
 :root {
+  --color-black: #222;
+  --color-white: #e6dcd2;
   --color-accent: #ffb703;
-  --color-paper: #e6dcd2;
-  --color-ink: #222;
+  --color-paper: var(--color-white);
+  --color-ink: var(--color-black);
   --color-faded: color-mix(in srgb, var(--color-paper), black 5%);
   --color-editable: color-mix(
     in oklab,
@@ -14,24 +16,27 @@
   --gutter: 1em;
   --font-written: 'Patrick Hand', cursive;
   --font-base: 'Merriweather Variable', serif;
-  --border-size: 0.15em;
+  --border-size: 0.1rem;
   --border: var(--border-size) solid var(--color-ink);
-  --border-sm: 0.1em solid var(--color-ink);
-  --shadow-distance: 0.5em;
+  --border-sm: 0.1rem solid var(--color-ink);
+  --shadow-distance: 0.5rem;
   --shadow: drop-shadow(
     var(--shadow-distance) var(--shadow-distance) 0 var(--color-faded)
   );
   --paper: url('#pencil');
 
-  // @media screen and (prefers-color-scheme: dark) {
-  //   --color-paper: #181818;
-  //   --color-ink: #ece7e2;
-  //   --color-accent: #cf871a;
-  // }
+  @media screen and (prefers-color-scheme: dark) {
+    --color-black: #111111;
+    --color-white: #e6dcd2;
+    --color-paper: var(--color-black);
+    --color-ink: var(--color-white);
+    --color-accent: #cf871a;
+  }
 
   @media print {
     --color-editable: transparent;
     --color-paper: #fff;
+    --color-ink: #000;
   }
 
   font-family: var(--font-base);
@@ -75,6 +80,7 @@ textarea {
   text-align: inherit;
   display: block;
   min-width: none;
+  color: inherit;
 }
 
 /* Chrome, Safari, Edge, Opera */

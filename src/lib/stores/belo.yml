@@ -1,21 +1,17 @@
-avatar:
-  contrast: 0
-  gray: 0.40
-  black: 0.45
-name: 'Belo Wanderlust'
+name: Belo Wanderlust
+playerName: Narley
 level: 3
-playerName: 'Narley'
-class: 'Rogue'
-subclass: 'Thief'
-alignment: 'Neutral'
-species: 'Gnoll'
-background: 'Scribe'
-proficiencyBonus: 2
-hitPoints: 36
-hitDice: 2d8
+class: Rogue
+subclass: Thief
+species: Gnoll
 size: Medium
 speed: 30
+background: Scribe
+alignment: Neutral
 armorClass: 15
+hitDice: 2d8
+hitPoints: 36
+proficiencyBonus: 2
 abilityScores:
   str: 10
   dex: 17
@@ -27,84 +23,163 @@ abilityProficiencies:
   - int
   - dex
 skillProficiencies:
-  arcana: 'proficient'
-  sleightOfHand: 'double'
+  arcana: proficient
+  sleightOfHand: double
 languages: Common, Gnollish
 features:
-  feats: |
+  feats: >
     # Actor
-    **Impersonation.** While you're disguised as a real or fictional person, you have Advantage on Charisma (Deception or Performance) checks to convince others that you are that person.
 
-    **Mimicry.** You can mimic the sounds of other creatures, including speech. A creature that hears the mimicry must succeed on a Wisdom (Insight) check to determine the effect is faked (DC 8 plus your Charisma modifier and Proficiency Bonus).
-  species: |
+    **Impersonation.** While you're disguised as a real or fictional person, you
+    have Advantage on Charisma (Deception or Performance) checks to convince
+    others that you are that person.
+
+
+    **Mimicry.** You can mimic the sounds of other creatures, including speech.
+    A creature that hears the mimicry must succeed on a Wisdom (Insight) check
+    to determine the effect is faked (DC 8 plus your Charisma modifier and
+    Proficiency Bonus).
+  species: >
     # Bite
 
-    Your bite is a natural weapon, which you can use to make unarmed strikes. If you hit with it, you deal piercing damage equal to **1d6** + your Strength modifier, instead of the bludgeoning damage normal for an unarmed strike. damage equal to **1d6** + your Strength modifier, instead of the bludgeoning damage normal for an unarmed strike.
+
+    Your bite is a natural weapon, which you can use to make unarmed strikes. If
+    you hit with it, you deal piercing damage equal to **1d6** + your Strength
+    modifier, instead of the bludgeoning damage normal for an unarmed strike.
+    damage equal to **1d6** + your Strength modifier, instead of the bludgeoning
+    damage normal for an unarmed strike.
+
 
     # Darkvision
 
-    Being moderately nocturnal, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.
+
+    Being moderately nocturnal, you have superior vision in dark and dim
+    conditions. You can see in dim light within 60 feet of you as if it were
+    bright light, and in darkness as if it were dim light. You can't discern
+    color in darkness, only shades of gray.
+
 
     # Scavenger
 
-    You can safely consume raw or rotten food and have advantage on saving throws against disease and ingested poisons.
+
+    You can safely consume raw or rotten food and have advantage on saving
+    throws against disease and ingested poisons.
+
 
     # Pack Hunter
 
-    You are especially adept at collaborating with your allies mid-combat. Whenever you deal damage to a hostile creature with at least one of your allies within its reach, you can deal extra damage to that creature equal to your proficiency bonus × 2 , then one of your allies can immediately use their reaction to move up to half their speed without provoking opportunity attacks from the creature. Once you use this feature, you can not use it again until you complete a short or long rest.
-  class: |
+
+    You are especially adept at collaborating with your allies mid-combat.
+    Whenever you deal damage to a hostile creature with at least one of your
+    allies within its reach, you can deal extra damage to that creature equal to
+    your proficiency bonus × 2 , then one of your allies can immediately use
+    their reaction to move up to half their speed without provoking opportunity
+    attacks from the creature. Once you use this feature, you can not use it
+    again until you complete a short or long rest.
+  class: >
     ## Level 1: Sneak Attack
-    You know how to strike subtly and exploit a foe's distraction. Once per turn, you can deal an extra **1d6** damage to one creature you hit with an attack roll if you have Advantage on the roll and the attack uses a Finesse or a Ranged weapon. The extra damage's type is the same as the weapon's type.
 
-    You don't need Advantage on the attack roll if at least one of your allies is within 5 feet of the target, the ally doesn't have the Incapacitated condition, and you don't have Disadvantage on the attack roll.
+    You know how to strike subtly and exploit a foe's distraction. Once per
+    turn, you can deal an extra **1d6** damage to one creature you hit with an
+    attack roll if you have Advantage on the roll and the attack uses a Finesse
+    or a Ranged weapon. The extra damage's type is the same as the weapon's
+    type.
 
-    The extra damage increases as you gain Rogue levels, as shown in the Sneak Attack column of the Rogue Features table.
+
+    You don't need Advantage on the attack roll if at least one of your allies
+    is within 5 feet of the target, the ally doesn't have the Incapacitated
+    condition, and you don't have Disadvantage on the attack roll.
+
+
+    The extra damage increases as you gain Rogue levels, as shown in the Sneak
+    Attack column of the Rogue Features table.
+
 
     ## Level 1: Thieves' Cant
-    You picked up various languages in the communities where you plied your roguish talents. You know Thieves' Cant and one other language of your choice, which you choose from the language tables in chapter 2.
+
+    You picked up various languages in the communities where you plied your
+    roguish talents. You know Thieves' Cant and one other language of your
+    choice, which you choose from the language tables in chapter 2.
+
 
     ## Level 2: Cunning Action
-    Your quick thinking and agility allow you to move and act quickly. On your turn, you can take one of the following actions as a Bonus Action: Dash, Disengage, or Hide.
+
+    Your quick thinking and agility allow you to move and act quickly. On your
+    turn, you can take one of the following actions as a Bonus Action: Dash,
+    Disengage, or Hide.
+
 
     # Arcane Trickster
 
+
     ## Level 3: Spellcasting
+
 
     You can use an Arcane Focus as a Spellcasting Focus for your Wizard spells.
 
+
     ## Level 3: Mage Hand Legerdemain
 
-    When you cast Mage Hand, you can cast it as a Bonus Action, and you can make the spectral hand Invisible. You can control the hand as a Bonus Action, and through it, you can make Dexterity (Sleight of Hand) checks.
+
+    When you cast Mage Hand, you can cast it as a Bonus Action, and you can make
+    the spectral hand Invisible. You can control the hand as a Bonus Action, and
+    through it, you can make Dexterity (Sleight of Hand) checks.
+
 
     ## Level 3: Steady Aim
-    As a Bonus Action, you give yourself Advantage on your next attack roll on the current turn. You can use this feature only if you haven't moved during this turn, and after you use it, your Speed is 0 until the end of the current turn.
+
+    As a Bonus Action, you give yourself Advantage on your next attack roll on
+    the current turn. You can use this feature only if you haven't moved during
+    this turn, and after you use it, your Speed is 0 until the end of the
+    current turn.
 weapons:
   - name: Dagger
     hit: 3
     damage: 1d6
     details: Piercing
+  - name: Shortbow
+    hit: 3
+    damage: 1d6
+    details: Piercing (Range 80/320)
 spells:
   - name: Mage Hand
-    level: 0
     notes: Create a spectral hand that can manipulate objects.
+    prepared: true
   - name: Mind Sliver
-    level: 0
     notes: 1d6 psychic damage and -1d4 on next saving throw.
+    prepared: true
   - name: Minor Illusion
-    level: 0
     castingTime: Action
     range: 30 feet
     components: S, M (a bit of fleece)
     duration: 1 minute
+    description: >
+      You create a sound or an image of an object within range that lasts for
+      the duration. See the descriptions below for the effects of each. The
+      illusion ends if you cast this spell again.
+
+
+      If a creature takes a Study action to examine the sound or image, the
+      creature can determine that it is an illusion with a successful
+      Intelligence (Investigation) check against your spell save DC. If a
+      creature discerns the illusion for what it is, the illusion becomes faint
+      to the creature.
+
+
+      Sound. If you create a sound, its volume can range from a whisper to a
+      scream. It can be your voice, someone else's voice, a lion's roar, a
+      beating of drums, or any other sound you choose. The sound continues
+      unabated throughout the duration, or you can make discrete sounds at
+      different times before the spell ends.
+
+
+      Image. If you create an image of an object—such as a chair, muddy
+      footprints, or a small chest—it must be no larger than a 5-foot Cube. The
+      image can't create sound, light, smell, or any other sensory effect.
+      Physical interaction with the image reveals it to be an illusion, since
+      things can pass through it.
     notes: Create a sound or image of an object.
-    description: |
-      You create a sound or an image of an object within range that lasts for the duration. See the descriptions below for the effects of each. The illusion ends if you cast this spell again.
-
-      If a creature takes a Study action to examine the sound or image, the creature can determine that it is an illusion with a successful Intelligence (Investigation) check against your spell save DC. If a creature discerns the illusion for what it is, the illusion becomes faint to the creature.
-
-      Sound. If you create a sound, its volume can range from a whisper to a scream. It can be your voice, someone else's voice, a lion's roar, a beating of drums, or any other sound you choose. The sound continues unabated throughout the duration, or you can make discrete sounds at different times before the spell ends.
-
-      Image. If you create an image of an object—such as a chair, muddy footprints, or a small chest—it must be no larger than a 5-foot Cube. The image can't create sound, light, smell, or any other sensory effect. Physical interaction with the image reveals it to be an illusion, since things can pass through it.
+    prepared: true
   - name: Charm Person
     level: 1
     castingTime: 1 action
@@ -112,6 +187,7 @@ spells:
     components: V, S
     duration: 1 hour
     notes: Attempt to charm a humanoid.
+    prepared: true
   - name: Disguise Self
     level: 1
     castingTime: 1 action
@@ -119,6 +195,7 @@ spells:
     components: V, S
     duration: 1 hour
     notes: Change your appearance.
+    prepared: true
   - name: Fog Cloud
     level: 1
     castingTime: 1 action
@@ -126,6 +203,7 @@ spells:
     components: V, S
     duration: Concentration, up to 1 hour
     notes: Create a 20-foot-radius sphere of fog.
+    prepared: true
 spellcastingAbility: int
 spellSlots:
   - level: 1

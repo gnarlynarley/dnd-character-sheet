@@ -26,7 +26,7 @@
   </div>
   <Card>
     <div class="inner">
-      <Flex column align="center" --flex-grow="2">
+      <Flex column align="center" --flex-grow="1">
         <div class="label">Hitpoints</div>
         <Flex full>
           <Flex column align="center" justify="end" full>
@@ -105,6 +105,8 @@
     &::after {
       content: '';
       border: var(--border);
+      border-bottom-width: calc(var(--border-size) * 1.5);
+      border-right-width: calc(var(--border-size) * 1.5);
       border-radius: 0.4em 0.4em 10em 10em;
       filter: var(--shadow) url('#pencil');
       position: absolute;
@@ -138,8 +140,8 @@
   }
 
   .inner {
-    display: flex;
-    gap: 1em;
+    display: grid;
+    grid-template-columns: 2fr auto 1fr auto auto;
     flex-grow: 1;
     gap: var(--gutter);
   }

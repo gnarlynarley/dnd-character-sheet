@@ -46,7 +46,9 @@
           <div class="value">
             <Input bind:value={$character.inventory[index]} />
           </div>
-          <Button onclick={() => removeInventoryItem(index)}>Remove</Button>
+          <button type="button" onclick={() => removeInventoryItem(index)}>
+            delete
+          </button>
         </Flex>
       {/each}
       <Button onclick={addInventoryItem}>Add item</Button>
