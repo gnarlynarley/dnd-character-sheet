@@ -4,7 +4,7 @@
   import SpellCard from './SpellCard.svelte';
   import type { CharacterSvelteStore } from '$lib/stores/character';
   import { getAbilityModifier, unique } from '$lib/utils';
-  import { abilitiesAndNone } from '$lib/models';
+  import { abilitiesAndNone, characterSpellSchema, parse } from '$lib/models';
   import app from 'src/main';
   import { appSettings } from '$lib/stores/app-settings';
   import Flex from './Flex.svelte';
@@ -20,15 +20,7 @@
   const { character }: Props = $props();
 
   function addSpell() {
-    $character.spells.push({
-      name: '',
-      level: 0,
-      castingTime: '',
-      range: '',
-      components: '',
-      duration: '',
-      description: '',
-    });
+    $character.spells.push(parse(characterSpellSchema, {}));
     $character.spells = $character.spells;
   }
 
@@ -44,14 +36,6 @@
 
     return 8 + spellAttackModifier;
   });
-
-  const spellLevels = $derived(
-    unique(
-      $character.spells
-        .map((spell) => spell.level)
-        .flatMap((level) => (level === 0 ? [] : level)),
-    ).sort(),
-  );
 </script>
 
 <section>

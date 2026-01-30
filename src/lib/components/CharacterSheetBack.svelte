@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { characterSpellSchema } from '$lib/models';
+  import { characterSpellSchema, parse } from '$lib/models';
   import { appSettings } from '$lib/stores/app-settings';
   import type { CharacterSvelteStore } from '$lib/stores/character';
   import { getAbilityModifier } from '$lib/utils';
@@ -12,7 +12,6 @@
   import HidePrint from './HidePrint.svelte';
   import Input from './Input.svelte';
   import InventorySection from './InventorySection.svelte';
-  import Markdown from './Markdown.svelte';
   import Modifier from './Modifier.svelte';
   import Page from './Page.svelte';
   import SpellSlots from './SpellSlots.svelte';
@@ -35,13 +34,7 @@
 
   function addSpell() {
     character.update((char) => {
-      char.spells.push(
-        characterSpellSchema.parse({
-          name: '',
-          notes: '',
-          prepared: false,
-        }),
-      );
+      char.spells.push(parse(characterSpellSchema, {}));
       return char;
     });
   }

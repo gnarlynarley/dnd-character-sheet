@@ -1,12 +1,13 @@
 import { type CharacterType, characterSchema } from '$lib/models';
+import { parse as parseSchema } from 'valibot';
 import { deleteProperty } from './index';
 
 export function parseData(data: unknown): CharacterType {
-  return characterSchema.parse(data);
+  return parseSchema(characterSchema, data);
 }
 
 export function createNewCharacter(slug: string): CharacterType {
-  return characterSchema.parse({ slug });
+  return parseSchema(characterSchema, { slug });
 }
 
 type DeepPartial<T> = {
@@ -71,5 +72,5 @@ export async function parseYaml(
 ): Promise<CharacterType> {
   const yaml = await import('yaml');
   const data = yaml.parse(yamlString);
-  return characterSchema.parse({ slug, ...data });
+  return parseSchema(characterSchema, { slug, ...data });
 }

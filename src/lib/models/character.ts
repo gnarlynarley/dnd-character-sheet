@@ -1,6 +1,6 @@
-import { z } from 'zod';
+import * as v from 'valibot';
 
-export const skillSchema = z.enum([
+const skillOptions = [
   'acrobatics',
   'animalHandling',
   'arcana',
@@ -19,9 +19,10 @@ export const skillSchema = z.enum([
   'sleightOfHand',
   'stealth',
   'survival',
-]);
-export const abilitySchema = z.enum(['str', 'dex', 'con', 'int', 'wis', 'cha']);
-export const abilityAndNoneSchema = z.enum([
+] as const;
+
+const abilityOptions = ['str', 'dex', 'con', 'int', 'wis', 'cha'] as const;
+const abilityAndNoneOptions = [
   'none',
   'str',
   'dex',
@@ -29,42 +30,42 @@ export const abilityAndNoneSchema = z.enum([
   'int',
   'wis',
   'cha',
-]);
-export const proficiencySchema = z.enum([
-  'none',
-  'proficient',
-  'double',
-  'half',
-]);
-export const characterWeaponSchema = z.object({
-  name: z.string().optional().default(''),
-  hit: z.number().optional().default(0),
-  damage: z.string().optional().default(''),
-  details: z.string().optional().default(''),
+] as const;
+const proficiencyOptions = ['none', 'proficient', 'double', 'half'] as const;
+
+export const skillSchema = v.picklist(skillOptions);
+export const abilitySchema = v.picklist(abilityOptions);
+export const abilityAndNoneSchema = v.picklist(abilityAndNoneOptions);
+export const proficiencySchema = v.picklist(proficiencyOptions);
+export const characterWeaponSchema = v.object({
+  name: v.optional(v.string(), ''),
+  hit: v.optional(v.number(), 0),
+  damage: v.optional(v.string(), ''),
+  details: v.optional(v.string(), ''),
 });
-export const characterSpellSchema = z.object({
-  name: z.string().optional().default(''),
-  level: z.number().optional().default(0),
-  castingTime: z.string().optional().default(''),
-  range: z.string().optional().default(''),
-  components: z.string().optional().default(''),
-  duration: z.string().optional().default(''),
-  description: z.string().optional().default(''),
-  notes: z.string().optional().default(''),
-  prepared: z.boolean().optional().default(true),
+export const characterSpellSchema = v.object({
+  name: v.optional(v.string(), ''),
+  level: v.optional(v.number(), 0),
+  castingTime: v.optional(v.string(), ''),
+  range: v.optional(v.string(), ''),
+  components: v.optional(v.string(), ''),
+  duration: v.optional(v.string(), ''),
+  description: v.optional(v.string(), ''),
+  notes: v.optional(v.string(), ''),
+  prepared: v.optional(v.boolean(), true),
 });
-export const characterAvatarSchema = z.object({
-  blob: z.instanceof(Blob).nullable().default(null),
-  contrast: z.number().optional().default(1),
-  gray: z.number().optional().default(0.5),
-  black: z.number().optional().default(0.25),
-  x: z.number().optional().default(0),
-  y: z.number().optional().default(0),
-  scale: z.number().optional().default(1),
+export const characterAvatarSchema = v.object({
+  blob: v.optional(v.nullable(v.instance(Blob)), null),
+  contrast: v.optional(v.number(), 1),
+  gray: v.optional(v.number(), 0.5),
+  black: v.optional(v.number(), 0.25),
+  x: v.optional(v.number(), 0),
+  y: v.optional(v.number(), 0),
+  scale: v.optional(v.number(), 1),
 });
-export const characterSchema = z.object({
-  slug: z.string().nonempty(),
-  avatar: characterAvatarSchema.optional().default({
+export const characterSchema = v.object({
+  slug: v.pipe(v.string(), v.nonEmpty()),
+  avatar: v.optional(characterAvatarSchema, {
     blob: null,
     contrast: 1,
     gray: 0.5,
@@ -73,36 +74,37 @@ export const characterSchema = z.object({
     y: 0,
     scale: 1,
   }),
-  name: z.string().optional().default(''),
-  playerName: z.string().optional().default(''),
-  level: z.number().optional().default(1),
-  class: z.string().optional().default(''),
-  subclass: z.string().optional().default(''),
-  species: z.string().optional().default(''),
-  size: z.string().optional().default(''),
-  speed: z.number().optional().default(30),
-  background: z.string().optional().default(''),
-  alignment: z.string().optional().default(''),
-  armorClass: z.number().optional().default(10),
-  hitDice: z.string().optional().default('1d8'),
-  hitPoints: z.number().optional().default(1),
-  proficiencyBonus: z.number().optional().default(2),
-  abilityScores: z
-    .record(abilitySchema, z.number().optional().default(10))
-    .optional()
-    .default({
+  name: v.optional(v.string(), ''),
+  playerName: v.optional(v.string(), ''),
+  level: v.optional(v.number(), 1),
+  class: v.optional(v.string(), ''),
+  subclass: v.optional(v.string(), ''),
+  species: v.optional(v.string(), ''),
+  size: v.optional(v.string(), ''),
+  speed: v.optional(v.number(), 30),
+  background: v.optional(v.string(), ''),
+  alignment: v.optional(v.string(), ''),
+  armorClass: v.optional(v.number(), 10),
+  hitDice: v.optional(v.string(), '1d8'),
+  hitPoints: v.optional(v.number(), 1),
+  proficiencyBonus: v.optional(v.number(), 2),
+  abilityScores: v.optional(
+    v.object(v.entriesFromList(abilityOptions, v.optional(v.number(), 10))),
+    {
       str: 10,
       dex: 10,
       con: 10,
       int: 10,
       wis: 10,
       cha: 10,
-    }),
-  abilityProficiencies: z.array(abilitySchema).optional().default([]),
-  skillProficiencies: z
-    .record(skillSchema, proficiencySchema.optional().default('none'))
-    .optional()
-    .default({
+    },
+  ),
+  abilityProficiencies: v.optional(v.array(abilitySchema), []),
+  skillProficiencies: v.optional(
+    v.object(
+      v.entriesFromList(skillOptions, v.optional(proficiencySchema, 'none')),
+    ),
+    {
       acrobatics: 'none',
       animalHandling: 'none',
       arcana: 'none',
@@ -121,43 +123,46 @@ export const characterSchema = z.object({
       sleightOfHand: 'none',
       stealth: 'none',
       survival: 'none',
+    },
+  ),
+  languages: v.optional(v.string(), ''),
+  features: v.optional(
+    v.object({
+      feats: v.optional(v.string(), ''),
+      species: v.optional(v.string(), ''),
+      class: v.optional(v.string(), ''),
     }),
-  languages: z.string().optional().default(''),
-  features: z
-    .object({
-      feats: z.string().optional().default(''),
-      species: z.string().optional().default(''),
-      class: z.string().optional().default(''),
-    })
-    .optional()
-    .default({
+    {
       feats: '',
       species: '',
       class: '',
-    }),
-  weapons: z.array(characterWeaponSchema).optional().default([]),
-  spells: z.array(characterSpellSchema).optional().default([]),
-  spellcastingAbility: abilityAndNoneSchema.optional().default('none'),
-  spellSlots: z
-    .array(
-      z.object({
-        level: z.number().optional().default(1),
-        amount: z.number().optional().default(0),
+    },
+  ),
+  weapons: v.optional(v.array(characterWeaponSchema), []),
+  spells: v.optional(v.array(characterSpellSchema), []),
+  spellcastingAbility: v.optional(abilityAndNoneSchema, 'none'),
+  spellSlots: v.optional(
+    v.array(
+      v.object({
+        level: v.optional(v.number(), 1),
+        amount: v.optional(v.number(), 0),
       }),
-    )
-    .optional()
-    .default([]),
-  inventory: z.array(z.string()).optional().default([]),
+    ),
+    [],
+  ),
+  inventory: v.optional(v.array(v.string()), []),
 });
 
-export type CharacterWeaponType = z.infer<typeof characterWeaponSchema>;
-export type CharacterSpell = z.infer<typeof characterSpellSchema>;
-export type CharacterAvatar = z.infer<typeof characterAvatarSchema>;
-export type CharacterType = z.infer<typeof characterSchema>;
-export type ProficiencyType = z.infer<typeof proficiencySchema>;
-export type AbilityType = z.infer<typeof abilitySchema>;
-export type AbilityAndNoneType = z.infer<typeof abilityAndNoneSchema>;
-export type SkillType = z.infer<typeof skillSchema>;
+export { parse } from 'valibot';
+
+export type CharacterWeaponType = v.InferOutput<typeof characterWeaponSchema>;
+export type CharacterSpell = v.InferOutput<typeof characterSpellSchema>;
+export type CharacterAvatar = v.InferOutput<typeof characterAvatarSchema>;
+export type CharacterType = v.InferOutput<typeof characterSchema>;
+export type ProficiencyType = v.InferOutput<typeof proficiencySchema>;
+export type AbilityType = v.InferOutput<typeof abilitySchema>;
+export type AbilityAndNoneType = v.InferOutput<typeof abilityAndNoneSchema>;
+export type SkillType = v.InferOutput<typeof skillSchema>;
 
 export const skillToAbilityMap = {
   acrobatics: 'dex',

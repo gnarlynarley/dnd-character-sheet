@@ -1,5 +1,6 @@
 import { writable, type Writable } from 'svelte/store';
 import { characterSchema, type CharacterType } from '$lib/models';
+import { parse as parseSchema } from 'valibot';
 import avatarSrc from './belo.jpg?url';
 import beloSheetUrl from './belo.yml?url';
 import getCropDetails from '../utils/canvas/getCropDetails';
@@ -16,7 +17,7 @@ export const characterStorage = localforage.createInstance({
 export async function loadAllCharacters(): Promise<CharacterType[]> {
   const characters: CharacterType[] = [];
   await characterStorage.iterate((value) => {
-    const character = characterSchema.parse(value);
+    const character = parseSchema(characterSchema, value);
     characters.push(character);
   });
   return characters;
@@ -26,7 +27,7 @@ export async function createCharacterData(
   slug: string,
   name?: string,
 ): Promise<CharacterType> {
-  const character = characterSchema.parse({ slug, name });
+  const character = parseSchema(characterSchema, { slug, name });
   await characterStorage.setItem(slug, character);
   return character;
 }
@@ -43,7 +44,7 @@ export async function loadCharacterData(
   if (stored === null) {
     return null;
   }
-  return characterSchema.parse(stored);
+  return parseSchema(characterSchema, stored);
 }
 
 export async function loadCharacter(
@@ -76,7 +77,7 @@ export async function loadExampleCharacter(
   const blob = await fetch(avatarSrc).then((b) => b.blob());
   const beloSheet = await fetch(beloSheetUrl).then((r) => r.text());
   const parsed = parse(beloSheet);
-  const character = characterSchema.parse({ ...parsed, slug });
+  const character = parseSchema(characterSchema, { ...parsed, slug });
   const cover = await getCropDetails(blob, AVATAR_WIDTH, AVATAR_HEIGHT);
 
   character.avatar = {
