@@ -38,12 +38,19 @@
     <FlexPush />
     <BorderLine />
     <div class="bottom">
-      <Flex justify="start">
-        <a href={links.characterSheet(character.slug)} use:link>
-          <ButtonStyling>
-            <span>View Sheet </span>
-          </ButtonStyling>
-        </a>
+      <Flex column justify="start">
+        <Flex>
+          <a href={links.characterSheet(character.slug)} use:link>
+            <ButtonStyling>
+              <span>View Sheet </span>
+            </ButtonStyling>
+          </a>
+          <a href={links.characterMiniSheet(character.slug)} use:link>
+            <ButtonStyling>
+              <span>View mini sheet</span>
+            </ButtonStyling>
+          </a>
+        </Flex>
         {#if onDelete}
           <Button onclick={onDelete}>Delete</Button>
         {/if}
@@ -55,5 +62,9 @@
 <style>
   .bottom {
     justify-self: flex-end;
+  }
+
+  a {
+    flex-grow: 1;
   }
 </style>

@@ -21,6 +21,7 @@
 <style>
   .wrapper {
     position: relative;
+    text-align: center;
   }
   .inner {
     font-family: var(--font-written);
