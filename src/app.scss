@@ -16,7 +16,7 @@
   --gutter: 1em;
   --font-written: 'Patrick Hand', cursive;
   --font-base: 'Merriweather Variable', serif;
-  --border-size: 0.1rem;
+  --border-size: 1pt;
   --border: var(--border-size) solid var(--color-ink);
   --border-sm: 0.1rem solid var(--color-ink);
   --shadow-distance: 0.5em;
@@ -37,6 +37,7 @@
     --color-editable: transparent;
     --color-paper: #fff;
     --color-ink: #000;
+    --border-size: 0.5pt;
   }
 
   font-family: var(--font-base);
