@@ -111,6 +111,7 @@
     align-items: start;
     gap: var(--gutter);
     padding: var(--gutter);
+    padding-top: 0;
   }
 
   form {

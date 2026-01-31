@@ -32,6 +32,10 @@
 </header>
 
 <style lang="scss">
+  header {
+    margin-bottom: var(--gutter);
+  }
+
   .inner {
     display: flex;
     align-items: center;

@@ -1,5 +1,6 @@
 <script lang="ts">
   import CharacterSheet from '$lib/components/CharacterSheet.svelte';
+  import PageTitle from '$lib/components/PageTitle.svelte';
   import { loadCharacterData } from '$lib/stores/character';
   import { link } from 'svelte-spa-router';
 
@@ -12,6 +13,8 @@
   const { params }: Props = $props();
   let characterData = $derived(await loadCharacterData(params.slug));
 </script>
+
+<PageTitle title={characterData ? `${characterData.name}` : 'Not Found'} />
 
 {#if characterData}
   <CharacterSheet bind:characterData />

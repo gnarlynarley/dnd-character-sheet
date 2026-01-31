@@ -5,6 +5,7 @@
   import FlexPush from '$lib/components/FlexPush.svelte';
   import Modal from '$lib/components/Modal.svelte';
   import OverlayBox from '$lib/components/OverlayBox.svelte';
+  import PageTitle from '$lib/components/PageTitle.svelte';
   import {
     createCharacterData,
     deleteCharacter,
@@ -55,6 +56,8 @@
     event.preventDefault();
   }
 </script>
+
+<PageTitle title="Character select" />
 
 {#if characterSlugToDelete}
   <Modal onclose={handleCloseDeleteModal}>
@@ -112,6 +115,7 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 1em;
     padding: var(--gutter);
+    padding-top: 0;
   }
 
   .toolbar {
