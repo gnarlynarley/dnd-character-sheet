@@ -9,6 +9,7 @@
     cells?: number;
     fillCell?: number;
     centered?: boolean;
+    right?: boolean;
   };
 
   const {
@@ -18,6 +19,7 @@
     cells,
     fillCell,
     centered,
+    right,
   }: Props = $props();
 
   const style = $derived.by(() => {
@@ -38,6 +40,7 @@
   class:row
   class:cell
   class:centered
+  class:right
   {style}
 >
   {@render children?.()}
@@ -76,6 +79,10 @@
 
     &.centered {
       justify-content: center;
+    }
+
+    &.right {
+      justify-content: end;
     }
   }
 

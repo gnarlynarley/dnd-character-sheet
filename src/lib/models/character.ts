@@ -158,6 +158,14 @@ export function parseCharacter(data: unknown): CharacterType {
   return v.parse(characterSchema, data);
 }
 
+export function safeParseCharacter(data: unknown): CharacterType | null {
+  try {
+    return parseCharacter(data);
+  } catch {
+    return null;
+  }
+}
+
 export { parse } from 'valibot';
 
 export type CharacterWeaponType = v.InferOutput<typeof characterWeaponSchema>;

@@ -13,6 +13,7 @@
     small?: boolean;
     nogrow?: boolean;
     withHover?: boolean;
+    flex?: boolean;
   };
 
   const {
@@ -27,6 +28,7 @@
     small,
     nogrow,
     withHover,
+    flex,
   }: Props = $props();
 </script>
 
@@ -42,6 +44,7 @@
   class:small
   class:nogrow
   class:withHover
+  class:flex
 >
   <div class="inner">
     {@render children?.()}
@@ -142,5 +145,10 @@
     position: relative;
     z-index: 1;
     flex-grow: 1;
+    width: 100%;
+
+    .flex & {
+      display: flex;
+    }
   }
 </style>

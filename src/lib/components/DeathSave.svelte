@@ -9,7 +9,7 @@
 </script>
 
 <Flex column sm>
-  <Flex>
+  <Flex sm>
     <div class="dot"></div>
     <div class="dot"></div>
     <div class="dot"></div>

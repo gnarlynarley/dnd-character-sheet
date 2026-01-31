@@ -19,6 +19,7 @@
 </script>
 
 <div class="wrapper">
+  <div class="overlay" data-html2canvas-ignore></div>
   <canvas bind:this={canvas} {width} {height}></canvas>
 </div>
 
@@ -30,22 +31,23 @@
 
     @media screen {
       background-color: var(--color-white);
-
-      &::after {
-        content: '';
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--color-black);
-        mix-blend-mode: lighten;
-        z-index: 1;
-        pointer-events: none;
-      }
     }
   }
+
+  .overlay {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-black);
+    mix-blend-mode: lighten;
+    z-index: 1;
+    pointer-events: none;
+  }
+
   canvas {
     width: 100%;
     display: block;

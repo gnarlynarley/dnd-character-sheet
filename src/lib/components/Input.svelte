@@ -2,11 +2,14 @@
   import { appSettings } from '$lib/stores/app-settings';
 
   type Props = {
+    type?: 'text' | 'number';
     value?: number | string;
   };
 
-  let { value = $bindable() }: Props = $props();
-  const type = $derived(typeof value === 'number' ? 'number' : 'text');
+  let { value = $bindable(), type: typeOverwrite }: Props = $props();
+  const type = $derived(
+    (typeOverwrite ?? typeof value === 'number') ? 'number' : 'text',
+  );
   const edit = $derived($appSettings.edit);
 </script>
 

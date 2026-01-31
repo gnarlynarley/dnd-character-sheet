@@ -15,22 +15,14 @@
 
   const { avatar, disableEffects }: Props = $props();
   const blob = $derived(avatar.blob);
-  let image = $state<HTMLImageElement | null>(null);
+  let image = $derived<HTMLImageElement | null>(
+    blob ? await createImage(blob) : null,
+  );
   let canvas = $state<HTMLCanvasElement | null>(null);
   let context = $state<CanvasRenderingContext2D | null>(null);
   let contrast = $derived(avatar.contrast);
   let gray = $derived(avatar.gray);
   let black = $derived(avatar.black);
-
-  $effect(() => {
-    if (blob) {
-      createImage(blob).then((result) => {
-        image = result;
-      });
-    } else {
-      image = null;
-    }
-  });
 
   $effect(() => {
     if (!image || !context || !canvas) return;

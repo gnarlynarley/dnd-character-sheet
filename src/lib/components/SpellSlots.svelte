@@ -37,7 +37,7 @@
       </div>
       <BorderLine vertical />
       <div class="value">
-        <Input bind:value={slot.amount} />
+        <Input type="number" bind:value={slot.amount} />
       </div>
       {#if $appSettings.edit}
         <button type="button" onclick={() => deleteSpellSlot(index)}>
