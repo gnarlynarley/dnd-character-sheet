@@ -12,9 +12,15 @@
   const { character }: Props = $props();
 </script>
 
-<Flex column justify="between">
+<Flex column justify="between" sm>
   <Border nogrow>
-    <Flex column>
+    <Flex column sm>
+      <span class="label">Inspiration</span>
+      <div style="min-height: 1.4em"></div>
+    </Flex>
+  </Border>
+  <Border nogrow>
+    <Flex column sm>
       <span class="label">Size</span>
       <span class="value">
         <Input bind:value={$character.size} />
@@ -22,7 +28,7 @@
     </Flex>
   </Border>
   <Border nogrow>
-    <Flex column>
+    <Flex column sm>
       <span class="label">Initiative</span>
       <span class="value">
         {parseModifier(getAbilityModifier($character.abilityScores.dex))}
@@ -30,7 +36,7 @@
     </Flex>
   </Border>
   <Border nogrow>
-    <Flex column>
+    <Flex column sm>
       <span class="label">Speed</span>
       <span class="value">
         <Input bind:value={$character.speed} />
@@ -38,7 +44,7 @@
     </Flex>
   </Border>
   <Border nogrow>
-    <Flex column>
+    <Flex column sm>
       <span class="label">Proficiency Bonus</span>
       <span class="value">
         <Input bind:value={$character.proficiencyBonus} />

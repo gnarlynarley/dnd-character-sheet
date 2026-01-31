@@ -1,8 +1,7 @@
 avatar:
   gray: 0.4
   black: 0.45
-  x: -75.3295096097418
-  y: -11.676707379694836
+  x: -110.3286384976526
   scale: 1.5258215962441315
   blob: null
 name: Belo Wanderlust
@@ -19,6 +18,7 @@ armorClass: 15
 hitDice: 2d8
 hitPoints: 36
 proficiencyBonus: 2
+proficienies: Martial weapons, Thieves' Tools, Light armor
 abilityScores:
   str: 10
   dex: 17

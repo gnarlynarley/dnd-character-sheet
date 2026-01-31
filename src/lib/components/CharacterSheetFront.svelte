@@ -33,7 +33,9 @@
           <SkillList ability="str" {character} />
           <SkillList ability="dex" {character} />
           <SkillList ability="con" {character} />
-          <Card title="Heroic Inspiration" />
+          <Card title="Proficiencies">
+            <Markdown bind:code={$character.proficienies} />
+          </Card>
           <Card title="Languages">
             <span class="languages">
               <Markdown bind:code={$character.languages} />

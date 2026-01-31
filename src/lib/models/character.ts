@@ -88,6 +88,7 @@ export const characterSchema = v.object({
   hitDice: v.optional(v.string(), '1d8'),
   hitPoints: v.optional(v.number(), 1),
   proficiencyBonus: v.optional(v.number(), 2),
+  proficienies: v.optional(v.string(), ''),
   abilityScores: v.optional(
     v.object(v.entriesFromList(abilityOptions, v.optional(v.number(), 10))),
     {
