@@ -4,6 +4,7 @@
   import BorderLine from './BorderLine.svelte';
   import type { EventHandler } from 'svelte/elements';
   import Button from './Button.svelte';
+  import createCanvasBuffer from '$lib/utils/canvas/createCanvasBuffer';
 
   let canvas = $state<HTMLCanvasElement | null>(null);
   let context = $state<CanvasRenderingContext2D | null>(null);
@@ -21,7 +22,6 @@
     canvas.height = offset * 2 + y * size;
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    context.filter = `url(#pencil)`;
     context.lineWidth = stroke;
 
     for (let i = 1; i < x; i++) {
@@ -49,6 +49,11 @@
       stroke * 5,
     );
     context.stroke();
+    const buffer = createCanvasBuffer(canvas);
+    context.filter = `url(#pencil)`;
+
+    context.drawImage(buffer.canvas, 0, 0);
+    buffer.destroy();
   });
 
   const onsubmit: EventHandler<SubmitEvent, HTMLFormElement> = (ev) => {
