@@ -3,7 +3,7 @@
   let scale = $state(DEFAULT_SCALE);
 
   function beforeprint() {
-    scale = 0.9;
+    scale = 0.8;
   }
   function afterprint() {
     scale = DEFAULT_SCALE;
