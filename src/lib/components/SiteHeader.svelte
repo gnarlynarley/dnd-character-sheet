@@ -3,6 +3,8 @@
   import BorderLine from './BorderLine.svelte';
   import { links } from '$lib/routes';
   import Link from './Link.svelte';
+  import Flex from './Flex.svelte';
+  import FlexPush from './FlexPush.svelte';
 
   const navigationLinks = [
     {
@@ -18,16 +20,21 @@
 
 <header class="hide-print">
   <div class="inner">
-    <h1>
-      <Link href={links.characterSelect()}>D&D Character Sheet creator</Link>
-    </h1>
+    <Flex align="center">
+      <h1>
+        <Link href={links.characterSelect()}>D&D Character Sheet creator</Link>
+      </h1>
 
-    <nav>
-      {#each navigationLinks as { href, label }}
-        <Link {href}>{label}</Link>
-      {/each}
-    </nav>
+      <FlexPush />
+
+      <nav>
+        {#each navigationLinks as { href, label }}
+          <Link {href}>{label}</Link>
+        {/each}
+      </nav>
+    </Flex>
   </div>
+
   <BorderLine />
 </header>
 
@@ -37,9 +44,6 @@
   }
 
   .inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding: calc(var(--gutter) * 2) var(--gutter);
   }
 

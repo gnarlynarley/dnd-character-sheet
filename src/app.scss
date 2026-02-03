@@ -1,12 +1,23 @@
 @use '@fontsource/patrick-hand';
 @use '@fontsource-variable/merriweather';
 
-:root {
+@mixin light-mode-variables() {
   --color-black: #202020;
   --color-white: #e6dcd2;
-  --color-accent: #ffb703;
   --color-paper: var(--color-white);
   --color-ink: var(--color-black);
+  --color-accent: #ffb703;
+}
+@mixin dark-mode-variables() {
+  --color-black: #111111;
+  --color-white: #e6dcd2;
+  --color-paper: var(--color-black);
+  --color-ink: var(--color-white);
+  --color-accent: #cf871a;
+}
+
+:root {
+  @include light-mode-variables();
   --color-faded: color-mix(in srgb, var(--color-ink) 10%, var(--color-paper));
   --color-editable: color-mix(
     in oklab,
@@ -26,11 +37,7 @@
   --paper: url('#pencil');
 
   @media screen and (prefers-color-scheme: dark) {
-    --color-black: #111111;
-    --color-white: #e6dcd2;
-    --color-paper: var(--color-black);
-    --color-ink: var(--color-white);
-    --color-accent: #cf871a;
+    @include dark-mode-variables();
   }
 
   @media print {
@@ -43,6 +50,14 @@
   font-family: var(--font-base);
   background-color: var(--color-paper);
   color: var(--color-ink);
+}
+
+.dark-mode {
+  @include dark-mode-variables();
+}
+
+.light-mode {
+  @include light-mode-variables();
 }
 
 *,

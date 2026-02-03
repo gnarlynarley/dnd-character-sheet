@@ -28,10 +28,7 @@
     position: relative;
     z-index: 0;
     flex-grow: 1;
-
-    @media screen {
-      background-color: var(--color-white);
-    }
+    background-color: var(--color-white);
   }
 
   .overlay {
