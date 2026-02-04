@@ -4,9 +4,14 @@
   type Props = {
     type?: 'text' | 'number';
     value?: number | string;
+    displayValue?: number | string;
   };
 
-  let { value = $bindable(), type: typeOverwrite }: Props = $props();
+  let {
+    value = $bindable(),
+    displayValue,
+    type: typeOverwrite,
+  }: Props = $props();
   const type = $derived(
     (typeOverwrite ?? typeof value === 'number') ? 'number' : 'text',
   );
@@ -16,7 +21,7 @@
 {#if edit}
   <input {type} bind:value />
 {:else}
-  <div>{value}</div>
+  <div>{displayValue ?? value}</div>
 {/if}
 
 <style>

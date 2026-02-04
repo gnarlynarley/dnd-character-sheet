@@ -31,7 +31,6 @@ appSettings.subscribe((value) => {
     window.onbeforeunload = null;
   }
 
-  console.log('theme changed');
   document.documentElement.classList.remove('dark-mode');
   document.documentElement.classList.remove('light-mode');
   if (value.theme === 'light') {

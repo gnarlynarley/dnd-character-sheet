@@ -3,14 +3,14 @@
   import Card from '$lib/components/Card.svelte';
   import CombatSection from '$lib/components/CombatSection.svelte';
   import Heading from '$lib/components/Heading.svelte';
-  import Markdown from '$lib/components/Markdown.svelte';
   import Other from '$lib/components/Other.svelte';
   import Page from '$lib/components/Page.svelte';
   import SkillList from '$lib/components/SkillList.svelte';
   import WeaponSection from '$lib/components/WeaponSection.svelte';
   import { type CharacterSvelteStore } from '$lib/stores/character';
-  import Scrollbar from './Scrollbar.svelte';
-  import Input from './Input.svelte';
+  import Scrollbar from '../Scrollbar.svelte';
+  import Input from '../Input.svelte';
+  import MarkdownEditor from '../MarkdownEditor.svelte';
 
   type Props = {
     character: CharacterSvelteStore;
@@ -34,11 +34,11 @@
           <SkillList ability="dex" {character} />
           <SkillList ability="con" {character} />
           <Card title="Proficiencies">
-            <Markdown bind:code={$character.proficienies} />
+            <MarkdownEditor bind:code={$character.proficienies} />
           </Card>
           <Card title="Languages">
             <span class="languages">
-              <Markdown bind:code={$character.languages} />
+              <MarkdownEditor bind:code={$character.languages} />
             </span>
           </Card>
         </div>
@@ -64,20 +64,20 @@
       </div>
       <div class="feats">
         <Card grid title="Feats">
-          <Markdown bind:code={$character.features.feats} />
+          <MarkdownEditor bind:code={$character.features.feats} />
         </Card>
       </div>
       <div class="species">
         <Card grid title="Species">
           <Scrollbar>
-            <Markdown bind:code={$character.features.species} />
+            <MarkdownEditor bind:code={$character.features.species} />
           </Scrollbar>
         </Card>
       </div>
       <div class="class">
         <Card grid title="Class">
           <Scrollbar>
-            <Markdown bind:code={$character.features.class} />
+            <MarkdownEditor bind:code={$character.features.class} />
           </Scrollbar>
         </Card>
       </div>

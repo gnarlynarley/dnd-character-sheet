@@ -15,6 +15,10 @@
       href: links.gridGenerator(),
       label: 'Grid generator',
     },
+    {
+      href: links.spells(),
+      label: 'Spells',
+    },
   ];
 </script>
 

@@ -12,12 +12,12 @@
   import CharacterSheetFront from './CharacterSheetFront.svelte';
   import { createSaveData, parseSaveData } from '$lib/utils/savedata';
   import { downloadBlob } from '$lib/utils';
-  import FileInputButton from './FileInputButton.svelte';
-  import FlexPush from './FlexPush.svelte';
+  import FileInputButton from '../FileInputButton.svelte';
+  import FlexPush from '../FlexPush.svelte';
   import { tick } from 'svelte';
   import { writable } from 'svelte/store';
   import { isEqual } from '$lib/utils/isEqual';
-  import OverlayBox from './OverlayBox.svelte';
+  import OverlayBox from '../OverlayBox.svelte';
   import type { CharacterType } from '$lib/models';
 
   type Props = {

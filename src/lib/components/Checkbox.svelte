@@ -4,17 +4,27 @@
 
   type Props = {
     checked: boolean;
+    label?: string;
   };
 
-  let { checked = $bindable() }: Props = $props();
+  let { checked = $bindable(), label }: Props = $props();
 </script>
 
-<label class="checkbox">
-  <Border nopadding absolute transparent small noshadow></Border>
-  <input type="checkbox" bind:checked disabled={!$appSettings.edit} />
+<label class="wrapper">
+  {#if label}
+    <span class="label">{label}</span>
+  {/if}
+  <div class="checkbox">
+    <Border nopadding absolute transparent small noshadow></Border>
+    <input type="checkbox" bind:checked disabled={!$appSettings.edit} />
+  </div>
 </label>
 
 <style>
+  .wrapper {
+    display: flex;
+    gap: var(--gutter);
+  }
   .checkbox {
     --offset: 0.1em;
     width: 1em;

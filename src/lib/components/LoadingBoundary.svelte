@@ -19,6 +19,7 @@
   {/if}
 
   {#snippet failed(error, reset)}
+    {console.error(error)}
     <h1>oops! something went wrong.</h1>
     <pre>{JSON.stringify(error, null, 2)}</pre>
     <button onclick={reset}>oops! try again</button>

@@ -1,4 +1,4 @@
-<script lang="ts" generics="Value extends string">
+<script lang="ts" generics="Value extends string | number">
   import Flex from './Flex.svelte';
 
   type Props = {
@@ -11,7 +11,7 @@
   const id = $props.id();
 </script>
 
-<Flex>
+<Flex nogrow>
   {#if label}
     <label for={id}>{label}</label>
   {/if}

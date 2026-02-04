@@ -82,6 +82,8 @@
     <div
       bind:this={container}
       class="canvas"
+      role="img"
+      aria-label="Character avatar canvas"
       onpointerdown={startPan}
       onwheel={onzoom}
     >

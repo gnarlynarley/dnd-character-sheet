@@ -1,3 +1,4 @@
+import { createId } from '$lib/utils';
 import * as v from 'valibot';
 
 const skillOptions = [
@@ -44,6 +45,7 @@ export const characterWeaponSchema = v.object({
   details: v.optional(v.string(), ''),
 });
 export const characterSpellSchema = v.object({
+  id: v.optional(v.string(), createId),
   name: v.optional(v.string(), ''),
   level: v.optional(v.number(), 0),
   castingTime: v.optional(v.string(), ''),
@@ -51,6 +53,7 @@ export const characterSpellSchema = v.object({
   components: v.optional(v.string(), ''),
   duration: v.optional(v.string(), ''),
   description: v.optional(v.string(), ''),
+  showDescription: v.optional(v.boolean(), false),
   notes: v.optional(v.string(), ''),
   prepared: v.optional(v.boolean(), true),
 });

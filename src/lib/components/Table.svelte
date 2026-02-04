@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
-  import BorderLine from './BorderLine.svelte';
 
   type Props = {
     children?: Snippet;
@@ -10,6 +9,8 @@
     fillCell?: number;
     centered?: boolean;
     right?: boolean;
+    spread?: boolean;
+    sticky?: boolean;
   };
 
   const {
@@ -20,6 +21,8 @@
     fillCell,
     centered,
     right,
+    spread,
+    sticky,
   }: Props = $props();
 
   const style = $derived.by(() => {
@@ -41,22 +44,18 @@
   class:cell
   class:centered
   class:right
+  class:spread
+  class:sticky
   {style}
 >
   {@render children?.()}
 </div>
-{#if row}
-  <div class="divider">
-    <BorderLine />
-  </div>
-{/if}
 
 <style lang="scss">
   .table {
     --cells: 5;
     --full: var(--cells);
     width: 100%;
-    gap: calc(var(--gutter) * 0.5) 0;
     display: grid;
     grid-template-columns:
       repeat(calc(var(--cells) - 1), auto)
@@ -65,10 +64,29 @@
   }
 
   .row {
+    position: relative;
     display: grid;
     grid-template-columns: subgrid;
     grid-column: 1 / -1;
     align-items: center;
+    background: var(--color-paper);
+    padding: var(--gutter);
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      border-bottom: var(--border-size) solid var(--color-ink);
+    }
+
+    &.sticky {
+      position: sticky;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
   }
 
   .cell {
@@ -84,9 +102,9 @@
     &.right {
       justify-content: end;
     }
-  }
 
-  .divider {
-    grid-column: 1 / -1;
+    &.spread {
+      grid-column: 1 / -1;
+    }
   }
 </style>

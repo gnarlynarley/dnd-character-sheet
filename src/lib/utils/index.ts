@@ -87,20 +87,12 @@ export function slugify(value: string): string {
     .replace(/[^a-z0-9\-]/g, '');
 }
 
-export function unique<T>(arr: T[]): T[] {
-  return Array.from(new Set(arr));
-}
-
 export function deleteProperty<T extends object, K extends keyof T>(
   obj: T,
   key: K,
 ): Omit<T, K> {
   const { [key]: _removed, ...rest } = obj;
   return rest;
-}
-
-export function createId(): string {
-  return (Date.now() + Math.floor(Math.random() * 1000)).toString(36);
 }
 
 export async function compressString(input: string): Promise<string> {
@@ -129,3 +121,6 @@ export function downloadBlob(blob: Blob, filename: string) {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
+
+export { default as createId } from './createId';
+export { default as unique } from './unique';

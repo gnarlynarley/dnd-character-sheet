@@ -1,11 +1,13 @@
 <script lang="ts">
   import type { ProficiencyType } from '../models';
+  import { appSettings } from '$lib/stores/app-settings';
 
   type Props = {
     value?: ProficiencyType;
   };
 
   let { value = $bindable() }: Props = $props();
+  const edit = $derived($appSettings.edit);
 
   const PROFICIENCY_ORDER: ProficiencyType[] = [
     'none',
@@ -27,6 +29,7 @@
   class:is-proficient={value === 'proficient'}
   class:is-double={value === 'double'}
   class:is-half={value === 'half'}
+  disabled={!edit}
 ></button>
 
 <style lang="scss">

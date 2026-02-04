@@ -1,5 +1,5 @@
 <script lang="ts">
-  import CharacterSheet from '$lib/components/CharacterSheet.svelte';
+  import CharacterSheet from '$lib/components/CharacterSheet/CharacterSheet.svelte';
   import PageTitle from '$lib/components/PageTitle.svelte';
   import { loadCharacterData } from '$lib/stores/character';
   import { link } from 'svelte-spa-router';

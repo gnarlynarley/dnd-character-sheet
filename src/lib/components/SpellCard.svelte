@@ -5,7 +5,7 @@
   import Card from './Card.svelte';
   import Flex from './Flex.svelte';
   import Input from './Input.svelte';
-  import Markdown from './Markdown.svelte';
+  import MarkdownEditor from './MarkdownEditor.svelte';
 
   type Props = {
     index: number;
@@ -61,7 +61,7 @@
         </div>
       </Flex>
 
-      <Markdown bind:code={$character.spells[index].description} />
+      <MarkdownEditor bind:code={$character.spells[index].description} />
     </Flex>
 
     {#if $appSettings.edit}
