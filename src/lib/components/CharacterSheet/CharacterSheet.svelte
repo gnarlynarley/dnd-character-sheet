@@ -60,6 +60,13 @@
     await saveCharacterData($character);
     characterData = $character;
   }
+
+  async function revert() {
+    const areYouSure = confirm('Are you sure you want to revert?');
+    if (areYouSure) {
+      character = writable(structuredClone(characterData));
+    }
+  }
 </script>
 
 <div class:showEditables={!$appSettings.edit}>
@@ -71,9 +78,12 @@
     <div class="toolbar hide-print">
       <OverlayBox>
         <Flex padding justify="start">
-          <Button onclick={toggleEditables}>Toggle editables</Button>
+          <Button onclick={toggleEditables}>
+            {$appSettings.edit ? 'Done' : 'Edit'}
+          </Button>
           {#if hasChanges}
-            <Button onclick={save}>Save changes</Button>
+            <Button onclick={save}>Save</Button>
+            <Button onclick={revert}>Revert</Button>
           {/if}
           <FlexPush />
           <Button onclick={exportCharacterSheet}>Export</Button>
