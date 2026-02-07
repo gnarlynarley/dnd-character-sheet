@@ -11,7 +11,7 @@
   const id = $props.id();
 </script>
 
-<Flex nogrow>
+<div class="wrapper">
   {#if label}
     <label for={id}>{label}</label>
   {/if}
@@ -20,4 +20,11 @@
       <option value={option}>{option}</option>
     {/each}
   </select>
-</Flex>
+</div>
+
+<style>
+  .wrapper {
+    display: flex;
+    gap: var(--gutter);
+  }
+</style>

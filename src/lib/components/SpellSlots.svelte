@@ -3,6 +3,7 @@
   import type { CharacterSvelteStore } from '$lib/stores/character';
   import BorderLine from './BorderLine.svelte';
   import Button from './Button.svelte';
+  import Dots from './Dots.svelte';
   import Flex from './Flex.svelte';
   import Input from './Input.svelte';
 
@@ -37,7 +38,11 @@
       </div>
       <BorderLine vertical />
       <div class="value">
-        <Input type="number" bind:value={slot.amount} />
+        {#if $appSettings.edit}
+          <Input type="number" bind:value={slot.amount} />
+        {:else}
+          <Dots sm amount={slot.amount} />
+        {/if}
       </div>
       {#if $appSettings.edit}
         <button type="button" onclick={() => deleteSpellSlot(index)}>
@@ -57,6 +62,7 @@
     display: grid;
     grid-template-columns: 3em auto 1fr;
     gap: var(--gutter);
+    align-items: center;
   }
 
   .value {

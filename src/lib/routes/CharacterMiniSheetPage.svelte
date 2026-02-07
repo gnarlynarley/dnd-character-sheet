@@ -4,6 +4,7 @@
   import BorderLine from '$lib/components/BorderLine.svelte';
   import Button from '$lib/components/Button.svelte';
   import DeathSave from '$lib/components/DeathSave.svelte';
+  import Dots from '$lib/components/Dots.svelte';
   import Flex from '$lib/components/Flex.svelte';
   import FlexPush from '$lib/components/FlexPush.svelte';
   import OverlayBox from '$lib/components/OverlayBox.svelte';
@@ -92,11 +93,7 @@
                     {spellSlot.level}
                   </Table>
                   <Table cell>
-                    <Flex sm>
-                      {#each Array.from({ length: spellSlot.amount }) as index}
-                        <div class="dot"></div>
-                      {/each}
-                    </Flex>
+                    <Dots amount={spellSlot.amount} />
                   </Table>
                 </Table>
               {/each}

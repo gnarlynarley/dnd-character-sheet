@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Dots from './Dots.svelte';
   import Flex from './Flex.svelte';
 
   type Props = {
@@ -9,21 +10,6 @@
 </script>
 
 <Flex column sm>
-  <Flex sm>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-  </Flex>
+  <Dots amount={3} />
   <div class="label">{label}</div>
 </Flex>
-
-<style>
-  .dot {
-    --size: 1.4em;
-    width: var(--size);
-    height: var(--size);
-    border: var(--border-sm);
-    border-radius: 50%;
-    filter: url('#pencil');
-  }
-</style>

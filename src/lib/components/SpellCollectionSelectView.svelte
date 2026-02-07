@@ -74,22 +74,23 @@
           <input type="text" bind:value={searchQuery} />
         </Flex>
       </label>
-      <Select
-        label="Classbook"
-        bind:value={selectedClassBook}
-        options={classBooks}
-      />
-      <Select
-        label="Spell level"
-        bind:value={selectedSpellLevel}
-        options={spellLevelOptions}
-      />
-      <span>{filteredSpells.length}</span>
+      <Flex justify="start">
+        <Select
+          label="Classbook"
+          bind:value={selectedClassBook}
+          options={classBooks}
+        />
+        <Select
+          label="Spell level"
+          bind:value={selectedSpellLevel}
+          options={spellLevelOptions}
+        />
+      </Flex>
       <BorderLine />
     </Flex>
   </div>
   <div class="padding">
-    {#each filteredSpells as spell}
+    {#each filteredSpells as spell (spell.id)}
       <Card title={spell.name}>
         <Flex column>
           <Flex padding column>
@@ -118,7 +119,7 @@
     position: sticky;
     top: 0;
     left: 0;
-    width: 100%;
+    width: calc(100% + (var(--gutter) * 2));
     z-index: 1;
     background: var(--color-paper);
     margin-inline: calc(var(--gutter) * -1);
