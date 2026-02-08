@@ -5,7 +5,9 @@
   import Button from './Button.svelte';
   import Flex from './Flex.svelte';
   import Input from './Input.svelte';
-  import Table from './Table.svelte';
+  import { Table } from './table';
+  import TableCell from './table/TableCell.svelte';
+  import TableRow from './table/TableRow.svelte';
 
   type Props = {
     character: CharacterSvelteStore;
@@ -44,7 +46,7 @@
       {#each $character.inventory as slot, index}
         <Flex align="center">
           <div class="value">
-            <Input bind:value={$character.inventory[index]} />
+            <Input type="text" bind:value={$character.inventory[index]} />
           </div>
           <button type="button" onclick={() => removeInventoryItem(index)}>
             delete
@@ -54,30 +56,30 @@
       <Button onclick={addInventoryItem}>Add item</Button>
     </Flex>
   {:else}
-    <Table cells={3}>
-      <Table row>
-        <Table cell>
+    <Table>
+      <TableRow>
+        <TableCell>
           <strong>Qty</strong>
-        </Table>
-        <Table cell>
+        </TableCell>
+        <TableCell>
           <strong>Item</strong>
-        </Table>
-        <Table cell>
+        </TableCell>
+        <TableCell>
           <strong>Notes</strong>
-        </Table>
-      </Table>
+        </TableCell>
+      </TableRow>
       {#each parsed as item}
-        <Table row>
-          <Table cell>
+        <TableRow>
+          <TableCell>
             <span class="value">{item.count}</span>
-          </Table>
-          <Table cell>
+          </TableCell>
+          <TableCell>
             <span class="value">{item.name}</span>
-          </Table>
-          <Table cell>
+          </TableCell>
+          <TableCell>
             <span class="value">{item.description}</span>
-          </Table>
-        </Table>
+          </TableCell>
+        </TableRow>
       {/each}
     </Table>
   {/if}

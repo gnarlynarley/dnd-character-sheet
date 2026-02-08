@@ -22,7 +22,7 @@
   <div class="inner">
     <div class="side">
       <h1 class="name">
-        <Input bind:value={$character.name} />
+        <Input type="text" bind:value={$character.name} />
       </h1>
 
       <div class="avatar">

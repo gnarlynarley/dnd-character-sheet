@@ -23,7 +23,7 @@
     <Flex column sm>
       <span class="label">Size</span>
       <span class="value">
-        <Input bind:value={$character.size} />
+        <Input type="text" bind:value={$character.size} />
       </span>
     </Flex>
   </Border>
@@ -39,7 +39,7 @@
     <Flex column sm>
       <span class="label">Speed</span>
       <span class="value">
-        <Input bind:value={$character.speed} />
+        <Input type="number" bind:value={$character.speed} />
       </span>
     </Flex>
   </Border>
@@ -47,7 +47,7 @@
     <Flex column sm>
       <span class="label">Proficiency Bonus</span>
       <span class="value">
-        <Input bind:value={$character.proficiencyBonus} />
+        <Input type="number" bind:value={$character.proficiencyBonus} />
       </span>
     </Flex>
   </Border>

@@ -27,7 +27,7 @@
   <span class="score">
     <Border rounded absolute noshadow small></Border>
     <div class="input">
-      <Input bind:value={$character.abilityScores[ability]} />
+      <Input type="number" bind:value={$character.abilityScores[ability]} />
     </div>
   </span>
 </div>

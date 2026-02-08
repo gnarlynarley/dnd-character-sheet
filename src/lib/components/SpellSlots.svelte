@@ -34,7 +34,7 @@
   {#each $character.spellSlots as slot, index}
     <div class="line">
       <div class="value">
-        <Input bind:value={slot.level} />
+        <Input type="number"  bind:value={slot.level} />
       </div>
       <BorderLine vertical />
       <div class="value">

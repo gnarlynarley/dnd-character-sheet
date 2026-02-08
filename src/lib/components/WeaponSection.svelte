@@ -48,24 +48,24 @@
       </div>
       <div class="line">
         <div class="cell name">
-          <Input bind:value={weapon.name} />
+          <Input type="text" bind:value={weapon.name} />
         </div>
         <BorderLine vertical />
         <div class="cell">
           <Flex align="center" nogap>
             <span>+</span>
             <div class="hit">
-              <Input bind:value={weapon.hit} />
+              <Input type="number" bind:value={weapon.hit} />
             </div>
           </Flex>
         </div>
         <BorderLine vertical />
         <div class="cell damage">
-          <Input bind:value={weapon.damage} />
+          <Input type="text" bind:value={weapon.damage} />
         </div>
         <BorderLine vertical />
         <div class="cell details">
-          <Input bind:value={weapon.details} />
+          <Input type="text" bind:value={weapon.details} />
         </div>
         {#if edit}
           <button

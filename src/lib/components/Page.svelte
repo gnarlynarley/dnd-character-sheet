@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
+  import { appSettings } from '$lib/stores/app-settings';
 
   type Props = {
     children?: Snippet;
@@ -7,10 +8,11 @@
   };
 
   const { children, multiple }: Props = $props();
+  const edit = $derived($appSettings.edit);
 </script>
 
 <div class="container">
-  <div class="page" class:multiple>
+  <div class="page" class:multiple class:edit>
     <div class="inner">
       {@render children?.()}
     </div>
@@ -24,7 +26,7 @@
     padding: var(--gutter);
     width: 100%;
 
-    &:not(.multiple) {
+    &:not(.multiple):not(.edit) {
       aspect-ratio: 210/296;
       overflow: hidden;
       break-before: page;
@@ -36,7 +38,8 @@
     }
 
     @media screen {
-      border: 3px solid var(--color-faded);
+      border: 1px solid var(--color-faded);
+      border-radius: 0.3em;
     }
 
     @media screen {

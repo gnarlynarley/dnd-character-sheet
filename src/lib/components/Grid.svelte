@@ -35,7 +35,7 @@
           transparent 0.1em
         ),
         linear-gradient(90deg, var(--color-faded) 0.1em, transparent 0.1em);
-      background-size: 1em 1em;
+      background-size: 1.5em 1.5em;
       filter: url("#pencil");
       z-index: -1;
     }

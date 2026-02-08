@@ -4,8 +4,8 @@
   import Select from './Select.svelte';
 </script>
 
-<footer>
-  <BorderLine />
+<footer class="hide-print">
+  <BorderLine faded />
   <div class="inner">
     <Select
       label="Theme"
@@ -16,6 +16,10 @@
 </footer>
 
 <style>
+  footer {
+    margin-top: var(--gutter);
+  }
+
   .inner {
     padding: calc(var(--gutter) * 2) var(--gutter) calc(var(--gutter) * 8);
   }

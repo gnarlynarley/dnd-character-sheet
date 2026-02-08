@@ -1,5 +1,5 @@
 <script lang="ts">
-  const DEFAULT_SCALE = 2.2;
+  const DEFAULT_SCALE = 1.5;
   let scale = $state(DEFAULT_SCALE);
 
   function beforeprint() {

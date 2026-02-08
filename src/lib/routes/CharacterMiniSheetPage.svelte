@@ -7,9 +7,10 @@
   import Dots from '$lib/components/Dots.svelte';
   import Flex from '$lib/components/Flex.svelte';
   import FlexPush from '$lib/components/FlexPush.svelte';
-  import OverlayBox from '$lib/components/OverlayBox.svelte';
   import PageTitle from '$lib/components/PageTitle.svelte';
-  import Table from '$lib/components/Table.svelte';
+  import { Table } from '$lib/components/table';
+  import TableCell from '$lib/components/table/TableCell.svelte';
+  import TableRow from '$lib/components/table/TableRow.svelte';
   import { loadCharacterData } from '$lib/stores/character';
   import { addNotification } from '$lib/stores/notifications';
   import { downloadBlob } from '$lib/utils';
@@ -79,23 +80,23 @@
           </Flex>
           {#if characterData.spells.length > 0 && characterData.spellSlots.length > 0}
             <Table>
-              <Table row>
-                <Table cell right>
+              <TableRow>
+                <TableCell right>
                   <span>Level</span>
-                </Table>
-                <Table cell>
+                </TableCell>
+                <TableCell>
                   <span>Slots</span>
-                </Table>
-              </Table>
+                </TableCell>
+              </TableRow>
               {#each characterData.spellSlots as spellSlot}
-                <Table row>
-                  <Table cell right>
+                <TableRow>
+                  <TableCell right>
                     {spellSlot.level}
-                  </Table>
-                  <Table cell>
+                  </TableCell>
+                  <TableCell>
                     <Dots amount={spellSlot.amount} />
-                  </Table>
-                </Table>
+                  </TableCell>
+                </TableRow>
               {/each}
             </Table>
           {/if}

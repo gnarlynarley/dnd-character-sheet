@@ -25,38 +25,44 @@
   <Card>
     <Flex column>
       <div class="name value">
-        <Input bind:value={$character.spells[index].name} />
+        <Input type="text" bind:value={$character.spells[index].name} />
       </div>
 
       <Flex column sm>
         <div class="line">
           <div class="label">Level</div>
           <div class="value">
-            <Input bind:value={$character.spells[index].level} />
+            <Input type="number" bind:value={$character.spells[index].level} />
           </div>
         </div>
         <div class="line">
           <div class="label">Casting Time</div>
           <div class="value">
-            <Input bind:value={$character.spells[index].castingTime} />
+            <Input
+              type="text"
+              bind:value={$character.spells[index].castingTime}
+            />
           </div>
         </div>
         <div class="line">
           <div class="label">Range</div>
           <div class="value">
-            <Input bind:value={$character.spells[index].range} />
+            <Input type="text" bind:value={$character.spells[index].range} />
           </div>
         </div>
         <div class="line">
           <div class="label">Components</div>
           <div class="value">
-            <Input bind:value={$character.spells[index].components} />
+            <Input
+              type="text"
+              bind:value={$character.spells[index].components}
+            />
           </div>
         </div>
         <div class="line">
           <div class="label">Duration</div>
           <div class="value">
-            <Input bind:value={$character.spells[index].duration} />
+            <Input type="text" bind:value={$character.spells[index].duration} />
           </div>
         </div>
       </Flex>

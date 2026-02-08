@@ -33,13 +33,15 @@
 
       <nav>
         {#each navigationLinks as { href, label }}
-          <Link {href}>{label}</Link>
+          <div class="link">
+            <Link {href}>{label}</Link>
+          </div>
         {/each}
       </nav>
     </Flex>
   </div>
 
-  <BorderLine />
+  <BorderLine faded />
 </header>
 
 <style lang="scss">
@@ -53,10 +55,21 @@
 
   nav {
     display: flex;
-    gap: var(--gutter);
 
-    :global(.active) {
-      font-weight: bold;
+    .link {
+      position: relative;
+      padding: calc(var(--gutter) * 0.5);
+
+      &:has(:global(.active))::after {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: var(--color-faded);
+      }
     }
   }
 </style>

@@ -1,10 +1,10 @@
 <script lang="ts">
-  type Props = { spread?: boolean; vertical?: boolean };
+  type Props = { spread?: boolean; vertical?: boolean; faded?: boolean };
 
-  const { spread, vertical }: Props = $props();
+  const { spread, vertical, faded }: Props = $props();
 </script>
 
-<div class:spread class:vertical></div>
+<div class:spread class:vertical class:faded></div>
 
 <style>
   div {
@@ -22,6 +22,10 @@
 
     &.vertical {
       border-left: var(--border-sm);
+    }
+
+    &.faded {
+      border-color: var(--color-faded);
     }
   }
 </style>

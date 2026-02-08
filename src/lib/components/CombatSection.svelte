@@ -20,7 +20,7 @@
       <div class="label">Armor<br />Class</div>
       <BorderLine />
       <div class="value">
-        <Input bind:value={$character.armorClass} />
+        <Input type="number" bind:value={$character.armorClass} />
       </div>
     </div>
   </div>
@@ -36,7 +36,7 @@
           <BorderLine vertical />
           <Flex column align="center" justify="end" full>
             <div class="value">
-              <Input bind:value={$character.hitPoints} />
+              <Input type="number" bind:value={$character.hitPoints} />
             </div>
             <BorderLine />
             <span>max</span>
@@ -56,7 +56,7 @@
         </Flex>
         <Flex column full>
           <div class="value">
-            <Input bind:value={$character.hitDice} />
+            <Input type="text" bind:value={$character.hitDice} />
           </div>
           <BorderLine></BorderLine>
           <span>current</span>

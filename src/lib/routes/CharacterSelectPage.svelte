@@ -112,7 +112,7 @@
 <style>
   .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     gap: 1em;
     padding: var(--gutter);
     padding-top: 0;

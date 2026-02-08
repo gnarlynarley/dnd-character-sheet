@@ -1,20 +1,19 @@
 <script lang="ts">
   import { appSettings } from '$lib/stores/app-settings';
 
-  type Props = {
-    type?: 'text' | 'number';
-    value?: number | string;
-    displayValue?: number | string;
-  };
+  type Props =
+    | {
+        type: 'text';
+        value?: string;
+        displayValue?: string;
+      }
+    | {
+        type: 'number';
+        value: number;
+        displayValue?: number | string;
+      };
 
-  let {
-    value = $bindable(),
-    displayValue,
-    type: typeOverwrite,
-  }: Props = $props();
-  const type = $derived(
-    (typeOverwrite ?? typeof value === 'number') ? 'number' : 'text',
-  );
+  let { value = $bindable(), displayValue, type }: Props = $props();
   const edit = $derived($appSettings.edit);
 </script>
 

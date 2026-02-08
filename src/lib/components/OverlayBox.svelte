@@ -21,9 +21,12 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    background-color: color-mix(in srgb, var(--color-paper) 95%, transparent);
-    backdrop-filter: blur(3px);
-    box-shadow: 0 0 5px rgba(black, 0.2);
+    background-color: color-mix(
+      in srgb,
+      color-mix(in srgb, var(--color-paper), white 10%) 95%,
+      transparent
+    );
+    backdrop-filter: blur(10px) saturate(200%);
 
     &::before,
     &::after {
@@ -32,7 +35,7 @@
       left: 0;
       width: 100%;
       height: var(--border-size);
-      background-color: var(--color-ink);
+      background-color: var(--color-faded);
       filter: var(--paper);
     }
 

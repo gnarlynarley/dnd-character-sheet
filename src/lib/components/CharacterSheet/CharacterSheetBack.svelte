@@ -20,8 +20,8 @@
   import Scrollbar from '../Scrollbar.svelte';
   import SpellCollectionSelect from '../SpellCollectionSelect.svelte';
   import SpellSlots from '../SpellSlots.svelte';
-  import Table from '../Table.svelte';
-  import Textarea from '../Textarea.svelte';
+  import { Table, TableRow } from '../table';
+  import TableCell from '../table/TableCell.svelte';
 
   type Props = {
     character: CharacterSvelteStore;
@@ -81,123 +81,120 @@
         <Flex column>
           <div class="spells">
             <Card title="Spells">
-              <Scrollbar>
-                <Flex column>
-                  <Flex column justify="start" align="start">
-                    <Flex nogrow padding>
-                      <Border noshadow small>
-                        <Flex sm>
-                          <Flex column align="center" sm>
-                            <p>Spell DC</p>
-                            <BorderLine />
-                            <p class="value big">{spellSave}</p>
-                          </Flex>
-                          <BorderLine vertical />
-                          <Flex column align="center" sm>
-                            <p>Spellcasting</p>
-                            <BorderLine />
-                            <p class="value big">
-                              <Modifier modifier={spellCastingModifier} />
-                            </p>
-                          </Flex>
-                          <BorderLine vertical />
-                          <div>
-                            <SpellSlots {character} />
-                          </div>
+              <Flex column>
+                <Flex column justify="start" align="start">
+                  <Flex nogrow padding>
+                    <Border noshadow small>
+                      <Flex sm>
+                        <Flex column align="center" sm>
+                          <p>Spell DC</p>
+                          <BorderLine />
+                          <p class="value big">{spellSave}</p>
                         </Flex>
-                      </Border>
-                    </Flex>
-                    <Table cells={$appSettings.edit ? 6 : 5} fillCell={5}>
-                      <Table row>
-                        <Table cell>
-                          <span>Prepared</span>
-                        </Table>
-                        <Table cell>
-                          <span>Spell Name</span>
-                        </Table>
-                        <Table cell>
-                          <span>Spell Level</span>
-                        </Table>
-                        <Table cell>
-                          <span>Range</span>
-                        </Table>
-                        <Table cell>
-                          <span>Notes</span>
-                        </Table>
-                      </Table>
-                      {#each $character.spells as spell, index (spell.id)}
-                        <Table row>
-                          <Table cell centered>
-                            <Checkbox bind:checked={spell.prepared} />
-                          </Table>
-                          <Table cell>
-                            <div class="value">
-                              <Input bind:value={spell.name} />
-                            </div>
-                          </Table>
-                          <Table cell>
-                            <div class="value">
-                              <Input
-                                type="number"
-                                bind:value={spell.level}
-                                displayValue={spell.level || 'Cantrip'}
-                              />
-                            </div>
-                          </Table>
-                          <Table cell>
-                            <div class="value">
-                              <Input type="text" bind:value={spell.range} />
-                            </div>
-                          </Table>
-                          <Table cell>
-                            <div class="value">
-                              <Input bind:value={spell.notes} />
-                            </div>
-                          </Table>
-                          {#if $appSettings.edit}
-                            <Table cell>
-                              <button
-                                type="button"
-                                onclick={() => deleteSpell(index)}
-                              >
-                                delete
-                              </button>
-                            </Table>
-                          {/if}
-                        </Table>
-                        {#if $appSettings.edit}
-                          <Table row>
-                            <Table cell spread>
-                              <Flex padding column>
-                                <Checkbox
-                                  label="Show description"
-                                  bind:checked={spell.showDescription}
-                                />
-                                <MarkdownEditor bind:code={spell.description} />
-                              </Flex>
-                            </Table>
-                          </Table>
-                        {:else if spell.showDescription && spell.description.trim()}
-                          <Table row>
-                            <Table cell spread>
-                              <Flex padding column>
-                                <Markdown code={spell.description} />
-                              </Flex>
-                            </Table>
-                          </Table>
-                        {/if}
-                      {/each}
-                    </Table>
-                    {#if $appSettings.edit}
-                      <Flex padding>
-                        <Button onclick={addSpell}>Add spell</Button>
-                        <Button onclick={sortSpells}>Sort spells</Button>
-                        <SpellCollectionSelect {onSpellSelection} />
+                        <BorderLine vertical />
+                        <Flex column align="center" sm>
+                          <p>Spellcasting</p>
+                          <BorderLine />
+                          <p class="value big">
+                            <Modifier modifier={spellCastingModifier} />
+                          </p>
+                        </Flex>
+                        <BorderLine vertical />
+                        <div>
+                          <SpellSlots {character} />
+                        </div>
                       </Flex>
-                    {/if}
+                    </Border>
                   </Flex>
+                  <Table fillCell={5}>
+                    <TableRow>
+                      <TableCell>
+                        <span>Prepared</span>
+                      </TableCell>
+                      <TableCell>
+                        <span>Spell Name</span>
+                      </TableCell>
+                      <TableCell>
+                        <span>Spell Level</span>
+                      </TableCell>
+                      <TableCell>
+                        <span>Range</span>
+                      </TableCell>
+                      <TableCell>
+                        <span>Notes</span>
+                      </TableCell>
+                    </TableRow>
+                    {#each $character.spells as spell, index (spell.id)}
+                      <TableRow>
+                        <TableCell>
+                          <Checkbox bind:checked={spell.prepared} />
+                        </TableCell>
+                        <TableCell>
+                          <div class="value">
+                            <Input type="text" bind:value={spell.name} />
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div class="value">
+                            <Input
+                              type="number"
+                              bind:value={spell.level}
+                              displayValue={spell.level || 'Cantrip'}
+                            />
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div class="value">
+                            <Input type="text" bind:value={spell.range} />
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div class="value">
+                            <Input type="text" bind:value={spell.notes} />
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                      {#if $appSettings.edit}
+                        <TableRow>
+                          <TableCell spread>
+                            <Flex padding column>
+                              <Checkbox
+                                label="Show description"
+                                bind:checked={spell.showDescription}
+                              />
+                              <MarkdownEditor bind:code={spell.description} />
+                            </Flex>
+                          </TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell>
+                            <TableCell>
+                              <Button onclick={() => deleteSpell(index)}>
+                                delete
+                              </Button>
+                            </TableCell>
+                          </TableCell>
+                        </TableRow>
+                      {:else if spell.showDescription && spell.description.trim()}
+                        <TableRow>
+                          <TableCell spread>
+                            <Flex padding column>
+                              <Markdown code={spell.description} />
+                            </Flex>
+                          </TableCell>
+                        </TableRow>
+                      {/if}
+                    {/each}
+                  </Table>
+                  {#if $appSettings.edit}
+                    <Flex padding>
+                      <Button onclick={addSpell}>Add spell</Button>
+                      <Button onclick={sortSpells}>Sort spells</Button>
+                      <SpellCollectionSelect {onSpellSelection} />
+                    </Flex>
+                  {/if}
                 </Flex>
-              </Scrollbar>
+              </Flex>
             </Card>
           </div>
         </Flex>
@@ -216,6 +213,10 @@
     flex-grow: 1;
     display: flex;
     gap: var(--gutter);
+
+    > :global(*) {
+      width: 100%;
+    }
   }
 
   .spells {

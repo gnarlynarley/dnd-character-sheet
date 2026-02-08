@@ -70,7 +70,7 @@
 </script>
 
 <div class:showEditables={!$appSettings.edit}>
-  <Flex column xl>
+  <Flex column xl hidePrintSpacing>
     <CharacterSheetFront {character} />
 
     <CharacterSheetBack {character} />

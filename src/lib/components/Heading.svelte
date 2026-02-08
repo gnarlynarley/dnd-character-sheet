@@ -16,42 +16,42 @@
   <div class="inner">
     <div class="field">
       <div class="value">
-        <Input bind:value={$character.playerName} />
+        <Input type="text" bind:value={$character.playerName} />
       </div>
       <BorderLine />
       <div class="label">Player name</div>
     </div>
     <div class="field">
       <div class="value">
-        <Input bind:value={$character.alignment} />
+        <Input type="text" bind:value={$character.alignment} />
       </div>
       <BorderLine />
       <div class="label">Alignment</div>
     </div>
     <div class="field">
       <div class="value">
-        <Input bind:value={$character.background} />
+        <Input type="text" bind:value={$character.background} />
       </div>
       <BorderLine />
       <div class="label">Background</div>
     </div>
     <div class="field">
       <div class="value">
-        <Input bind:value={$character.class} />
+        <Input type="text" bind:value={$character.class} />
       </div>
       <BorderLine />
       <div class="label">Class</div>
     </div>
     <div class="field">
       <div class="value">
-        <Input bind:value={$character.species} />
+        <Input type="text" bind:value={$character.species} />
       </div>
       <BorderLine />
       <div class="label">Species</div>
     </div>
     <div class="field">
       <div class="value">
-        <Input bind:value={$character.subclass} />
+        <Input type="text" bind:value={$character.subclass} />
       </div>
       <BorderLine />
       <div class="label">Subclass</div>
@@ -59,7 +59,7 @@
     <div class="level">
       <Flex column sm align="center">
         <div class="value">
-          <Input bind:value={$character.level} />
+          <Input type="number" bind:value={$character.level} />
         </div>
         <BorderLine />
         <div class="label">Level</div>

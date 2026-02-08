@@ -12,6 +12,7 @@
     sm?: boolean;
     xl?: boolean;
     nogrow?: boolean;
+    hidePrintSpacing?: boolean;
   };
 
   const {
@@ -25,6 +26,7 @@
     sm,
     xl,
     nogrow,
+    hidePrintSpacing,
   }: Props = $props();
 </script>
 
@@ -45,6 +47,7 @@
   class:sm
   class:xl
   class:nogrow
+  class:hidePrintSpacing
 >
   {@render children?.()}
 </div>
@@ -55,6 +58,7 @@
     flex-grow: var(--flex-grow, 1);
     flex-shrink: var(--flex-shrink, 1);
     width: 100%;
+    --gap: var(--gutter);
 
     &.nogrow {
       flex-grow: 0;
@@ -68,15 +72,21 @@
     }
 
     &:not(.nogap) {
-      gap: var(--gutter);
+      gap: var(--gap);
+    }
+
+    &.hidePrintSpacing {
+      @media print {
+        gap: 0;
+      }
     }
 
     &.sm {
-      gap: calc(var(--gutter) * 0.5);
+      --gap: calc(var(--gutter) * 0.5);
     }
 
     &.xl {
-      gap: calc(var(--gutter) * 1.5);
+      --gap: calc(var(--gutter) * 1.5);
     }
 
     &.full {
