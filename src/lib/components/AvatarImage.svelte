@@ -20,6 +20,7 @@
   );
   let canvas = $state<HTMLCanvasElement | null>(null);
   let context = $state<CanvasRenderingContext2D | null>(null);
+  let disableFilter = $derived(avatar.disableFilter);
   let contrast = $derived(avatar.contrast);
   let gray = $derived(avatar.gray);
   let black = $derived(avatar.black);
@@ -28,7 +29,7 @@
     if (!image || !context || !canvas) return;
     context.clearRect(0, 0, canvas.width, canvas.height);
     drawImage(canvas, image, avatar.x, avatar.y, avatar.scale);
-    if (!disableEffects) {
+    if (!disableEffects && !disableFilter) {
       applyContrast(canvas, context, contrast);
       applyGrayTones(canvas, context, gray, black);
       applyHalftone(canvas, context, 4, 45);

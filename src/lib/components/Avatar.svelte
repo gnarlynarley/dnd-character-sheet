@@ -6,6 +6,7 @@
   import AvatarImage from './AvatarImage.svelte';
   import Border from './Border.svelte';
   import Card from './Card.svelte';
+  import Checkbox from './Checkbox.svelte';
   import Flex from './Flex.svelte';
 
   type Props = {
@@ -23,6 +24,7 @@
     pointerX: number;
     pointerY: number;
   } | null = $state(null);
+  let isZooming = $state(false);
 
   function startPan(ev: PointerEvent) {
     if (!editEnabled) return;
@@ -48,8 +50,12 @@
     if (!editEnabled) return;
     panning = null;
   }
+
+  let onZoomIntervalId: number | null = null;
   function onzoom(ev: WheelEvent) {
+    if (onZoomIntervalId) clearTimeout(onZoomIntervalId);
     if (!editEnabled) return;
+    isZooming = true;
     ev.preventDefault();
     if (!container) return;
 
@@ -72,7 +78,13 @@
     $character.avatar.scale = newScale;
     $character.avatar.x = canvasMouseX - imagePointX * newScale;
     $character.avatar.y = canvasMouseY - imagePointY * newScale;
+
+    onZoomIntervalId = window.setTimeout(() => {
+      isZooming = false;
+    }, 300);
   }
+
+  const disableEffects = $derived(panning !== null || isZooming);
 </script>
 
 <svelte:window onmouseup={endPan} onpointermove={onPanning} />
@@ -87,43 +99,49 @@
       onpointerdown={startPan}
       onwheel={onzoom}
     >
-      <AvatarImage
-        avatar={$character.avatar}
-        disableEffects={panning !== null}
-      />
+      <AvatarImage avatar={$character.avatar} {disableEffects} />
     </div>
 
     {#if $appSettings.edit}
       <div class="controls">
         <Card>
           <Flex column sm>
-            <div>
-              <input
-                type="range"
-                min="0"
-                max="1"
-                step="0.01"
-                bind:value={$character.avatar.contrast}
-              />
-            </div>
-            <div>
-              <input
-                type="range"
-                min="0"
-                max="1"
-                step="0.01"
-                bind:value={$character.avatar.gray}
-              />
-            </div>
-            <div>
-              <input
-                type="range"
-                min="0"
-                max="1"
-                step="0.01"
-                bind:value={$character.avatar.black}
-              />
-            </div>
+            <Flex>
+              <Checkbox bind:checked={$character.avatar.disableFilter} />
+              <span>Disable filter</span>
+            </Flex>
+            {#if !$character.avatar.disableFilter}
+              <div>
+                <span>Contrast</span>
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  bind:value={$character.avatar.contrast}
+                />
+              </div>
+              <div>
+                <span>Midtone range</span>
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  bind:value={$character.avatar.gray}
+                />
+              </div>
+              <div>
+                <span>Dark range</span>
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  bind:value={$character.avatar.black}
+                />
+              </div>
+            {/if}
             <input
               type="file"
               accept="image/*"

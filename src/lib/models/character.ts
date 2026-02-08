@@ -65,6 +65,7 @@ export const characterAvatarSchema = v.object({
   x: v.optional(v.number(), 0),
   y: v.optional(v.number(), 0),
   scale: v.optional(v.number(), 1),
+  disableFilter: v.optional(v.boolean(), false),
 });
 export const characterSchema = v.object({
   slug: v.pipe(v.string(), v.nonEmpty()),

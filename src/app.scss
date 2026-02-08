@@ -92,7 +92,7 @@ button {
   }
 }
 
-input,
+input:not([type="checkbox"]),
 textarea {
   border: none;
   font: inherit;
