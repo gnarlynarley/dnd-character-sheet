@@ -1,5 +1,5 @@
-import { createId } from '$lib/utils';
-import * as v from 'valibot';
+import { createId } from '$lib/utils'
+import * as v from 'valibot'
 
 const skillOptions = [
   'acrobatics',
@@ -20,9 +20,9 @@ const skillOptions = [
   'sleightOfHand',
   'stealth',
   'survival',
-] as const;
+] as const
 
-const abilityOptions = ['str', 'dex', 'con', 'int', 'wis', 'cha'] as const;
+const abilityOptions = ['str', 'dex', 'con', 'int', 'wis', 'cha'] as const
 const abilityAndNoneOptions = [
   'none',
   'str',
@@ -31,19 +31,19 @@ const abilityAndNoneOptions = [
   'int',
   'wis',
   'cha',
-] as const;
-const proficiencyOptions = ['none', 'proficient', 'double', 'half'] as const;
+] as const
+const proficiencyOptions = ['none', 'proficient', 'double', 'half'] as const
 
-export const skillSchema = v.picklist(skillOptions);
-export const abilitySchema = v.picklist(abilityOptions);
-export const abilityAndNoneSchema = v.picklist(abilityAndNoneOptions);
-export const proficiencySchema = v.picklist(proficiencyOptions);
+export const skillSchema = v.picklist(skillOptions)
+export const abilitySchema = v.picklist(abilityOptions)
+export const abilityAndNoneSchema = v.picklist(abilityAndNoneOptions)
+export const proficiencySchema = v.picklist(proficiencyOptions)
 export const characterWeaponSchema = v.object({
   name: v.optional(v.string(), ''),
   hit: v.optional(v.number(), 0),
   damage: v.optional(v.string(), ''),
   details: v.optional(v.string(), ''),
-});
+})
 export const characterSpellSchema = v.object({
   id: v.optional(v.string(), createId),
   name: v.optional(v.string(), ''),
@@ -56,7 +56,7 @@ export const characterSpellSchema = v.object({
   showDescription: v.optional(v.boolean(), false),
   notes: v.optional(v.string(), ''),
   prepared: v.optional(v.boolean(), true),
-});
+})
 export const characterAvatarSchema = v.object({
   blob: v.optional(v.nullable(v.instance(Blob)), null),
   contrast: v.optional(v.number(), 0),
@@ -66,7 +66,7 @@ export const characterAvatarSchema = v.object({
   y: v.optional(v.number(), 0),
   scale: v.optional(v.number(), 1),
   disableFilter: v.optional(v.boolean(), false),
-});
+})
 export const characterSchema = v.object({
   slug: v.pipe(v.string(), v.nonEmpty()),
   avatar: v.optional(characterAvatarSchema, {
@@ -156,30 +156,30 @@ export const characterSchema = v.object({
     [],
   ),
   inventory: v.optional(v.array(v.string()), []),
-});
+})
 
 export function parseCharacter(data: unknown): CharacterType {
-  return v.parse(characterSchema, data);
+  return v.parse(characterSchema, data)
 }
 
 export function safeParseCharacter(data: unknown): CharacterType | null {
   try {
-    return parseCharacter(data);
+    return parseCharacter(data)
   } catch {
-    return null;
+    return null
   }
 }
 
-export { parse } from 'valibot';
+export { parse } from 'valibot'
 
-export type CharacterWeaponType = v.InferOutput<typeof characterWeaponSchema>;
-export type CharacterSpell = v.InferOutput<typeof characterSpellSchema>;
-export type CharacterAvatar = v.InferOutput<typeof characterAvatarSchema>;
-export type CharacterType = v.InferOutput<typeof characterSchema>;
-export type ProficiencyType = v.InferOutput<typeof proficiencySchema>;
-export type AbilityType = v.InferOutput<typeof abilitySchema>;
-export type AbilityAndNoneType = v.InferOutput<typeof abilityAndNoneSchema>;
-export type SkillType = v.InferOutput<typeof skillSchema>;
+export type CharacterWeaponType = v.InferOutput<typeof characterWeaponSchema>
+export type CharacterSpell = v.InferOutput<typeof characterSpellSchema>
+export type CharacterAvatar = v.InferOutput<typeof characterAvatarSchema>
+export type CharacterType = v.InferOutput<typeof characterSchema>
+export type ProficiencyType = v.InferOutput<typeof proficiencySchema>
+export type AbilityType = v.InferOutput<typeof abilitySchema>
+export type AbilityAndNoneType = v.InferOutput<typeof abilityAndNoneSchema>
+export type SkillType = v.InferOutput<typeof skillSchema>
 
 export const skillToAbilityMap = {
   acrobatics: 'dex',
@@ -200,8 +200,8 @@ export const skillToAbilityMap = {
   sleightOfHand: 'dex',
   stealth: 'dex',
   survival: 'wis',
-} as const satisfies Record<string, AbilityType>;
-export const skills = Object.keys(skillToAbilityMap) as SkillType[];
+} as const satisfies Record<string, AbilityType>
+export const skills = Object.keys(skillToAbilityMap) as SkillType[]
 export const abilitiesAndNone: AbilityAndNoneType[] = [
   'none',
   'str',
@@ -210,4 +210,4 @@ export const abilitiesAndNone: AbilityAndNoneType[] = [
   'int',
   'wis',
   'cha',
-] as const;
+] as const

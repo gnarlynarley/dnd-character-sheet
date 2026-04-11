@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
+  import type { Snippet } from 'svelte'
 
   type Props = {
-    children?: Snippet;
-    sticky?: boolean;
-  };
+    children?: Snippet
+    sticky?: boolean
+  }
 
-  const { children, sticky }: Props = $props();
+  const { children, sticky }: Props = $props()
 </script>
 
 <div class="row" class:sticky>

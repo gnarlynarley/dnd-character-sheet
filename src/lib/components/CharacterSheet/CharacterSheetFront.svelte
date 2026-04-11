@@ -1,21 +1,21 @@
 <script lang="ts">
-  import Avatar from '$lib/components/Avatar.svelte';
-  import Card from '$lib/components/Card.svelte';
-  import CombatSection from '$lib/components/CombatSection.svelte';
-  import Heading from '$lib/components/Heading.svelte';
-  import Other from '$lib/components/Other.svelte';
-  import Page from '$lib/components/Page.svelte';
-  import SkillList from '$lib/components/SkillList.svelte';
-  import WeaponSection from '$lib/components/WeaponSection.svelte';
-  import { type CharacterSvelteStore } from '$lib/stores/character';
-  import Scrollbar from '../Scrollbar.svelte';
-  import Input from '../Input.svelte';
-  import MarkdownEditor from '../MarkdownEditor.svelte';
+  import Avatar from '$lib/components/Avatar.svelte'
+  import Card from '$lib/components/Card.svelte'
+  import CombatSection from '$lib/components/CombatSection.svelte'
+  import Heading from '$lib/components/Heading.svelte'
+  import Other from '$lib/components/Other.svelte'
+  import Page from '$lib/components/Page.svelte'
+  import SkillList from '$lib/components/SkillList.svelte'
+  import WeaponSection from '$lib/components/WeaponSection.svelte'
+  import { type CharacterSvelteStore } from '$lib/stores/character'
+  import Scrollbar from '../Scrollbar.svelte'
+  import Input from '../Input.svelte'
+  import MarkdownEditor from '../MarkdownEditor.svelte'
 
   type Props = {
-    character: CharacterSvelteStore;
-  };
-  const { character }: Props = $props();
+    character: CharacterSvelteStore
+  }
+  const { character }: Props = $props()
 </script>
 
 <Page>

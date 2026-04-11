@@ -1,36 +1,36 @@
 <script lang="ts">
-  import { appSettings } from '$lib/stores/app-settings';
-  import type { AbilityType, ProficiencyType, SkillType } from '../models';
-  import { type CharacterSvelteStore } from '../stores/character';
-  import { getSkillModifier, toggleAdd } from '../utils';
-  import { t } from '../utils/translate';
-  import Modifier from './Modifier.svelte';
-  import ProficiencyToggle from './ProficiencyToggle.svelte';
+  import { appSettings } from '$lib/stores/app-settings'
+  import type { AbilityType, ProficiencyType, SkillType } from '../models'
+  import { type CharacterSvelteStore } from '../stores/character'
+  import { getSkillModifier, toggleAdd } from '../utils'
+  import { t } from '../utils/translate'
+  import Modifier from './Modifier.svelte'
+  import ProficiencyToggle from './ProficiencyToggle.svelte'
 
   type Props = {
-    skill: SkillType | 'savingThrow';
-    ability: AbilityType;
-    character: CharacterSvelteStore;
-  };
+    skill: SkillType | 'savingThrow'
+    ability: AbilityType
+    character: CharacterSvelteStore
+  }
 
-  const { skill, ability, character }: Props = $props();
+  const { skill, ability, character }: Props = $props()
 
   const proficiency = $derived.by((): ProficiencyType => {
     if (skill === 'savingThrow') {
       return $character.abilityProficiencies.includes(ability)
         ? 'proficient'
-        : 'none';
+        : 'none'
     }
 
-    return $character.skillProficiencies[skill] ?? 'none';
-  });
+    return $character.skillProficiencies[skill] ?? 'none'
+  })
   const modifier = $derived(
     getSkillModifier(
       $character.abilityScores[ability] ?? 0,
       $character.proficiencyBonus,
       proficiency,
     ),
-  );
+  )
 </script>
 
 <div class="wrapper">
@@ -38,14 +38,14 @@
     bind:value={
       () => proficiency,
       (v) => {
-        if (!$appSettings.edit) return;
+        if (!$appSettings.edit) return
         if (skill === 'savingThrow') {
           $character.abilityProficiencies = toggleAdd(
             $character.abilityProficiencies,
             ability,
-          );
+          )
         } else {
-          $character.skillProficiencies[skill] = v;
+          $character.skillProficiencies[skill] = v
         }
       }
     }

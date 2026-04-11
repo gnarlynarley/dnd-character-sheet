@@ -1,13 +1,13 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
+  import type { Snippet } from 'svelte'
 
   type Props = {
-    children?: Snippet;
-  };
+    children?: Snippet
+  }
 
-  let container = $state<HTMLDivElement | null>(null);
-  let inner = $state<HTMLDivElement | null>(null);
-  const { children }: Props = $props();
+  let container = $state<HTMLDivElement | null>(null)
+  let inner = $state<HTMLDivElement | null>(null)
+  const { children }: Props = $props()
 </script>
 
 <div class="wrapper" bind:this={container}>

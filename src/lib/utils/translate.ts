@@ -25,10 +25,10 @@ const TRANSLATIONS = {
   cha: 'Charisma',
   none: 'None',
   savingThrow: 'Saving Throw',
-} as const;
+} as const
 
 export function translate(key: keyof typeof TRANSLATIONS) {
-  return TRANSLATIONS[key];
+  return TRANSLATIONS[key]
 }
 
-export { translate as t };
+export { translate as t }

@@ -1,19 +1,19 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
+  import type { Snippet } from 'svelte'
 
   type Props = {
-    children?: Snippet;
-    padding?: boolean | 'vertical' | 'horizontal';
-    full?: boolean;
-    column?: boolean;
-    nogap?: boolean;
-    justify?: 'start' | 'center' | 'end' | 'between';
-    align?: 'start' | 'center' | 'end';
-    sm?: boolean;
-    xl?: boolean;
-    nogrow?: boolean;
-    hidePrintSpacing?: boolean;
-  };
+    children?: Snippet
+    padding?: boolean | 'vertical' | 'horizontal'
+    full?: boolean
+    column?: boolean
+    nogap?: boolean
+    justify?: 'start' | 'center' | 'end' | 'between'
+    align?: 'start' | 'center' | 'end'
+    sm?: boolean
+    xl?: boolean
+    nogrow?: boolean
+    hidePrintSpacing?: boolean
+  }
 
   const {
     children,
@@ -27,7 +27,7 @@
     xl,
     nogrow,
     hidePrintSpacing,
-  }: Props = $props();
+  }: Props = $props()
 </script>
 
 <div

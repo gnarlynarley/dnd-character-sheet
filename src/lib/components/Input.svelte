@@ -1,20 +1,20 @@
 <script lang="ts">
-  import { appSettings } from '$lib/stores/app-settings';
+  import { appSettings } from '$lib/stores/app-settings'
 
   type Props =
     | {
-        type: 'text';
-        value?: string;
-        displayValue?: string;
+        type: 'text'
+        value?: string
+        displayValue?: string
       }
     | {
-        type: 'number';
-        value: number;
-        displayValue?: number | string;
-      };
+        type: 'number'
+        value: number
+        displayValue?: number | string
+      }
 
-  let { value = $bindable(), displayValue, type }: Props = $props();
-  const edit = $derived($appSettings.edit);
+  let { value = $bindable(), displayValue, type }: Props = $props()
+  const edit = $derived($appSettings.edit)
 </script>
 
 {#if edit}

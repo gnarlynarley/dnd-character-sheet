@@ -1,20 +1,20 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
+  import type { Snippet } from 'svelte'
 
   type Props = {
-    children?: Snippet;
-    grid?: boolean;
-    nopadding?: boolean;
-    absolute?: boolean;
-    rounded?: boolean;
-    noshadow?: boolean;
-    transparent?: boolean;
-    faded?: boolean;
-    small?: boolean;
-    nogrow?: boolean;
-    withHover?: boolean;
-    flex?: boolean;
-  };
+    children?: Snippet
+    grid?: boolean
+    nopadding?: boolean
+    absolute?: boolean
+    rounded?: boolean
+    noshadow?: boolean
+    transparent?: boolean
+    faded?: boolean
+    small?: boolean
+    nogrow?: boolean
+    withHover?: boolean
+    flex?: boolean
+  }
 
   const {
     children,
@@ -29,7 +29,7 @@
     nogrow,
     withHover,
     flex,
-  }: Props = $props();
+  }: Props = $props()
 </script>
 
 <div

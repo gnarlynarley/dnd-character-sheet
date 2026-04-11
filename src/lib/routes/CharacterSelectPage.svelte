@@ -1,59 +1,59 @@
 <script lang="ts">
-  import Button from '$lib/components/Button.svelte';
-  import CharacterCard from '$lib/components/CharacterCard.svelte';
-  import Flex from '$lib/components/Flex.svelte';
-  import FlexPush from '$lib/components/FlexPush.svelte';
-  import Modal from '$lib/components/Modal.svelte';
-  import OverlayBox from '$lib/components/OverlayBox.svelte';
-  import PageTitle from '$lib/components/PageTitle.svelte';
+  import Button from '$lib/components/Button.svelte'
+  import CharacterCard from '$lib/components/CharacterCard.svelte'
+  import Flex from '$lib/components/Flex.svelte'
+  import FlexPush from '$lib/components/FlexPush.svelte'
+  import Modal from '$lib/components/Modal.svelte'
+  import OverlayBox from '$lib/components/OverlayBox.svelte'
+  import PageTitle from '$lib/components/PageTitle.svelte'
   import {
     createCharacterData,
     deleteCharacter,
     loadAllCharacters,
-  } from '$lib/stores/character';
-  import { addNotification } from '$lib/stores/notifications';
-  import { slugify } from '$lib/utils';
+  } from '$lib/stores/character'
+  import { addNotification } from '$lib/stores/notifications'
+  import { slugify } from '$lib/utils'
 
-  let characters = $state(await loadAllCharacters());
-  let newCharacterName = $state('');
-  let characterSlugToDelete: string | null = $state(null);
+  let characters = $state(await loadAllCharacters())
+  let newCharacterName = $state('')
+  let characterSlugToDelete: string | null = $state(null)
 
   async function handleCreateCharacter() {
-    const trimmed = newCharacterName.trim();
+    const trimmed = newCharacterName.trim()
     if (trimmed.length === 0) {
-      return;
+      return
     }
-    const slug = slugify(trimmed);
+    const slug = slugify(trimmed)
     if (characters.find((c) => c.slug === slug)) {
-      addNotification('A character with that name already exists.', 'error');
-      return;
+      addNotification('A character with that name already exists.', 'error')
+      return
     }
-    const newCharacter = await createCharacterData(slug, trimmed);
-    characters.push(newCharacter);
-    newCharacterName = '';
-    characters = characters;
+    const newCharacter = await createCharacterData(slug, trimmed)
+    characters.push(newCharacter)
+    newCharacterName = ''
+    characters = characters
   }
 
   function handleOpenDeleteModal(slug: string) {
-    characterSlugToDelete = slug;
+    characterSlugToDelete = slug
   }
 
   function handleCloseDeleteModal() {
-    characterSlugToDelete = null;
+    characterSlugToDelete = null
   }
 
   async function handleDeleteCharacter() {
     if (!characterSlugToDelete) {
-      return;
+      return
     }
-    const slug = characterSlugToDelete;
-    characterSlugToDelete = null;
-    await deleteCharacter(slug);
-    characters = characters.filter((c) => c.slug !== slug);
+    const slug = characterSlugToDelete
+    characterSlugToDelete = null
+    await deleteCharacter(slug)
+    characters = characters.filter((c) => c.slug !== slug)
   }
 
   function onsubmit(event: Event) {
-    event.preventDefault();
+    event.preventDefault()
   }
 </script>
 

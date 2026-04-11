@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { notifications } from '$lib/stores/notifications';
-  import Notification from './Notification.svelte';
+  import { notifications } from '$lib/stores/notifications'
+  import Notification from './Notification.svelte'
 </script>
 
 <div class="container hide-print">

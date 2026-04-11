@@ -1,22 +1,22 @@
 <script lang="ts">
-  import type { CharacterType } from '$lib/models';
-  import { links } from '$lib/routes';
-  import AvatarImage from './AvatarImage.svelte';
-  import Border from './Border.svelte';
-  import BorderLine from './BorderLine.svelte';
-  import Button from './Button.svelte';
-  import ButtonStyling from './ButtonStyling.svelte';
-  import Card from './Card.svelte';
-  import Flex from './Flex.svelte';
-  import FlexPush from './FlexPush.svelte';
-  import { link } from 'svelte-spa-router';
+  import type { CharacterType } from '$lib/models'
+  import { links } from '$lib/routes'
+  import AvatarImage from './AvatarImage.svelte'
+  import Border from './Border.svelte'
+  import BorderLine from './BorderLine.svelte'
+  import Button from './Button.svelte'
+  import ButtonStyling from './ButtonStyling.svelte'
+  import Card from './Card.svelte'
+  import Flex from './Flex.svelte'
+  import FlexPush from './FlexPush.svelte'
+  import { link } from 'svelte-spa-router'
 
   type Props = {
-    character: CharacterType;
-    onDelete?: () => void;
-  };
+    character: CharacterType
+    onDelete?: () => void
+  }
 
-  const { character, onDelete }: Props = $props();
+  const { character, onDelete }: Props = $props()
 </script>
 
 <Card title={character.name}>

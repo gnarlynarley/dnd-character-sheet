@@ -1,10 +1,10 @@
 <script>
-  import {} from 'svelte-spa-router';
-  import BorderLine from './BorderLine.svelte';
-  import { links } from '$lib/routes';
-  import Link from './Link.svelte';
-  import Flex from './Flex.svelte';
-  import FlexPush from './FlexPush.svelte';
+  import {} from 'svelte-spa-router'
+  import BorderLine from './BorderLine.svelte'
+  import { links } from '$lib/routes'
+  import Link from './Link.svelte'
+  import Flex from './Flex.svelte'
+  import FlexPush from './FlexPush.svelte'
 
   const navigationLinks = [
     {
@@ -19,7 +19,7 @@
       href: links.spells(),
       label: 'Spells',
     },
-  ];
+  ]
 </script>
 
 <header class="hide-print">

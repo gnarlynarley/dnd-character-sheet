@@ -1,15 +1,15 @@
 <script lang="ts">
-  import type { CharacterSvelteStore } from '$lib/stores/character';
-  import Border from './Border.svelte';
-  import BorderLine from './BorderLine.svelte';
-  import Flex from './Flex.svelte';
-  import Input from './Input.svelte';
+  import type { CharacterSvelteStore } from '$lib/stores/character'
+  import Border from './Border.svelte'
+  import BorderLine from './BorderLine.svelte'
+  import Flex from './Flex.svelte'
+  import Input from './Input.svelte'
 
   type Props = {
-    character: CharacterSvelteStore;
-  };
+    character: CharacterSvelteStore
+  }
 
-  const { character }: Props = $props();
+  const { character }: Props = $props()
 </script>
 
 <Border>

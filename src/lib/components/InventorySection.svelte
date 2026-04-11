@@ -1,42 +1,42 @@
 <script lang="ts">
-  import { appSettings } from '$lib/stores/app-settings';
-  import type { CharacterSvelteStore } from '$lib/stores/character';
-  import { sliceOnce } from '$lib/utils';
-  import Button from './Button.svelte';
-  import Flex from './Flex.svelte';
-  import Input from './Input.svelte';
-  import { Table } from './table';
-  import TableCell from './table/TableCell.svelte';
-  import TableRow from './table/TableRow.svelte';
+  import { appSettings } from '$lib/stores/app-settings'
+  import type { CharacterSvelteStore } from '$lib/stores/character'
+  import { sliceOnce } from '$lib/utils'
+  import Button from './Button.svelte'
+  import Flex from './Flex.svelte'
+  import Input from './Input.svelte'
+  import { Table } from './table'
+  import TableCell from './table/TableCell.svelte'
+  import TableRow from './table/TableRow.svelte'
 
   type Props = {
-    character: CharacterSvelteStore;
-  };
+    character: CharacterSvelteStore
+  }
 
-  const { character }: Props = $props();
+  const { character }: Props = $props()
   const parsed = $derived.by(() =>
     $character.inventory.flatMap((item) => {
-      if (!item.trim()) return [];
-      const match = item.trim().match(/^(\d+)\s+(.*)$/);
-      const count = match ? Number(match[1]) : 1;
-      const rest = match ? match[2] : item.trim();
-      const [name, description] = sliceOnce(rest, '|');
-      return { count, name, description };
+      if (!item.trim()) return []
+      const match = item.trim().match(/^(\d+)\s+(.*)$/)
+      const count = match ? Number(match[1]) : 1
+      const rest = match ? match[2] : item.trim()
+      const [name, description] = sliceOnce(rest, '|')
+      return { count, name, description }
     }),
-  );
+  )
 
   function addInventoryItem() {
     character.update((char) => {
-      char.inventory.push('');
-      return char;
-    });
+      char.inventory.push('')
+      return char
+    })
   }
 
   function removeInventoryItem(index: number) {
     character.update((char) => {
-      char.inventory.splice(index, 1);
-      return char;
-    });
+      char.inventory.splice(index, 1)
+      return char
+    })
   }
 </script>
 

@@ -1,20 +1,20 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
+  import type { Snippet } from 'svelte'
 
   type Props = {
-    children?: Snippet;
-    fillCell?: number;
-  };
+    children?: Snippet
+    fillCell?: number
+  }
 
-  const { children, fillCell }: Props = $props();
+  const { children, fillCell }: Props = $props()
 
   const style = $derived.by(() => {
-    let string = '';
+    let string = ''
     if (fillCell) {
-      string += `--full:${fillCell};`;
+      string += `--full:${fillCell};`
     }
-    return string || undefined;
-  });
+    return string || undefined
+  })
 </script>
 
 <div class="table" {style}>

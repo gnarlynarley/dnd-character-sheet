@@ -1,12 +1,12 @@
 <script lang="ts">
-  import Flex from './Flex.svelte';
+  import Flex from './Flex.svelte'
 
   type Props = {
-    amount: number;
-    sm?: boolean;
-  };
+    amount: number
+    sm?: boolean
+  }
 
-  const { amount, sm }: Props = $props();
+  const { amount, sm }: Props = $props()
 </script>
 
 <Flex sm>

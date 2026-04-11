@@ -1,20 +1,20 @@
 <script lang="ts">
-  import { type AbilityType } from '../models';
-  import { type CharacterSvelteStore } from '../stores/character';
-  import { getAbilityModifier } from '../utils';
-  import { t } from '../utils/translate';
-  import Border from './Border.svelte';
-  import Input from './Input.svelte';
-  import Modifier from './Modifier.svelte';
+  import { type AbilityType } from '../models'
+  import { type CharacterSvelteStore } from '../stores/character'
+  import { getAbilityModifier } from '../utils'
+  import { t } from '../utils/translate'
+  import Border from './Border.svelte'
+  import Input from './Input.svelte'
+  import Modifier from './Modifier.svelte'
 
   type Props = {
-    ability: AbilityType;
-    character: CharacterSvelteStore;
-  };
+    ability: AbilityType
+    character: CharacterSvelteStore
+  }
 
-  const { ability, character }: Props = $props();
+  const { ability, character }: Props = $props()
 
-  const value = $derived($character.abilityScores[ability]);
+  const value = $derived($character.abilityScores[ability])
 </script>
 
 <div class="item">

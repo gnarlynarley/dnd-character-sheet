@@ -1,25 +1,25 @@
 <script lang="ts">
-  import type { ProficiencyType } from '../models';
-  import { appSettings } from '$lib/stores/app-settings';
+  import type { ProficiencyType } from '../models'
+  import { appSettings } from '$lib/stores/app-settings'
 
   type Props = {
-    value?: ProficiencyType;
-  };
+    value?: ProficiencyType
+  }
 
-  let { value = $bindable() }: Props = $props();
-  const edit = $derived($appSettings.edit);
+  let { value = $bindable() }: Props = $props()
+  const edit = $derived($appSettings.edit)
 
   const PROFICIENCY_ORDER: ProficiencyType[] = [
     'none',
     'proficient',
     'double',
     'half',
-  ];
+  ]
 
   function onClick() {
-    const index = PROFICIENCY_ORDER.indexOf(value ?? 'none');
-    const nextIndex = (index + 1) % PROFICIENCY_ORDER.length;
-    value = PROFICIENCY_ORDER[nextIndex];
+    const index = PROFICIENCY_ORDER.indexOf(value ?? 'none')
+    const nextIndex = (index + 1) % PROFICIENCY_ORDER.length
+    value = PROFICIENCY_ORDER[nextIndex]
   }
 </script>
 

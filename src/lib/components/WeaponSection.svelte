@@ -1,19 +1,19 @@
 <script lang="ts">
-  import Card from './Card.svelte';
-  import type { CharacterSvelteStore } from '$lib/stores/character';
-  import type { CharacterWeaponType } from '../models';
-  import BorderLine from './BorderLine.svelte';
-  import Flex from './Flex.svelte';
-  import Button from './Button.svelte';
-  import Input from './Input.svelte';
-  import { appSettings } from '$lib/stores/app-settings';
+  import Card from './Card.svelte'
+  import type { CharacterSvelteStore } from '$lib/stores/character'
+  import type { CharacterWeaponType } from '../models'
+  import BorderLine from './BorderLine.svelte'
+  import Flex from './Flex.svelte'
+  import Button from './Button.svelte'
+  import Input from './Input.svelte'
+  import { appSettings } from '$lib/stores/app-settings'
 
   type Props = {
-    character: CharacterSvelteStore;
-  };
+    character: CharacterSvelteStore
+  }
 
-  const { character }: Props = $props();
-  const edit = $derived($appSettings.edit);
+  const { character }: Props = $props()
+  const edit = $derived($appSettings.edit)
 
   const addLine = () => {
     $character.weapons.push({
@@ -21,14 +21,14 @@
       hit: 0,
       damage: '',
       details: '',
-    });
-    $character.weapons = $character.weapons;
-  };
+    })
+    $character.weapons = $character.weapons
+  }
   const deleteLine = (weapon: CharacterWeaponType) => {
-    const index = $character.weapons.indexOf(weapon);
-    $character.weapons.splice(index, 1);
-    $character.weapons = $character.weapons;
-  };
+    const index = $character.weapons.indexOf(weapon)
+    $character.weapons.splice(index, 1)
+    $character.weapons = $character.weapons
+  }
 </script>
 
 <Card>

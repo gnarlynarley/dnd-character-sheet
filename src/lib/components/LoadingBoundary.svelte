@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
-  import Flex from './Flex.svelte';
+  import type { Snippet } from 'svelte'
+  import Flex from './Flex.svelte'
 
   type Props = {
-    children?: Snippet;
-  };
+    children?: Snippet
+  }
 
-  let { children }: Props = $props();
+  let { children }: Props = $props()
 </script>
 
 <svelte:boundary>

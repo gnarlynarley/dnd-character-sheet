@@ -1,18 +1,18 @@
 <script lang="ts">
-  import { micromark } from 'micromark';
-  import { gfmTable, gfmTableHtml } from 'micromark-extension-gfm-table';
+  import { micromark } from 'micromark'
+  import { gfmTable, gfmTableHtml } from 'micromark-extension-gfm-table'
 
   type Props = {
-    code: string;
-  };
+    code: string
+  }
 
-  const { code }: Props = $props();
+  const { code }: Props = $props()
   const parsed = $derived(
     micromark(code, {
       extensions: [gfmTable()],
       htmlExtensions: [gfmTableHtml()],
     }),
-  );
+  )
 </script>
 
 <div class="content">

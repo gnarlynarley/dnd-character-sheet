@@ -1,14 +1,14 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
+  import type { Snippet } from 'svelte'
 
   type Props = {
-    children?: Snippet;
-    centered?: boolean;
-    right?: boolean;
-    spread?: boolean;
-  };
+    children?: Snippet
+    centered?: boolean
+    right?: boolean
+    spread?: boolean
+  }
 
-  const { children, centered, right, spread }: Props = $props();
+  const { children, centered, right, spread }: Props = $props()
 </script>
 
 <div class="cell" class:centered class:right class:spread>

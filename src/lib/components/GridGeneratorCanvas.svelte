@@ -1,82 +1,82 @@
 <script lang="ts">
-  import TintedCanvas from '$lib/components/TintedCanvas.svelte';
-  import Flex from './Flex.svelte';
-  import BorderLine from './BorderLine.svelte';
-  import type { EventHandler } from 'svelte/elements';
-  import Button from './Button.svelte';
-  import createCanvasBuffer from '$lib/utils/canvas/createCanvasBuffer';
+  import TintedCanvas from '$lib/components/TintedCanvas.svelte'
+  import Flex from './Flex.svelte'
+  import BorderLine from './BorderLine.svelte'
+  import type { EventHandler } from 'svelte/elements'
+  import Button from './Button.svelte'
+  import createCanvasBuffer from '$lib/utils/canvas/createCanvasBuffer'
 
-  let canvas = $state<HTMLCanvasElement | null>(null);
-  let context = $state<CanvasRenderingContext2D | null>(null);
+  let canvas = $state<HTMLCanvasElement | null>(null)
+  let context = $state<CanvasRenderingContext2D | null>(null)
 
-  let stroke = $state(2);
-  let x = $state(10);
-  let y = $state(8);
-  let size = $state(100);
-  let offset = $state(30);
+  let stroke = $state(2)
+  let x = $state(10)
+  let y = $state(8)
+  let size = $state(100)
+  let offset = $state(30)
 
   $effect(() => {
-    if (!canvas || !context) return;
+    if (!canvas || !context) return
 
-    canvas.width = offset * 2 + x * size;
-    canvas.height = offset * 2 + y * size;
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    canvas.width = offset * 2 + x * size
+    canvas.height = offset * 2 + y * size
+    context.clearRect(0, 0, canvas.width, canvas.height)
 
-    context.lineWidth = stroke;
+    context.lineWidth = stroke
 
     for (let i = 1; i < x; i++) {
-      context.beginPath();
-      const px = offset + i * size;
-      context.moveTo(px, offset);
-      context.lineTo(px, canvas.height - offset);
-      context.stroke();
+      context.beginPath()
+      const px = offset + i * size
+      context.moveTo(px, offset)
+      context.lineTo(px, canvas.height - offset)
+      context.stroke()
     }
     for (let i = 1; i < y; i++) {
-      context.beginPath();
-      const py = offset + i * size;
-      context.moveTo(offset, py);
-      context.lineTo(canvas.width - offset, py);
-      context.stroke();
+      context.beginPath()
+      const py = offset + i * size
+      context.moveTo(offset, py)
+      context.lineTo(canvas.width - offset, py)
+      context.stroke()
     }
 
-    context.lineWidth = stroke * 1.5;
-    context.beginPath();
+    context.lineWidth = stroke * 1.5
+    context.beginPath()
     context.roundRect(
       offset,
       offset,
       canvas.width - offset * 2,
       canvas.height - offset * 2,
       stroke * 5,
-    );
-    context.stroke();
-    const buffer = createCanvasBuffer(canvas);
-    context.filter = `url(#pencil)`;
+    )
+    context.stroke()
+    const buffer = createCanvasBuffer(canvas)
+    context.filter = `url(#pencil)`
 
-    context.drawImage(buffer.canvas, 0, 0);
-    buffer.destroy();
-  });
+    context.drawImage(buffer.canvas, 0, 0)
+    buffer.destroy()
+  })
 
   const onsubmit: EventHandler<SubmitEvent, HTMLFormElement> = (ev) => {
-    ev.preventDefault();
-    const fd = new FormData(ev.currentTarget);
-    const nextX = parseInt(fd.get('x')?.toString() || '') || x;
-    const nextY = parseInt(fd.get('y')?.toString() || '') || y;
-    const nextSize = parseInt(fd.get('size')?.toString() || '') || size;
-    const averageSize = Math.sqrt(nextX * nextY * nextSize * nextSize);
+    ev.preventDefault()
+    const fd = new FormData(ev.currentTarget)
+    const nextX = parseInt(fd.get('x')?.toString() || '') || x
+    const nextY = parseInt(fd.get('y')?.toString() || '') || y
+    const nextSize = parseInt(fd.get('size')?.toString() || '') || size
+    const averageSize = Math.sqrt(nextX * nextY * nextSize * nextSize)
     if (averageSize > 4000) {
       if (
         !confirm(
           'The grid will be pretty large and can cause issues, are you sure?',
         )
       ) {
-        return;
+        return
       }
     }
-    x = nextX;
-    y = nextY;
-    size = nextSize;
-    stroke = parseInt(fd.get('stroke')?.toString() || '') || stroke;
-  };
+    x = nextX
+    y = nextY
+    size = nextSize
+    stroke = parseInt(fd.get('stroke')?.toString() || '') || stroke
+  }
 </script>
 
 <div class="wrapper">

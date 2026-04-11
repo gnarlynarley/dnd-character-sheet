@@ -1,21 +1,21 @@
 <script lang="ts">
   type Props = {
-    canvas: HTMLCanvasElement | null;
-    context: CanvasRenderingContext2D | null;
-    width?: number;
-    height?: number;
-  };
+    canvas: HTMLCanvasElement | null
+    context: CanvasRenderingContext2D | null
+    width?: number
+    height?: number
+  }
 
   let {
     canvas = $bindable(),
     context = $bindable(),
     width,
     height,
-  }: Props = $props();
+  }: Props = $props()
 
   $effect(() => {
-    context = canvas?.getContext('2d', { willReadFrequently: true }) ?? null;
-  });
+    context = canvas?.getContext('2d', { willReadFrequently: true }) ?? null
+  })
 </script>
 
 <div class="wrapper">

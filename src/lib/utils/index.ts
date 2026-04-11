@@ -1,11 +1,11 @@
-import type { ProficiencyType } from '$lib/models';
+import type { ProficiencyType } from '$lib/models'
 
 export function parseModifier(modifier: number): string {
-  return modifier > 0 ? `+${modifier}` : modifier.toString();
+  return modifier > 0 ? `+${modifier}` : modifier.toString()
 }
 
 export function getAbilityModifier(abilityScore: number): number {
-  return Math.floor((abilityScore - 10) / 2);
+  return Math.floor((abilityScore - 10) / 2)
 }
 
 export function getProficiencyMultiplier(
@@ -13,13 +13,13 @@ export function getProficiencyMultiplier(
 ): number {
   switch (proficiencyType) {
     case 'none':
-      return 0;
+      return 0
     case 'proficient':
-      return 1;
+      return 1
     case 'double':
-      return 2;
+      return 2
     case 'half':
-      return 0.5;
+      return 0.5
   }
 }
 
@@ -28,99 +28,99 @@ export function getSkillModifier(
   proficiencyBonus: number,
   proficiencyType: ProficiencyType,
 ): number {
-  const multiplier = getProficiencyMultiplier(proficiencyType);
-  const abilityModifier = getAbilityModifier(abilityScore);
+  const multiplier = getProficiencyMultiplier(proficiencyType)
+  const abilityModifier = getAbilityModifier(abilityScore)
 
-  return Math.floor(abilityModifier + proficiencyBonus * multiplier);
+  return Math.floor(abilityModifier + proficiencyBonus * multiplier)
 }
 
 export function entries<TKey extends string, TValue>(
   obj: Record<TKey, TValue>,
 ): [TKey, TValue][] {
-  return Object.entries(obj) as [TKey, TValue][];
+  return Object.entries(obj) as [TKey, TValue][]
 }
 
-export type DisposableImage = HTMLImageElement & { dispose: () => void };
+export type DisposableImage = HTMLImageElement & { dispose: () => void }
 
 export function createImage(blob: Blob): Promise<DisposableImage> {
-  const url = URL.createObjectURL(blob);
+  const url = URL.createObjectURL(blob)
 
   return new Promise<DisposableImage>((resolve, reject) => {
-    const image: any = document.createElement('img');
+    const image: any = document.createElement('img')
     image.dispose = () => {
-      URL.revokeObjectURL(url);
-    };
+      URL.revokeObjectURL(url)
+    }
     image.onload = () => {
-      resolve(image);
-    };
+      resolve(image)
+    }
     image.onerror = () => {
-      reject(new Error('Image could not be loaded'));
-    };
-    image.src = url;
-  });
+      reject(new Error('Image could not be loaded'))
+    }
+    image.src = url
+  })
 }
 
 export async function getImageBitmap(blob: Blob): Promise<ImageBitmap> {
-  const image = await createImage(blob);
-  const bitmap = await createImageBitmap(image);
+  const image = await createImage(blob)
+  const bitmap = await createImageBitmap(image)
 
-  return bitmap;
+  return bitmap
 }
 
 export function toggleAdd<T>(arr: T[], value: T): T[] {
-  const index = arr.indexOf(value);
-  const result = Array.from(arr);
+  const index = arr.indexOf(value)
+  const result = Array.from(arr)
 
   if (index === -1) {
-    result.push(value);
+    result.push(value)
   } else {
-    result.splice(index, 1);
+    result.splice(index, 1)
   }
 
-  return result;
+  return result
 }
 
 export function slugify(value: string): string {
   return value
     .toLowerCase()
     .replace(/\s+/g, '-')
-    .replace(/[^a-z0-9\-]/g, '');
+    .replace(/[^a-z0-9\-]/g, '')
 }
 
 export function deleteProperty<T extends object, K extends keyof T>(
   obj: T,
   key: K,
 ): Omit<T, K> {
-  const { [key]: _removed, ...rest } = obj;
-  return rest;
+  const { [key]: _removed, ...rest } = obj
+  return rest
 }
 
 export async function compressString(input: string): Promise<string> {
-  const LZString = await import('lz-string');
-  const compressed = LZString.compressToEncodedURIComponent(input);
-  return compressed;
+  const LZString = await import('lz-string')
+  const compressed = LZString.compressToEncodedURIComponent(input)
+  return compressed
 }
 
 export function sliceOnce(input: string, separator: string): [string, string] {
-  const index = input.indexOf(separator);
+  const index = input.indexOf(separator)
   if (index === -1) {
-    return [input, ''];
+    return [input, '']
   }
-  const firstPart = input.slice(0, index);
-  const secondPart = input.slice(index + separator.length);
-  return [firstPart.trim(), secondPart.trim()];
+  const firstPart = input.slice(0, index)
+  const secondPart = input.slice(index + separator.length)
+  return [firstPart.trim(), secondPart.trim()]
 }
 
 export function downloadBlob(blob: Blob, filename: string) {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  URL.revokeObjectURL(url)
 }
 
-export { default as createId } from './createId';
-export { default as unique } from './unique';
+export { default as createId } from './createId'
+export { default as unique } from './unique'

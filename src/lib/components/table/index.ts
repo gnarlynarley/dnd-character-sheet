@@ -1,5 +1,5 @@
-import Table from './Table.svelte';
-import TableRow from './TableRow.svelte';
-import TableCell from './TableCell.svelte';
+import Table from './Table.svelte'
+import TableRow from './TableRow.svelte'
+import TableCell from './TableCell.svelte'
 
-export { Table, TableRow, TableCell };
+export { Table, TableRow, TableCell }

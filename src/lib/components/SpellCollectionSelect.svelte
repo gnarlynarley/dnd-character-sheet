@@ -1,21 +1,21 @@
 <script lang="ts">
-  import SpellCollectionSelectModal from './SpellCollectionSelectModal.svelte';
-  import Button from './Button.svelte';
-  import type { Spell } from '$lib/models/spells';
+  import SpellCollectionSelectModal from './SpellCollectionSelectModal.svelte'
+  import Button from './Button.svelte'
+  import type { Spell } from '$lib/models/spells'
 
   type Props = {
-    onSpellSelection: (spell: Spell) => void;
-  };
+    onSpellSelection: (spell: Spell) => void
+  }
 
-  const { onSpellSelection }: Props = $props();
+  const { onSpellSelection }: Props = $props()
 
-  let modalOpen = $state(false);
+  let modalOpen = $state(false)
 
   function openModal() {
-    modalOpen = true;
+    modalOpen = true
   }
   function closeModal() {
-    modalOpen = false;
+    modalOpen = false
   }
 </script>
 

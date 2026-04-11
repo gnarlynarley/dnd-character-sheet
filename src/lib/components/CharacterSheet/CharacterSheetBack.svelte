@@ -1,76 +1,76 @@
 <script lang="ts">
-  import { characterSpellSchema, parse } from '$lib/models';
-  import type { Spell } from '$lib/models/spells';
-  import { appSettings } from '$lib/stores/app-settings';
-  import type { CharacterSvelteStore } from '$lib/stores/character';
-  import { getAbilityModifier } from '$lib/utils';
-  import Border from '../Border.svelte';
-  import BorderLine from '../BorderLine.svelte';
-  import Button from '../Button.svelte';
-  import Card from '../Card.svelte';
-  import Checkbox from '../Checkbox.svelte';
-  import Flex from '../Flex.svelte';
-  import HidePrint from '../HidePrint.svelte';
-  import Input from '../Input.svelte';
-  import InventorySection from '../InventorySection.svelte';
-  import Markdown from '../Markdown.svelte';
-  import MarkdownEditor from '../MarkdownEditor.svelte';
-  import Modifier from '../Modifier.svelte';
-  import Page from '../Page.svelte';
-  import Scrollbar from '../Scrollbar.svelte';
-  import SpellCollectionSelect from '../SpellCollectionSelect.svelte';
-  import SpellSlots from '../SpellSlots.svelte';
-  import { Table, TableRow } from '../table';
-  import TableCell from '../table/TableCell.svelte';
+  import { characterSpellSchema, parse } from '$lib/models'
+  import type { Spell } from '$lib/models/spells'
+  import { appSettings } from '$lib/stores/app-settings'
+  import type { CharacterSvelteStore } from '$lib/stores/character'
+  import { getAbilityModifier } from '$lib/utils'
+  import Border from '../Border.svelte'
+  import BorderLine from '../BorderLine.svelte'
+  import Button from '../Button.svelte'
+  import Card from '../Card.svelte'
+  import Checkbox from '../Checkbox.svelte'
+  import Flex from '../Flex.svelte'
+  import HidePrint from '../HidePrint.svelte'
+  import Input from '../Input.svelte'
+  import InventorySection from '../InventorySection.svelte'
+  import Markdown from '../Markdown.svelte'
+  import MarkdownEditor from '../MarkdownEditor.svelte'
+  import Modifier from '../Modifier.svelte'
+  import Page from '../Page.svelte'
+  import Scrollbar from '../Scrollbar.svelte'
+  import SpellCollectionSelect from '../SpellCollectionSelect.svelte'
+  import SpellSlots from '../SpellSlots.svelte'
+  import { Table, TableRow } from '../table'
+  import TableCell from '../table/TableCell.svelte'
 
   type Props = {
-    character: CharacterSvelteStore;
-  };
+    character: CharacterSvelteStore
+  }
 
-  const { character }: Props = $props();
+  const { character }: Props = $props()
   const spellCastingModifier = $derived.by(() => {
-    const ability = $character.spellcastingAbility;
-    if (ability === 'none') return 0;
-    return getAbilityModifier($character.abilityScores[ability]);
-  });
+    const ability = $character.spellcastingAbility
+    if (ability === 'none') return 0
+    return getAbilityModifier($character.abilityScores[ability])
+  })
   const spellSave = $derived(
     8 + spellCastingModifier + $character.proficiencyBonus,
-  );
+  )
 
   function addSpell() {
     character.update((char) => {
-      char.spells.push(parse(characterSpellSchema, {}));
-      return char;
-    });
+      char.spells.push(parse(characterSpellSchema, {}))
+      return char
+    })
   }
 
   function deleteSpell(index: number) {
     character.update((char) => {
-      char.spells.splice(index, 1);
-      return char;
-    });
+      char.spells.splice(index, 1)
+      return char
+    })
   }
 
   function onSpellSelection(spell: Spell) {
     character.update((char) => {
-      char.spells.push(parse(characterSpellSchema, spell));
-      return char;
-    });
+      char.spells.push(parse(characterSpellSchema, spell))
+      return char
+    })
   }
 
   function sortSpells() {
     character.update((char) => {
       char.spells.sort((a, b) => {
-        const levelCompare = a.level - b.level;
+        const levelCompare = a.level - b.level
 
         if (levelCompare !== 0) {
-          return levelCompare;
+          return levelCompare
         }
 
-        return a.name.localeCompare(b.name);
-      });
-      return char;
-    });
+        return a.name.localeCompare(b.name)
+      })
+      return char
+    })
   }
 </script>
 

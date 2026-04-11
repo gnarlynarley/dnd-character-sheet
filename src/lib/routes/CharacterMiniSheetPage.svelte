@@ -1,44 +1,44 @@
 <script lang="ts">
-  import AvatarImage from '$lib/components/AvatarImage.svelte';
-  import Border from '$lib/components/Border.svelte';
-  import BorderLine from '$lib/components/BorderLine.svelte';
-  import Button from '$lib/components/Button.svelte';
-  import DeathSave from '$lib/components/DeathSave.svelte';
-  import Dots from '$lib/components/Dots.svelte';
-  import Flex from '$lib/components/Flex.svelte';
-  import FlexPush from '$lib/components/FlexPush.svelte';
-  import PageTitle from '$lib/components/PageTitle.svelte';
-  import { Table } from '$lib/components/table';
-  import TableCell from '$lib/components/table/TableCell.svelte';
-  import TableRow from '$lib/components/table/TableRow.svelte';
-  import { loadCharacterData } from '$lib/stores/character';
-  import { addNotification } from '$lib/stores/notifications';
-  import { downloadBlob } from '$lib/utils';
-  import { screenshotElement } from '$lib/utils/screenshotElement';
-  import { link } from 'svelte-spa-router';
+  import AvatarImage from '$lib/components/AvatarImage.svelte'
+  import Border from '$lib/components/Border.svelte'
+  import BorderLine from '$lib/components/BorderLine.svelte'
+  import Button from '$lib/components/Button.svelte'
+  import DeathSave from '$lib/components/DeathSave.svelte'
+  import Dots from '$lib/components/Dots.svelte'
+  import Flex from '$lib/components/Flex.svelte'
+  import FlexPush from '$lib/components/FlexPush.svelte'
+  import PageTitle from '$lib/components/PageTitle.svelte'
+  import { Table } from '$lib/components/table'
+  import TableCell from '$lib/components/table/TableCell.svelte'
+  import TableRow from '$lib/components/table/TableRow.svelte'
+  import { loadCharacterData } from '$lib/stores/character'
+  import { addNotification } from '$lib/stores/notifications'
+  import { downloadBlob } from '$lib/utils'
+  import { screenshotElement } from '$lib/utils/screenshotElement'
+  import { link } from 'svelte-spa-router'
 
   type Params = {
-    slug: string;
-  };
+    slug: string
+  }
   type Props = {
-    params: Params;
-  };
-  const { params }: Props = $props();
-  let characterData = $derived(await loadCharacterData(params.slug));
-  let wrapper = $state<HTMLDivElement | null>(null);
+    params: Params
+  }
+  const { params }: Props = $props()
+  let characterData = $derived(await loadCharacterData(params.slug))
+  let wrapper = $state<HTMLDivElement | null>(null)
 
   async function screenshot() {
     try {
-      if (!wrapper) return;
-      if (!characterData) return;
-      const canvas = await screenshotElement(wrapper);
+      if (!wrapper) return
+      if (!characterData) return
+      const canvas = await screenshotElement(wrapper)
       const blob = await new Promise<Blob | null>((r) =>
         canvas.toBlob(r, 'image/png'),
-      );
-      if (!blob) throw new Error("Couldn't retrieve blob");
-      await downloadBlob(blob, `Mini sheet ${characterData.name}.png`);
+      )
+      if (!blob) throw new Error("Couldn't retrieve blob")
+      await downloadBlob(blob, `Mini sheet ${characterData.name}.png`)
     } catch {
-      addNotification('Something went wrong downloading the image.');
+      addNotification('Something went wrong downloading the image.')
     }
   }
 </script>

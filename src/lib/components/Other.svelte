@@ -1,15 +1,15 @@
 <script lang="ts">
-  import type { CharacterSvelteStore } from '$lib/stores/character';
-  import { getAbilityModifier, parseModifier } from '../utils';
-  import Border from './Border.svelte';
-  import Flex from './Flex.svelte';
-  import Input from './Input.svelte';
+  import type { CharacterSvelteStore } from '$lib/stores/character'
+  import { getAbilityModifier, parseModifier } from '../utils'
+  import Border from './Border.svelte'
+  import Flex from './Flex.svelte'
+  import Input from './Input.svelte'
 
   type Props = {
-    character: CharacterSvelteStore;
-  };
+    character: CharacterSvelteStore
+  }
 
-  const { character }: Props = $props();
+  const { character }: Props = $props()
 </script>
 
 <Flex column justify="between" sm>

@@ -1,41 +1,41 @@
 <script lang="ts">
-  import { fly, fade } from 'svelte/transition';
+  import { fly, fade } from 'svelte/transition'
   import {
     type Notification,
     removeNotification,
-  } from '$lib/stores/notifications';
-  import Border from '../Border.svelte';
+  } from '$lib/stores/notifications'
+  import Border from '../Border.svelte'
 
-  const notificationDuration = 4000;
+  const notificationDuration = 4000
 
   type Props = {
-    notification: Notification;
-  };
-  const { notification }: Props = $props();
-  let hovered = $state(false);
+    notification: Notification
+  }
+  const { notification }: Props = $props()
+  let hovered = $state(false)
 
   function remove() {
-    removeNotification(notification.id);
+    removeNotification(notification.id)
   }
 
   function onmouseenter() {
-    hovered = true;
+    hovered = true
   }
 
   function onmouseleave() {
-    hovered = false;
+    hovered = false
   }
 
   $effect(() => {
-    if (hovered) return;
+    if (hovered) return
     const timeout = setTimeout(() => {
-      removeNotification(notification.id);
-    }, notificationDuration);
+      removeNotification(notification.id)
+    }, notificationDuration)
 
     return () => {
-      clearTimeout(timeout);
-    };
-  });
+      clearTimeout(timeout)
+    }
+  })
 </script>
 
 <button

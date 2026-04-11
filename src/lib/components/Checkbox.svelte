@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { appSettings } from '$lib/stores/app-settings';
-  import Border from './Border.svelte';
+  import { appSettings } from '$lib/stores/app-settings'
+  import Border from './Border.svelte'
 
   type Props = {
-    checked: boolean;
-    label?: string;
-  };
+    checked: boolean
+    label?: string
+  }
 
-  let { checked = $bindable(), label }: Props = $props();
+  let { checked = $bindable(), label }: Props = $props()
 </script>
 
 <label class="wrapper">

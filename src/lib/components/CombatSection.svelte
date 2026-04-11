@@ -1,17 +1,17 @@
 <script lang="ts">
-  import type { CharacterSvelteStore } from '$lib/stores/character';
-  import BorderLine from './BorderLine.svelte';
-  import Card from './Card.svelte';
-  import DeathSave from './DeathSave.svelte';
-  import Flex from './Flex.svelte';
-  import FlexPush from './FlexPush.svelte';
-  import Input from './Input.svelte';
+  import type { CharacterSvelteStore } from '$lib/stores/character'
+  import BorderLine from './BorderLine.svelte'
+  import Card from './Card.svelte'
+  import DeathSave from './DeathSave.svelte'
+  import Flex from './Flex.svelte'
+  import FlexPush from './FlexPush.svelte'
+  import Input from './Input.svelte'
 
   type Props = {
-    character: CharacterSvelteStore;
-  };
+    character: CharacterSvelteStore
+  }
 
-  const { character }: Props = $props();
+  const { character }: Props = $props()
 </script>
 
 <div class="container">

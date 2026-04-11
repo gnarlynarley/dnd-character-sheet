@@ -1,9 +1,9 @@
 <script lang="ts">
   type Props = {
-    title: string;
-  };
+    title: string
+  }
 
-  const { title }: Props = $props();
+  const { title }: Props = $props()
 </script>
 
 <svelte:head>

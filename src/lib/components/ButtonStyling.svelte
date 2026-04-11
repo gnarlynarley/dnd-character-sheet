@@ -1,13 +1,13 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
-  import Border from './Border.svelte';
+  import type { Snippet } from 'svelte'
+  import Border from './Border.svelte'
 
   type Props = {
-    children?: Snippet;
-    pending?: boolean;
-  };
+    children?: Snippet
+    pending?: boolean
+  }
 
-  const { children, pending }: Props = $props();
+  const { children, pending }: Props = $props()
 </script>
 
 <div class="wrapper" class:pending>

@@ -1,7 +1,7 @@
 <script lang="ts">
-  type Props = { spread?: boolean; vertical?: boolean; faded?: boolean };
+  type Props = { spread?: boolean; vertical?: boolean; faded?: boolean }
 
-  const { spread, vertical, faded }: Props = $props();
+  const { spread, vertical, faded }: Props = $props()
 </script>
 
 <div class:spread class:vertical class:faded></div>

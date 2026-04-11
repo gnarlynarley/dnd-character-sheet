@@ -1,41 +1,41 @@
 <script lang="ts">
-  import Button from './Button.svelte';
-  import HidePrint from './HidePrint.svelte';
-  import SpellCard from './SpellCard.svelte';
-  import type { CharacterSvelteStore } from '$lib/stores/character';
-  import { getAbilityModifier, unique } from '$lib/utils';
-  import { abilitiesAndNone, characterSpellSchema, parse } from '$lib/models';
-  import app from 'src/main';
-  import { appSettings } from '$lib/stores/app-settings';
-  import Flex from './Flex.svelte';
-  import { t } from '$lib/utils/translate';
-  import Card from './Card.svelte';
-  import Modifier from './Modifier.svelte';
-  import SpellSlots from './SpellSlots.svelte';
+  import Button from './Button.svelte'
+  import HidePrint from './HidePrint.svelte'
+  import SpellCard from './SpellCard.svelte'
+  import type { CharacterSvelteStore } from '$lib/stores/character'
+  import { getAbilityModifier, unique } from '$lib/utils'
+  import { abilitiesAndNone, characterSpellSchema, parse } from '$lib/models'
+  import app from 'src/main'
+  import { appSettings } from '$lib/stores/app-settings'
+  import Flex from './Flex.svelte'
+  import { t } from '$lib/utils/translate'
+  import Card from './Card.svelte'
+  import Modifier from './Modifier.svelte'
+  import SpellSlots from './SpellSlots.svelte'
 
   type Props = {
-    character: CharacterSvelteStore;
-  };
+    character: CharacterSvelteStore
+  }
 
-  const { character }: Props = $props();
+  const { character }: Props = $props()
 
   function addSpell() {
-    $character.spells.push(parse(characterSpellSchema, {}));
-    $character.spells = $character.spells;
+    $character.spells.push(parse(characterSpellSchema, {}))
+    $character.spells = $character.spells
   }
 
   const spellAttackModifier = $derived.by(() => {
-    if ($character.spellcastingAbility === 'none') return 0;
-    const score = $character.abilityScores[$character.spellcastingAbility];
-    const modifier = getAbilityModifier(score);
+    if ($character.spellcastingAbility === 'none') return 0
+    const score = $character.abilityScores[$character.spellcastingAbility]
+    const modifier = getAbilityModifier(score)
 
-    return modifier + $character.proficiencyBonus;
-  });
+    return modifier + $character.proficiencyBonus
+  })
   const spellSave = $derived.by(() => {
-    if (spellAttackModifier === 0) return 0;
+    if (spellAttackModifier === 0) return 0
 
-    return 8 + spellAttackModifier;
-  });
+    return 8 + spellAttackModifier
+  })
 </script>
 
 <section>

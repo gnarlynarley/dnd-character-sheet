@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
+  import type { Snippet } from 'svelte'
 
   type Props = {
-    children?: Snippet;
-  };
+    children?: Snippet
+  }
 
-  const { children }: Props = $props();
+  const { children }: Props = $props()
 </script>
 
 <div class="grid">
@@ -24,19 +24,17 @@
     z-index: 0;
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: linear-gradient(
-          var(--color-faded) 0.1em,
-          transparent 0.1em
-        ),
+      background-image:
+        linear-gradient(var(--color-faded) 0.1em, transparent 0.1em),
         linear-gradient(90deg, var(--color-faded) 0.1em, transparent 0.1em);
       background-size: 1.5em 1.5em;
-      filter: url("#pencil");
+      filter: url('#pencil');
       z-index: -1;
     }
 

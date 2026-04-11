@@ -1,16 +1,16 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
-  import Border from './Border.svelte';
-  import BorderLine from './BorderLine.svelte';
-  import Grid from './Grid.svelte';
+  import type { Snippet } from 'svelte'
+  import Border from './Border.svelte'
+  import BorderLine from './BorderLine.svelte'
+  import Grid from './Grid.svelte'
 
   type Props = {
-    title?: string;
-    grid?: boolean;
-    children?: Snippet;
-  };
+    title?: string
+    grid?: boolean
+    children?: Snippet
+  }
 
-  const { title, children, grid }: Props = $props();
+  const { title, children, grid }: Props = $props()
 </script>
 
 <Border {grid} nopadding>

@@ -1,30 +1,30 @@
 <script lang="ts">
-  import { appSettings } from '$lib/stores/app-settings';
+  import { appSettings } from '$lib/stores/app-settings'
 
   type Props = {
-    value: string;
-    autofocus?: boolean;
-    nopadding?: boolean;
-  };
+    value: string
+    autofocus?: boolean
+    nopadding?: boolean
+  }
 
-  let { value = $bindable(), autofocus, nopadding }: Props = $props();
-  let textarea: HTMLTextAreaElement | null = $state(null);
+  let { value = $bindable(), autofocus, nopadding }: Props = $props()
+  let textarea: HTMLTextAreaElement | null = $state(null)
 
   const resize = () => {
-    if (!textarea) return;
-    textarea.style.height = 'auto';
+    if (!textarea) return
+    textarea.style.height = 'auto'
 
     // Step 2: Set height to scrollHeight (total content height)
     // Add a small buffer (e.g., 2px) to prevent scrollbar flicker in some browsers
-    textarea.style.minHeight = `${textarea.scrollHeight}px`;
-  };
+    textarea.style.minHeight = `${textarea.scrollHeight}px`
+  }
 
   $effect(() => {
-    resize();
+    resize()
     if (autofocus) {
-      textarea?.focus({ preventScroll: true });
+      textarea?.focus({ preventScroll: true })
     }
-  });
+  })
 </script>
 
 <svelte:window onresize={resize} />

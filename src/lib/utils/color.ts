@@ -1,16 +1,16 @@
-import Color from 'color';
+import Color from 'color'
 
 export type RGBA = {
-  r: number;
-  g: number;
-  b: number;
-  a: number;
-  isDark: boolean;
-};
+  r: number
+  g: number
+  b: number
+  a: number
+  isDark: boolean
+}
 
 export function parseColor(color: string): RGBA {
-  const parsed = Color(color);
-  const isDark = parsed.isDark();
+  const parsed = Color(color)
+  const isDark = parsed.isDark()
 
   return {
     r: parsed.red(),
@@ -18,5 +18,5 @@ export function parseColor(color: string): RGBA {
     b: parsed.blue(),
     a: parsed.alpha(),
     isDark,
-  };
+  }
 }

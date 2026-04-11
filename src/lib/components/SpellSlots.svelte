@@ -1,26 +1,26 @@
 <script lang="ts">
-  import { appSettings } from '$lib/stores/app-settings';
-  import type { CharacterSvelteStore } from '$lib/stores/character';
-  import BorderLine from './BorderLine.svelte';
-  import Button from './Button.svelte';
-  import Dots from './Dots.svelte';
-  import Flex from './Flex.svelte';
-  import Input from './Input.svelte';
+  import { appSettings } from '$lib/stores/app-settings'
+  import type { CharacterSvelteStore } from '$lib/stores/character'
+  import BorderLine from './BorderLine.svelte'
+  import Button from './Button.svelte'
+  import Dots from './Dots.svelte'
+  import Flex from './Flex.svelte'
+  import Input from './Input.svelte'
 
   type Props = {
-    character: CharacterSvelteStore;
-  };
+    character: CharacterSvelteStore
+  }
 
-  const { character }: Props = $props();
+  const { character }: Props = $props()
 
   function addSpellSlot() {
-    $character.spellSlots.push({ level: 1, amount: 0 });
-    $character.spellSlots = $character.spellSlots;
+    $character.spellSlots.push({ level: 1, amount: 0 })
+    $character.spellSlots = $character.spellSlots
   }
 
   function deleteSpellSlot(index: number) {
-    $character.spellSlots.splice(index, 1);
-    $character.spellSlots = $character.spellSlots;
+    $character.spellSlots.splice(index, 1)
+    $character.spellSlots = $character.spellSlots
   }
 </script>
 
@@ -34,7 +34,7 @@
   {#each $character.spellSlots as slot, index}
     <div class="line">
       <div class="value">
-        <Input type="number"  bind:value={slot.level} />
+        <Input type="number" bind:value={slot.level} />
       </div>
       <BorderLine vertical />
       <div class="value">

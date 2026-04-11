@@ -1,41 +1,41 @@
 <script lang="ts">
-  import { micromark } from 'micromark';
-  import { gfmTable, gfmTableHtml } from 'micromark-extension-gfm-table';
+  import { micromark } from 'micromark'
+  import { gfmTable, gfmTableHtml } from 'micromark-extension-gfm-table'
 
-  import Textarea from './Textarea.svelte';
-  import { appSettings } from '$lib/stores/app-settings';
-  import Flex from './Flex.svelte';
-  import Markdown from './Markdown.svelte';
+  import Textarea from './Textarea.svelte'
+  import { appSettings } from '$lib/stores/app-settings'
+  import Flex from './Flex.svelte'
+  import Markdown from './Markdown.svelte'
 
   type Props = {
-    code: string;
-  };
+    code: string
+  }
 
-  let { code = $bindable() }: Props = $props();
+  let { code = $bindable() }: Props = $props()
   const parsed = $derived(
     micromark(code, {
       extensions: [gfmTable()],
       htmlExtensions: [gfmTableHtml()],
     }),
-  );
-  let edit = $derived($appSettings.edit);
-  let dialog: HTMLDialogElement | null = $state(null);
+  )
+  let edit = $derived($appSettings.edit)
+  let dialog: HTMLDialogElement | null = $state(null)
 
   function openDialog() {
-    if (!dialog) return;
-    dialog.showModal();
+    if (!dialog) return
+    dialog.showModal()
   }
 
   function closeDialog(event: MouseEvent) {
-    if (!dialog) return;
-    var rect = dialog.getBoundingClientRect();
+    if (!dialog) return
+    var rect = dialog.getBoundingClientRect()
     var isInDialog =
       rect.top <= event.clientY &&
       event.clientY <= rect.top + rect.height &&
       rect.left <= event.clientX &&
-      event.clientX <= rect.left + rect.width;
+      event.clientX <= rect.left + rect.width
     if (!isInDialog) {
-      dialog.close();
+      dialog.close()
     }
   }
 </script>

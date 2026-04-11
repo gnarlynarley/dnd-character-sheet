@@ -1,7 +1,7 @@
 <script>
-  import { appSettings, themeOptions } from '$lib/stores/app-settings';
-  import BorderLine from './BorderLine.svelte';
-  import Select from './Select.svelte';
+  import { appSettings, themeOptions } from '$lib/stores/app-settings'
+  import BorderLine from './BorderLine.svelte'
+  import Select from './Select.svelte'
 </script>
 
 <footer class="hide-print">

@@ -1,4 +1,7 @@
 {
   "trailingComma": "all",
-  "singleQuote": true
+  "singleQuote": true,
+  "plugins": ["prettier-plugin-svelte"],
+  "semi": false,
+  "overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }]
 }

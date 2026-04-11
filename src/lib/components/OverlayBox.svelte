@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
-  import BorderLine from './BorderLine.svelte';
+  import type { Snippet } from 'svelte'
+  import BorderLine from './BorderLine.svelte'
 
   type Props = {
-    children?: Snippet;
-  };
+    children?: Snippet
+  }
 
-  const { children }: Props = $props();
+  const { children }: Props = $props()
 </script>
 
 <div class="wrapper">

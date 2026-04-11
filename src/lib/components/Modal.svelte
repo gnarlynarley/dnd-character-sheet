@@ -1,23 +1,23 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
-  import Card from './Card.svelte';
-  import { portal } from '$lib/actions/portal';
-  import Scrollbar from './Scrollbar.svelte';
+  import type { Snippet } from 'svelte'
+  import Card from './Card.svelte'
+  import { portal } from '$lib/actions/portal'
+  import Scrollbar from './Scrollbar.svelte'
 
   type Props = {
-    children?: Snippet;
-    title?: string;
-    full?: boolean;
-    onclose?: () => void;
-  };
+    children?: Snippet
+    title?: string
+    full?: boolean
+    onclose?: () => void
+  }
 
-  const { children, title, onclose, full }: Props = $props();
+  const { children, title, onclose, full }: Props = $props()
 
   function handleEscape(event: KeyboardEvent) {
     if (event.key === 'Escape') {
-      event.stopPropagation();
-      event.preventDefault();
-      onclose?.();
+      event.stopPropagation()
+      event.preventDefault()
+      onclose?.()
     }
   }
 </script>

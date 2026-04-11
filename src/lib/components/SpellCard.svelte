@@ -1,23 +1,23 @@
 <script lang="ts">
-  import { appSettings } from '$lib/stores/app-settings';
-  import { type CharacterSvelteStore } from '../stores/character';
-  import Button from './Button.svelte';
-  import Card from './Card.svelte';
-  import Flex from './Flex.svelte';
-  import Input from './Input.svelte';
-  import MarkdownEditor from './MarkdownEditor.svelte';
+  import { appSettings } from '$lib/stores/app-settings'
+  import { type CharacterSvelteStore } from '../stores/character'
+  import Button from './Button.svelte'
+  import Card from './Card.svelte'
+  import Flex from './Flex.svelte'
+  import Input from './Input.svelte'
+  import MarkdownEditor from './MarkdownEditor.svelte'
 
   type Props = {
-    index: number;
+    index: number
 
-    character: CharacterSvelteStore;
-  };
+    character: CharacterSvelteStore
+  }
 
-  const { index, character }: Props = $props();
+  const { index, character }: Props = $props()
 
   function deleteSpell() {
-    $character.spells.splice(index, 1);
-    $character.spells = $character.spells;
+    $character.spells.splice(index, 1)
+    $character.spells = $character.spells
   }
 </script>
 
