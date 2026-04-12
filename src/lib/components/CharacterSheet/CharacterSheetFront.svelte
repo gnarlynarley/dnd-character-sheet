@@ -1,88 +1,76 @@
 <script lang="ts">
-  import Avatar from '$lib/components/Avatar.svelte'
-  import Card from '$lib/components/Card.svelte'
-  import CombatSection from '$lib/components/CombatSection.svelte'
-  import Heading from '$lib/components/Heading.svelte'
-  import Other from '$lib/components/Other.svelte'
-  import Page from '$lib/components/Page.svelte'
-  import SkillList from '$lib/components/SkillList.svelte'
-  import WeaponSection from '$lib/components/WeaponSection.svelte'
-  import { type CharacterSvelteStore } from '$lib/stores/character'
-  import Scrollbar from '../Scrollbar.svelte'
-  import Input from '../Input.svelte'
-  import MarkdownEditor from '../MarkdownEditor.svelte'
+import Avatar from "$lib/components/Avatar.svelte";
+import Card from "$lib/components/Card.svelte";
+import CombatSection from "$lib/components/CombatSection.svelte";
+import Heading from "$lib/components/Heading.svelte";
+import Other from "$lib/components/Other.svelte";
+import Page from "$lib/components/Page.svelte";
+import SkillList from "$lib/components/SkillList.svelte";
+import WeaponSection from "$lib/components/WeaponSection.svelte";
+import type { CharacterSvelteStore } from "$lib/stores/character";
+import Input from "../Input.svelte";
+import MarkdownEditor from "../MarkdownEditor.svelte";
+import Scrollbar from "../Scrollbar.svelte";
 
-  type Props = {
-    character: CharacterSvelteStore
-  }
-  const { character }: Props = $props()
+type Props = {
+	character: CharacterSvelteStore;
+};
+const { character }: Props = $props();
 </script>
 
 <Page>
-  <div class="inner">
-    <div class="side">
-      <h1 class="name">
-        <Input type="text" bind:value={$character.name} />
-      </h1>
+	<div class="inner">
+		<div class="side">
+			<h1 class="name"><Input type="text" bind:value={$character.name} /></h1>
 
-      <div class="avatar">
-        <Avatar {character} />
-      </div>
-      <div class="abilities">
-        <div class="line">
-          <SkillList ability="str" {character} />
-          <SkillList ability="dex" {character} />
-          <SkillList ability="con" {character} />
-          <Card title="Proficiencies">
-            <MarkdownEditor bind:code={$character.proficienies} />
-          </Card>
-          <Card title="Languages">
-            <span class="languages">
-              <MarkdownEditor bind:code={$character.languages} />
-            </span>
-          </Card>
-        </div>
-        <div class="line">
-          <SkillList ability="int" {character} />
-          <SkillList ability="wis" {character} />
-          <SkillList ability="cha" {character} />
-        </div>
-      </div>
-    </div>
-    <div class="main">
-      <div class="heading">
-        <Heading {character} />
-      </div>
-      <div class="combat">
-        <CombatSection {character} />
-      </div>
-      <div class="other">
-        <Other {character} />
-      </div>
-      <div class="weapons">
-        <WeaponSection {character} />
-      </div>
-      <div class="feats">
-        <Card grid title="Feats">
-          <MarkdownEditor bind:code={$character.features.feats} />
-        </Card>
-      </div>
-      <div class="species">
-        <Card grid title="Species">
-          <Scrollbar>
-            <MarkdownEditor bind:code={$character.features.species} />
-          </Scrollbar>
-        </Card>
-      </div>
-      <div class="class">
-        <Card grid title="Class">
-          <Scrollbar>
-            <MarkdownEditor bind:code={$character.features.class} />
-          </Scrollbar>
-        </Card>
-      </div>
-    </div>
-  </div>
+			<div class="avatar"><Avatar {character} /></div>
+			<div class="abilities">
+				<div class="line">
+					<SkillList ability="str" {character} />
+					<SkillList ability="dex" {character} />
+					<SkillList ability="con" {character} />
+					<Card title="Proficiencies">
+						<MarkdownEditor bind:code={$character.proficienies} />
+					</Card>
+					<Card title="Languages">
+						<span class="languages">
+							<MarkdownEditor bind:code={$character.languages} />
+						</span>
+					</Card>
+				</div>
+				<div class="line">
+					<SkillList ability="int" {character} />
+					<SkillList ability="wis" {character} />
+					<SkillList ability="cha" {character} />
+				</div>
+			</div>
+		</div>
+		<div class="main">
+			<div class="heading"><Heading {character} /></div>
+			<div class="combat"><CombatSection {character} /></div>
+			<div class="other"><Other {character} /></div>
+			<div class="weapons"><WeaponSection {character} /></div>
+			<div class="feats">
+				<Card grid title="Feats">
+					<MarkdownEditor bind:code={$character.features.feats} />
+				</Card>
+			</div>
+			<div class="species">
+				<Card grid title="Species">
+					<Scrollbar>
+						<MarkdownEditor bind:code={$character.features.species} />
+					</Scrollbar>
+				</Card>
+			</div>
+			<div class="class">
+				<Card grid title="Class">
+					<Scrollbar>
+						<MarkdownEditor bind:code={$character.features.class} />
+					</Scrollbar>
+				</Card>
+			</div>
+		</div>
+	</div>
 </Page>
 
 <style lang="scss">

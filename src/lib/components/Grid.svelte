@@ -1,17 +1,15 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte'
+import type { Snippet } from "svelte";
 
-  type Props = {
-    children?: Snippet
-  }
+type Props = {
+	children?: Snippet;
+};
 
-  const { children }: Props = $props()
+const { children }: Props = $props();
 </script>
 
 <div class="grid">
-  <div class="inner">
-    {@render children?.()}
-  </div>
+	<div class="inner">{@render children?.()}</div>
 </div>
 
 <style lang="scss">

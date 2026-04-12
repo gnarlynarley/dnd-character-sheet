@@ -1,39 +1,37 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte'
-  import Card from './Card.svelte'
-  import { portal } from '$lib/actions/portal'
-  import Scrollbar from './Scrollbar.svelte'
+import type { Snippet } from "svelte";
+import { portal } from "$lib/actions/portal";
+import Card from "./Card.svelte";
+import Scrollbar from "./Scrollbar.svelte";
 
-  type Props = {
-    children?: Snippet
-    title?: string
-    full?: boolean
-    onclose?: () => void
-  }
+type Props = {
+	children?: Snippet;
+	title?: string;
+	full?: boolean;
+	onclose?: () => void;
+};
 
-  const { children, title, onclose, full }: Props = $props()
+const { children, title, onclose, full }: Props = $props();
 
-  function handleEscape(event: KeyboardEvent) {
-    if (event.key === 'Escape') {
-      event.stopPropagation()
-      event.preventDefault()
-      onclose?.()
-    }
-  }
+function handleEscape(event: KeyboardEvent) {
+	if (event.key === "Escape") {
+		event.stopPropagation();
+		event.preventDefault();
+		onclose?.();
+	}
+}
 </script>
 
 <svelte:window on:keydown={handleEscape} />
 
 <div class="modal" class:full use:portal>
-  <div class="inner">
-    <Card {title}>
-      <Scrollbar>
-        <div class="child-wrapper">
-          {@render children?.()}
-        </div>
-      </Scrollbar>
-    </Card>
-  </div>
+	<div class="inner">
+		<Card {title}>
+			<Scrollbar>
+				<div class="child-wrapper">{@render children?.()}</div>
+			</Scrollbar>
+		</Card>
+	</div>
 </div>
 
 <style lang="scss">

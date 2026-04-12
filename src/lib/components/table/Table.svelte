@@ -1,25 +1,23 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte'
+import type { Snippet } from "svelte";
 
-  type Props = {
-    children?: Snippet
-    fillCell?: number
-  }
+type Props = {
+	children?: Snippet;
+	fillCell?: number;
+};
 
-  const { children, fillCell }: Props = $props()
+const { children, fillCell }: Props = $props();
 
-  const style = $derived.by(() => {
-    let string = ''
-    if (fillCell) {
-      string += `--full:${fillCell};`
-    }
-    return string || undefined
-  })
+const style = $derived.by(() => {
+	let string = "";
+	if (fillCell) {
+		string += `--full:${fillCell};`;
+	}
+	return string || undefined;
+});
 </script>
 
-<div class="table" {style}>
-  {@render children?.()}
-</div>
+<div class="table" {style}>{@render children?.()}</div>
 
 <style lang="scss">
   .table {

@@ -1,55 +1,55 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte'
+import type { Snippet } from "svelte";
 
-  type Props = {
-    children?: Snippet
-    padding?: boolean | 'vertical' | 'horizontal'
-    full?: boolean
-    column?: boolean
-    nogap?: boolean
-    justify?: 'start' | 'center' | 'end' | 'between'
-    align?: 'start' | 'center' | 'end'
-    sm?: boolean
-    xl?: boolean
-    nogrow?: boolean
-    hidePrintSpacing?: boolean
-  }
+type Props = {
+	children?: Snippet;
+	padding?: boolean | "vertical" | "horizontal";
+	full?: boolean;
+	column?: boolean;
+	nogap?: boolean;
+	justify?: "start" | "center" | "end" | "between";
+	align?: "start" | "center" | "end";
+	sm?: boolean;
+	xl?: boolean;
+	nogrow?: boolean;
+	hidePrintSpacing?: boolean;
+};
 
-  const {
-    children,
-    padding,
-    full,
-    column,
-    nogap,
-    justify,
-    align,
-    sm,
-    xl,
-    nogrow,
-    hidePrintSpacing,
-  }: Props = $props()
+const {
+	children,
+	padding,
+	full,
+	column,
+	nogap,
+	justify,
+	align,
+	sm,
+	xl,
+	nogrow,
+	hidePrintSpacing,
+}: Props = $props();
 </script>
 
 <div
-  class="flex"
-  class:paddingVertical={padding === 'vertical' || padding === true}
-  class:paddingHorizontal={padding === 'horizontal' || padding === true}
-  class:column
-  class:full
-  class:nogap
-  class:justifyStart={justify === 'start'}
-  class:justifyCenter={justify === 'center'}
-  class:justifyEnd={justify === 'end'}
-  class:justifyBetween={justify === 'between'}
-  class:alignStart={align === 'start'}
-  class:alignCenter={align === 'center'}
-  class:alignEnd={align === 'end'}
-  class:sm
-  class:xl
-  class:nogrow
-  class:hidePrintSpacing
+	class="flex"
+	class:paddingVertical={padding === 'vertical' || padding === true}
+	class:paddingHorizontal={padding === 'horizontal' || padding === true}
+	class:column
+	class:full
+	class:nogap
+	class:justifyStart={justify === 'start'}
+	class:justifyCenter={justify === 'center'}
+	class:justifyEnd={justify === 'end'}
+	class:justifyBetween={justify === 'between'}
+	class:alignStart={align === 'start'}
+	class:alignCenter={align === 'center'}
+	class:alignEnd={align === 'end'}
+	class:sm
+	class:xl
+	class:nogrow
+	class:hidePrintSpacing
 >
-  {@render children?.()}
+	{@render children?.()}
 </div>
 
 <style lang="scss">

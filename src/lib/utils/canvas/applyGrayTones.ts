@@ -1,34 +1,34 @@
 export default function applyGrayTones(
-  canvas: HTMLCanvasElement,
-  context: CanvasRenderingContext2D,
-  gray: number,
-  black: number,
+	canvas: HTMLCanvasElement,
+	context: CanvasRenderingContext2D,
+	gray: number,
+	black: number,
 ) {
-  const imageData = context.getImageData(0, 0, canvas.width, canvas.height)
-  const data = imageData.data
-  const blackAverage = black * 255
-  const grayAverage = gray * black * (255 - black)
+	const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+	const data = imageData.data;
+	const blackAverage = black * 255;
+	const grayAverage = gray * black * (255 - black);
 
-  for (let i = 0; i < data.length; i += 4) {
-    const r = data[i]
-    const g = data[i + 1]
-    const b = data[i + 2]
+	for (let i = 0; i < data.length; i += 4) {
+		const r = data[i];
+		const g = data[i + 1];
+		const b = data[i + 2];
 
-    // Grayscale using luminosity method
-    const average = 0.299 * r + 0.587 * g + 0.114 * b
-    // Threshold to black or white
-    let value = 0
-    if (average > grayAverage) {
-      value = 190
-    }
-    if (average > blackAverage) {
-      value = 255
-    }
+		// Grayscale using luminosity method
+		const average = 0.299 * r + 0.587 * g + 0.114 * b;
+		// Threshold to black or white
+		let value = 0;
+		if (average > grayAverage) {
+			value = 190;
+		}
+		if (average > blackAverage) {
+			value = 255;
+		}
 
-    data[i] = value // red
-    data[i + 1] = value // green
-    data[i + 2] = value // blue
-  }
+		data[i] = value; // red
+		data[i + 1] = value; // green
+		data[i + 2] = value; // blue
+	}
 
-  context.putImageData(imageData, 0, 0)
+	context.putImageData(imageData, 0, 0);
 }

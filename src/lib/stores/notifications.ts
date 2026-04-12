@@ -1,26 +1,26 @@
-import { createId } from '$lib/utils'
-import { writable } from 'svelte/store'
+import { writable } from "svelte/store";
+import { createId } from "$lib/utils";
 
 export type Notification = {
-  id: string
-  message: string
-  type: 'info' | 'warning' | 'error'
-}
+	id: string;
+	message: string;
+	type: "info" | "warning" | "error";
+};
 
-export const notifications = writable<Notification[]>([])
+export const notifications = writable<Notification[]>([]);
 
 export function addNotification(
-  message: string,
-  type: 'info' | 'warning' | 'error' = 'info',
+	message: string,
+	type: "info" | "warning" | "error" = "info",
 ) {
-  const notification: Notification = {
-    id: createId(),
-    message,
-    type,
-  }
-  notifications.update((n) => [...n, notification])
+	const notification: Notification = {
+		id: createId(),
+		message,
+		type,
+	};
+	notifications.update((n) => [...n, notification]);
 }
 
 export function removeNotification(id: string) {
-  notifications.update((n) => n.filter((notif) => notif.id !== id))
+	notifications.update((n) => n.filter((notif) => notif.id !== id));
 }

@@ -1,72 +1,72 @@
 <script lang="ts">
-  import { appSettings } from '$lib/stores/app-settings'
-  import type { CharacterSvelteStore } from '$lib/stores/character'
-  import BorderLine from './BorderLine.svelte'
-  import Button from './Button.svelte'
-  import Dots from './Dots.svelte'
-  import Flex from './Flex.svelte'
-  import Input from './Input.svelte'
+import { appSettings } from "$lib/stores/app-settings";
+import type { CharacterSvelteStore } from "$lib/stores/character";
+import BorderLine from "./BorderLine.svelte";
+import Button from "./Button.svelte";
+import Dots from "./Dots.svelte";
+import Flex from "./Flex.svelte";
+import Input from "./Input.svelte";
 
-  type Props = {
-    character: CharacterSvelteStore
-  }
+type Props = {
+	character: CharacterSvelteStore;
+};
 
-  const { character }: Props = $props()
+const { character }: Props = $props();
 
-  function addSpellSlot() {
-    $character.spellSlots.push({ level: 1, amount: 0 })
-    $character.spellSlots = $character.spellSlots
-  }
+function addSpellSlot() {
+	$character.spellSlots.push({ level: 1, amount: 0 });
+	// biome-ignore lint/correctness/noSelfAssign: This needs to be here for svelte to recognize the change
+	$character.spellSlots = $character.spellSlots;
+}
 
-  function deleteSpellSlot(index: number) {
-    $character.spellSlots.splice(index, 1)
-    $character.spellSlots = $character.spellSlots
-  }
+function deleteSpellSlot(index: number) {
+	$character.spellSlots.splice(index, 1);
+	// biome-ignore lint/correctness/noSelfAssign: This needs to be here for svelte to recognize the change
+	$character.spellSlots = $character.spellSlots;
+}
 </script>
 
 <Flex column sm>
-  <div class="line">
-    <span>Level</span>
-    <BorderLine vertical />
-    <span>Slots</span>
-  </div>
-  <BorderLine />
-  {#each $character.spellSlots as slot, index}
-    <div class="line">
-      <div class="value">
-        <Input type="number" bind:value={slot.level} />
-      </div>
-      <BorderLine vertical />
-      <div class="value">
-        {#if $appSettings.edit}
-          <Input type="number" bind:value={slot.amount} />
-        {:else}
-          <Dots sm amount={slot.amount} />
-        {/if}
-      </div>
-      {#if $appSettings.edit}
-        <button type="button" onclick={() => deleteSpellSlot(index)}>
-          delete
-        </button>
-      {/if}
-    </div>
-    <BorderLine />
-  {/each}
-  {#if $appSettings.edit}
-    <Button onclick={addSpellSlot}>Add spellslot level</Button>
-  {/if}
+	<div class="line">
+		<span>Level</span>
+		<BorderLine vertical />
+		<span>Slots</span>
+	</div>
+	<BorderLine />
+	{#each $character.spellSlots as slot, index}
+		<div class="line">
+			<div class="value"><Input type="number" bind:value={slot.level} /></div>
+			<BorderLine vertical />
+			<div class="value">
+				{#if $appSettings.edit}
+					<Input type="number" bind:value={slot.amount} />
+				{:else}
+					<Dots sm amount={slot.amount} />
+				{/if}
+			</div>
+			{#if $appSettings.edit}
+				<button type="button" onclick={() => deleteSpellSlot(index)}>
+					delete
+				</button>
+			{/if}
+		</div>
+		<BorderLine />
+	{/each}
+	{#if $appSettings.edit}
+		<Button onclick={addSpellSlot}>Add spellslot level</Button>
+	{/if}
 </Flex>
 
 <style>
-  .line {
-    display: grid;
-    grid-template-columns: 3em auto 1fr;
-    gap: var(--gutter);
-    align-items: center;
-  }
+.line {
+	display: grid;
+	grid-template-columns: 3em auto 1fr;
+	gap: var(--gutter);
+	align-items: center;
+}
 
-  .value {
-    font-family: var(--font-written);
-    font-size: 1.4em;
-  }
+.value {
+	font-family: var(--font-written);
+	font-size: 1.4em;
+}
 </style>

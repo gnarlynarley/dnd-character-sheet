@@ -1,26 +1,26 @@
 <script lang="ts">
-  type Props = {
-    canvas: HTMLCanvasElement | null
-    context: CanvasRenderingContext2D | null
-    width?: number
-    height?: number
-  }
+type Props = {
+	canvas: HTMLCanvasElement | null;
+	context: CanvasRenderingContext2D | null;
+	width?: number;
+	height?: number;
+};
 
-  let {
-    canvas = $bindable(),
-    context = $bindable(),
-    width,
-    height,
-  }: Props = $props()
+let {
+	canvas = $bindable(),
+	context = $bindable(),
+	width,
+	height,
+}: Props = $props();
 
-  $effect(() => {
-    context = canvas?.getContext('2d', { willReadFrequently: true }) ?? null
-  })
+$effect(() => {
+	context = canvas?.getContext("2d", { willReadFrequently: true }) ?? null;
+});
 </script>
 
 <div class="wrapper">
-  <div class="overlay" data-html2canvas-ignore></div>
-  <canvas bind:this={canvas} {width} {height}></canvas>
+	<div class="overlay" data-html2canvas-ignore></div>
+	<canvas bind:this={canvas} {width} {height}></canvas>
 </div>
 
 <style lang="scss">

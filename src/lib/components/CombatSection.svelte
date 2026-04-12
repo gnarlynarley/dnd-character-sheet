@@ -1,78 +1,78 @@
 <script lang="ts">
-  import type { CharacterSvelteStore } from '$lib/stores/character'
-  import BorderLine from './BorderLine.svelte'
-  import Card from './Card.svelte'
-  import DeathSave from './DeathSave.svelte'
-  import Flex from './Flex.svelte'
-  import FlexPush from './FlexPush.svelte'
-  import Input from './Input.svelte'
+import type { CharacterSvelteStore } from "$lib/stores/character";
+import BorderLine from "./BorderLine.svelte";
+import Card from "./Card.svelte";
+import DeathSave from "./DeathSave.svelte";
+import Flex from "./Flex.svelte";
+import FlexPush from "./FlexPush.svelte";
+import Input from "./Input.svelte";
 
-  type Props = {
-    character: CharacterSvelteStore
-  }
+type Props = {
+	character: CharacterSvelteStore;
+};
 
-  const { character }: Props = $props()
+const { character }: Props = $props();
 </script>
 
 <div class="container">
-  <div class="armor">
-    <div class="inner">
-      <div class="label">Armor<br />Class</div>
-      <BorderLine />
-      <div class="value">
-        <Input type="number" bind:value={$character.armorClass} />
-      </div>
-    </div>
-  </div>
-  <Card>
-    <div class="inner">
-      <Flex column align="center" --flex-grow="1">
-        <div class="label">Hitpoints</div>
-        <Flex full>
-          <Flex column align="center" justify="end" full>
-            <BorderLine />
-            <span>current</span>
-          </Flex>
-          <BorderLine vertical />
-          <Flex column align="center" justify="end" full>
-            <div class="value">
-              <Input type="number" bind:value={$character.hitPoints} />
-            </div>
-            <BorderLine />
-            <span>max</span>
-          </Flex>
-        </Flex>
-      </Flex>
+	<div class="armor">
+		<div class="inner">
+			<div class="label">Armor<br>Class</div>
+			<BorderLine />
+			<div class="value">
+				<Input type="number" bind:value={$character.armorClass} />
+			</div>
+		</div>
+	</div>
+	<Card>
+		<div class="inner">
+			<Flex column align="center" --flex-grow="1">
+				<div class="label">Hitpoints</div>
+				<Flex full>
+					<Flex column align="center" justify="end" full>
+						<BorderLine />
+						<span>current</span>
+					</Flex>
+					<BorderLine vertical />
+					<Flex column align="center" justify="end" full>
+						<div class="value">
+							<Input type="number" bind:value={$character.hitPoints} />
+						</div>
+						<BorderLine />
+						<span>max</span>
+					</Flex>
+				</Flex>
+			</Flex>
 
-      <BorderLine vertical />
+			<BorderLine vertical />
 
-      <Flex column align="center" sm>
-        <div class="label">Hit Dice</div>
-        <FlexPush />
-        <Flex column full>
-          <div style="height:3em;"></div>
-          <BorderLine></BorderLine>
-          <span>spend</span>
-        </Flex>
-        <Flex column full>
-          <div class="value">
-            <Input type="text" bind:value={$character.hitDice} />
-          </div>
-          <BorderLine></BorderLine>
-          <span>current</span>
-        </Flex>
-      </Flex>
+			<Flex column align="center" sm>
+				<div class="label">Hit Dice</div>
+				<FlexPush />
+				<Flex column full>
+					<div style="height:3em;"></div>
+					<BorderLine></BorderLine>
+					<span>spend</span>
+				</Flex>
+				<Flex column full>
+					<div class="value">
+						<Input type="text" bind:value={$character.hitDice} />
+					</div>
+					<BorderLine></BorderLine>
+					<span>current</span>
+				</Flex>
+			</Flex>
 
-      <BorderLine vertical />
+			<BorderLine vertical />
 
-      <Flex column --flex-grow="0">
-        <div class="label">Death<br />Saves</div>
-        <FlexPush />
-        <DeathSave label="successes" />
-        <DeathSave label="failures" />
-      </Flex>
-    </div>
-  </Card>
+			<Flex column --flex-grow="0">
+				<div class="label">Death<br>Saves</div>
+				<FlexPush />
+				<DeathSave label="successes" />
+				<DeathSave label="failures" />
+			</Flex>
+		</div>
+	</Card>
 </div>
 
 <style lang="scss">

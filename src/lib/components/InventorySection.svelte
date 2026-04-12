@@ -1,98 +1,86 @@
 <script lang="ts">
-  import { appSettings } from '$lib/stores/app-settings'
-  import type { CharacterSvelteStore } from '$lib/stores/character'
-  import { sliceOnce } from '$lib/utils'
-  import Button from './Button.svelte'
-  import Flex from './Flex.svelte'
-  import Input from './Input.svelte'
-  import { Table } from './table'
-  import TableCell from './table/TableCell.svelte'
-  import TableRow from './table/TableRow.svelte'
+import { appSettings } from "$lib/stores/app-settings";
+import type { CharacterSvelteStore } from "$lib/stores/character";
+import { sliceOnce } from "$lib/utils";
+import Button from "./Button.svelte";
+import Flex from "./Flex.svelte";
+import Input from "./Input.svelte";
+import { Table } from "./table";
+import TableCell from "./table/TableCell.svelte";
+import TableRow from "./table/TableRow.svelte";
 
-  type Props = {
-    character: CharacterSvelteStore
-  }
+type Props = {
+	character: CharacterSvelteStore;
+};
 
-  const { character }: Props = $props()
-  const parsed = $derived.by(() =>
-    $character.inventory.flatMap((item) => {
-      if (!item.trim()) return []
-      const match = item.trim().match(/^(\d+)\s+(.*)$/)
-      const count = match ? Number(match[1]) : 1
-      const rest = match ? match[2] : item.trim()
-      const [name, description] = sliceOnce(rest, '|')
-      return { count, name, description }
-    }),
-  )
+const { character }: Props = $props();
+const parsed = $derived.by(() =>
+	$character.inventory.flatMap((item) => {
+		if (!item.trim()) return [];
+		const match = item.trim().match(/^(\d+)\s+(.*)$/);
+		const count = match ? Number(match[1]) : 1;
+		const rest = match ? match[2] : item.trim();
+		const [name, description] = sliceOnce(rest, "|");
+		return { count, name, description };
+	}),
+);
 
-  function addInventoryItem() {
-    character.update((char) => {
-      char.inventory.push('')
-      return char
-    })
-  }
+function addInventoryItem() {
+	character.update((char) => {
+		char.inventory.push("");
+		return char;
+	});
+}
 
-  function removeInventoryItem(index: number) {
-    character.update((char) => {
-      char.inventory.splice(index, 1)
-      return char
-    })
-  }
+function removeInventoryItem(index: number) {
+	character.update((char) => {
+		char.inventory.splice(index, 1);
+		return char;
+	});
+}
 </script>
 
 <div class="wrapper">
-  {#if $appSettings.edit}
-    <Flex column>
-      {#each $character.inventory as slot, index}
-        <Flex align="center">
-          <div class="value">
-            <Input type="text" bind:value={$character.inventory[index]} />
-          </div>
-          <button type="button" onclick={() => removeInventoryItem(index)}>
-            delete
-          </button>
-        </Flex>
-      {/each}
-      <Button onclick={addInventoryItem}>Add item</Button>
-    </Flex>
-  {:else}
-    <Table>
-      <TableRow>
-        <TableCell>
-          <strong>Qty</strong>
-        </TableCell>
-        <TableCell>
-          <strong>Item</strong>
-        </TableCell>
-        <TableCell>
-          <strong>Notes</strong>
-        </TableCell>
-      </TableRow>
-      {#each parsed as item}
-        <TableRow>
-          <TableCell>
-            <span class="value">{item.count}</span>
-          </TableCell>
-          <TableCell>
-            <span class="value">{item.name}</span>
-          </TableCell>
-          <TableCell>
-            <span class="value">{item.description}</span>
-          </TableCell>
-        </TableRow>
-      {/each}
-    </Table>
-  {/if}
+	{#if $appSettings.edit}
+		<Flex column>
+			{#each $character.inventory as slot, index}
+				<Flex align="center">
+					<div class="value">
+						<Input type="text" bind:value={$character.inventory[index]} />
+					</div>
+					<button type="button" onclick={() => removeInventoryItem(index)}>
+						delete
+					</button>
+				</Flex>
+			{/each}
+			<Button onclick={addInventoryItem}>Add item</Button>
+		</Flex>
+	{:else}
+		<Table>
+			<TableRow>
+				<TableCell> <strong>Qty</strong> </TableCell>
+				<TableCell> <strong>Item</strong> </TableCell>
+				<TableCell> <strong>Notes</strong> </TableCell>
+			</TableRow>
+			{#each parsed as item}
+				<TableRow>
+					<TableCell> <span class="value">{item.count}</span> </TableCell>
+					<TableCell> <span class="value">{item.name}</span> </TableCell>
+					<TableCell> <span class="value">{item.description}</span> </TableCell>
+				</TableRow>
+			{/each}
+		</Table>
+	{/if}
 </div>
 
 <style>
-  .wrapper {
-    width: 100%;
-  }
+.wrapper {
+	width: 100%;
+}
 
-  .value {
-    font-family: var(--font-written);
-    font-size: 1.8em;
-    flex-grow: 1;
-  }
+.value {
+	font-family: var(--font-written);
+	font-size: 1.8em;
+	flex-grow: 1;
+}
 </style>

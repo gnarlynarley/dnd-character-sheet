@@ -1,71 +1,71 @@
 <script lang="ts">
-  import type { CharacterSvelteStore } from '$lib/stores/character'
-  import Border from './Border.svelte'
-  import BorderLine from './BorderLine.svelte'
-  import Flex from './Flex.svelte'
-  import Input from './Input.svelte'
+import type { CharacterSvelteStore } from "$lib/stores/character";
+import Border from "./Border.svelte";
+import BorderLine from "./BorderLine.svelte";
+import Flex from "./Flex.svelte";
+import Input from "./Input.svelte";
 
-  type Props = {
-    character: CharacterSvelteStore
-  }
+type Props = {
+	character: CharacterSvelteStore;
+};
 
-  const { character }: Props = $props()
+const { character }: Props = $props();
 </script>
 
 <Border>
-  <div class="inner">
-    <div class="field">
-      <div class="value">
-        <Input type="text" bind:value={$character.playerName} />
-      </div>
-      <BorderLine />
-      <div class="label">Player name</div>
-    </div>
-    <div class="field">
-      <div class="value">
-        <Input type="text" bind:value={$character.alignment} />
-      </div>
-      <BorderLine />
-      <div class="label">Alignment</div>
-    </div>
-    <div class="field">
-      <div class="value">
-        <Input type="text" bind:value={$character.background} />
-      </div>
-      <BorderLine />
-      <div class="label">Background</div>
-    </div>
-    <div class="field">
-      <div class="value">
-        <Input type="text" bind:value={$character.class} />
-      </div>
-      <BorderLine />
-      <div class="label">Class</div>
-    </div>
-    <div class="field">
-      <div class="value">
-        <Input type="text" bind:value={$character.species} />
-      </div>
-      <BorderLine />
-      <div class="label">Species</div>
-    </div>
-    <div class="field">
-      <div class="value">
-        <Input type="text" bind:value={$character.subclass} />
-      </div>
-      <BorderLine />
-      <div class="label">Subclass</div>
-    </div>
-    <div class="level">
-      <Flex column sm align="center">
-        <div class="value">
-          <Input type="number" bind:value={$character.level} />
-        </div>
-        <BorderLine />
-        <div class="label">Level</div>
-      </Flex>
-    </div>
-  </div>
+	<div class="inner">
+		<div class="field">
+			<div class="value">
+				<Input type="text" bind:value={$character.playerName} />
+			</div>
+			<BorderLine />
+			<div class="label">Player name</div>
+		</div>
+		<div class="field">
+			<div class="value">
+				<Input type="text" bind:value={$character.alignment} />
+			</div>
+			<BorderLine />
+			<div class="label">Alignment</div>
+		</div>
+		<div class="field">
+			<div class="value">
+				<Input type="text" bind:value={$character.background} />
+			</div>
+			<BorderLine />
+			<div class="label">Background</div>
+		</div>
+		<div class="field">
+			<div class="value">
+				<Input type="text" bind:value={$character.class} />
+			</div>
+			<BorderLine />
+			<div class="label">Class</div>
+		</div>
+		<div class="field">
+			<div class="value">
+				<Input type="text" bind:value={$character.species} />
+			</div>
+			<BorderLine />
+			<div class="label">Species</div>
+		</div>
+		<div class="field">
+			<div class="value">
+				<Input type="text" bind:value={$character.subclass} />
+			</div>
+			<BorderLine />
+			<div class="label">Subclass</div>
+		</div>
+		<div class="level">
+			<Flex column sm align="center">
+				<div class="value">
+					<Input type="number" bind:value={$character.level} />
+				</div>
+				<BorderLine />
+				<div class="label">Level</div>
+			</Flex>
+		</div>
+	</div>
 </Border>
 
 <style lang="scss">

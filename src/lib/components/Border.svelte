@@ -1,54 +1,52 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte'
+import type { Snippet } from "svelte";
 
-  type Props = {
-    children?: Snippet
-    grid?: boolean
-    nopadding?: boolean
-    absolute?: boolean
-    rounded?: boolean
-    noshadow?: boolean
-    transparent?: boolean
-    faded?: boolean
-    small?: boolean
-    nogrow?: boolean
-    withHover?: boolean
-    flex?: boolean
-  }
+type Props = {
+	children?: Snippet;
+	grid?: boolean;
+	nopadding?: boolean;
+	absolute?: boolean;
+	rounded?: boolean;
+	noshadow?: boolean;
+	transparent?: boolean;
+	faded?: boolean;
+	small?: boolean;
+	nogrow?: boolean;
+	withHover?: boolean;
+	flex?: boolean;
+};
 
-  const {
-    children,
-    grid,
-    nopadding,
-    absolute,
-    rounded,
-    noshadow,
-    transparent,
-    faded,
-    small,
-    nogrow,
-    withHover,
-    flex,
-  }: Props = $props()
+const {
+	children,
+	grid,
+	nopadding,
+	absolute,
+	rounded,
+	noshadow,
+	transparent,
+	faded,
+	small,
+	nogrow,
+	withHover,
+	flex,
+}: Props = $props();
 </script>
 
 <div
-  class="container"
-  class:nopadding
-  class:grid
-  class:absolute
-  class:rounded
-  class:noshadow
-  class:transparent
-  class:faded
-  class:small
-  class:nogrow
-  class:withHover
-  class:flex
+	class="container"
+	class:nopadding
+	class:grid
+	class:absolute
+	class:rounded
+	class:noshadow
+	class:transparent
+	class:faded
+	class:small
+	class:nogrow
+	class:withHover
+	class:flex
 >
-  <div class="inner">
-    {@render children?.()}
-  </div>
+	<div class="inner">{@render children?.()}</div>
 </div>
 
 <style lang="scss">

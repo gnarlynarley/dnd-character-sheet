@@ -1,81 +1,82 @@
 <script lang="ts">
-  import { appSettings } from '$lib/stores/app-settings'
-  import { type CharacterSvelteStore } from '../stores/character'
-  import Button from './Button.svelte'
-  import Card from './Card.svelte'
-  import Flex from './Flex.svelte'
-  import Input from './Input.svelte'
-  import MarkdownEditor from './MarkdownEditor.svelte'
+import { appSettings } from "$lib/stores/app-settings";
+import type { CharacterSvelteStore } from "../stores/character";
+import Button from "./Button.svelte";
+import Card from "./Card.svelte";
+import Flex from "./Flex.svelte";
+import Input from "./Input.svelte";
+import MarkdownEditor from "./MarkdownEditor.svelte";
 
-  type Props = {
-    index: number
+type Props = {
+	index: number;
 
-    character: CharacterSvelteStore
-  }
+	character: CharacterSvelteStore;
+};
 
-  const { index, character }: Props = $props()
+const { index, character }: Props = $props();
 
-  function deleteSpell() {
-    $character.spells.splice(index, 1)
-    $character.spells = $character.spells
-  }
+function deleteSpell() {
+	$character.spells.splice(index, 1);
+	// biome-ignore lint/correctness/noSelfAssign: This needs to be here for svelte to recognize the change
+	$character.spells = $character.spells;
+}
 </script>
 
 <div class="wrapper">
-  <Card>
-    <Flex column>
-      <div class="name value">
-        <Input type="text" bind:value={$character.spells[index].name} />
-      </div>
+	<Card>
+		<Flex column>
+			<div class="name value">
+				<Input type="text" bind:value={$character.spells[index].name} />
+			</div>
 
-      <Flex column sm>
-        <div class="line">
-          <div class="label">Level</div>
-          <div class="value">
-            <Input type="number" bind:value={$character.spells[index].level} />
-          </div>
-        </div>
-        <div class="line">
-          <div class="label">Casting Time</div>
-          <div class="value">
-            <Input
-              type="text"
-              bind:value={$character.spells[index].castingTime}
-            />
-          </div>
-        </div>
-        <div class="line">
-          <div class="label">Range</div>
-          <div class="value">
-            <Input type="text" bind:value={$character.spells[index].range} />
-          </div>
-        </div>
-        <div class="line">
-          <div class="label">Components</div>
-          <div class="value">
-            <Input
-              type="text"
-              bind:value={$character.spells[index].components}
-            />
-          </div>
-        </div>
-        <div class="line">
-          <div class="label">Duration</div>
-          <div class="value">
-            <Input type="text" bind:value={$character.spells[index].duration} />
-          </div>
-        </div>
-      </Flex>
+			<Flex column sm>
+				<div class="line">
+					<div class="label">Level</div>
+					<div class="value">
+						<Input type="number" bind:value={$character.spells[index].level} />
+					</div>
+				</div>
+				<div class="line">
+					<div class="label">Casting Time</div>
+					<div class="value">
+						<Input
+							type="text"
+							bind:value={$character.spells[index].castingTime}
+						/>
+					</div>
+				</div>
+				<div class="line">
+					<div class="label">Range</div>
+					<div class="value">
+						<Input type="text" bind:value={$character.spells[index].range} />
+					</div>
+				</div>
+				<div class="line">
+					<div class="label">Components</div>
+					<div class="value">
+						<Input
+							type="text"
+							bind:value={$character.spells[index].components}
+						/>
+					</div>
+				</div>
+				<div class="line">
+					<div class="label">Duration</div>
+					<div class="value">
+						<Input type="text" bind:value={$character.spells[index].duration} />
+					</div>
+				</div>
+			</Flex>
 
-      <MarkdownEditor bind:code={$character.spells[index].description} />
-    </Flex>
+			<MarkdownEditor bind:code={$character.spells[index].description} />
+		</Flex>
 
-    {#if $appSettings.edit}
-      <div class="delete-button">
-        <Button onclick={deleteSpell}>Delete</Button>
-      </div>
-    {/if}
-  </Card>
+		{#if $appSettings.edit}
+			<div class="delete-button">
+				<Button onclick={deleteSpell}>Delete</Button>
+			</div>
+		{/if}
+	</Card>
 </div>
 
 <style lang="scss">

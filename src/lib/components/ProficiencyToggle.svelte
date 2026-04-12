@@ -1,35 +1,36 @@
 <script lang="ts">
-  import type { ProficiencyType } from '../models'
-  import { appSettings } from '$lib/stores/app-settings'
+import { appSettings } from "$lib/stores/app-settings";
+import type { ProficiencyType } from "../models";
 
-  type Props = {
-    value?: ProficiencyType
-  }
+type Props = {
+	value?: ProficiencyType;
+};
 
-  let { value = $bindable() }: Props = $props()
-  const edit = $derived($appSettings.edit)
+let { value = $bindable() }: Props = $props();
+const edit = $derived($appSettings.edit);
 
-  const PROFICIENCY_ORDER: ProficiencyType[] = [
-    'none',
-    'proficient',
-    'double',
-    'half',
-  ]
+const PROFICIENCY_ORDER: ProficiencyType[] = [
+	"none",
+	"proficient",
+	"double",
+	"half",
+];
 
-  function onClick() {
-    const index = PROFICIENCY_ORDER.indexOf(value ?? 'none')
-    const nextIndex = (index + 1) % PROFICIENCY_ORDER.length
-    value = PROFICIENCY_ORDER[nextIndex]
-  }
+function onClick() {
+	const index = PROFICIENCY_ORDER.indexOf(value ?? "none");
+	const nextIndex = (index + 1) % PROFICIENCY_ORDER.length;
+	value = PROFICIENCY_ORDER[nextIndex];
+}
 </script>
 
 <button
-  aria-label="Proficiency"
-  onclick={onClick}
-  class:is-proficient={value === 'proficient'}
-  class:is-double={value === 'double'}
-  class:is-half={value === 'half'}
-  disabled={!edit}
+	type="button"
+	aria-label="Proficiency"
+	onclick={onClick}
+	class:is-proficient={value === 'proficient'}
+	class:is-double={value === 'double'}
+	class:is-half={value === 'half'}
+	disabled={!edit}
 ></button>
 
 <style lang="scss">

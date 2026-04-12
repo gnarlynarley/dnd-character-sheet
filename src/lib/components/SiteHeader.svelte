@@ -1,47 +1,46 @@
 <script>
-  import {} from 'svelte-spa-router'
-  import BorderLine from './BorderLine.svelte'
-  import { links } from '$lib/routes'
-  import Link from './Link.svelte'
-  import Flex from './Flex.svelte'
-  import FlexPush from './FlexPush.svelte'
+import { links } from "$lib/routes";
+import BorderLine from "./BorderLine.svelte";
+import Flex from "./Flex.svelte";
+import FlexPush from "./FlexPush.svelte";
+import Link from "./Link.svelte";
 
-  const navigationLinks = [
-    {
-      href: links.characterSelect(),
-      label: 'Character select',
-    },
-    {
-      href: links.gridGenerator(),
-      label: 'Grid generator',
-    },
-    {
-      href: links.spells(),
-      label: 'Spells',
-    },
-  ]
+const navigationLinks = [
+	{
+		href: links.characterSelect(),
+		label: "Character select",
+	},
+	{
+		href: links.gridGenerator(),
+		label: "Grid generator",
+	},
+	{
+		href: links.spells(),
+		label: "Spells",
+	},
+];
 </script>
 
 <header class="hide-print">
-  <div class="inner">
-    <Flex align="center">
-      <h1>
-        <Link href={links.characterSelect()}>D&D Character Sheet creator</Link>
-      </h1>
+	<div class="inner">
+		<Flex align="center">
+			<h1>
+				<Link href={links.characterSelect()}>D&D Character Sheet creator</Link>
+			</h1>
 
-      <FlexPush />
+			<FlexPush />
 
-      <nav>
-        {#each navigationLinks as { href, label }}
-          <div class="link">
-            <Link {href}>{label}</Link>
-          </div>
-        {/each}
-      </nav>
-    </Flex>
-  </div>
+			<nav>
+				{#each navigationLinks as { href, label }}
+					<div class="link">
+						<Link {href}>{label}</Link>
+					</div>
+				{/each}
+			</nav>
+		</Flex>
+	</div>
 
-  <BorderLine faded />
+	<BorderLine faded />
 </header>
 
 <style lang="scss">

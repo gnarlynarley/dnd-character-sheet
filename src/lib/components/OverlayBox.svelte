@@ -1,18 +1,16 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte'
-  import BorderLine from './BorderLine.svelte'
+import type { Snippet } from "svelte";
+import BorderLine from "./BorderLine.svelte";
 
-  type Props = {
-    children?: Snippet
-  }
+type Props = {
+	children?: Snippet;
+};
 
-  const { children }: Props = $props()
+const { children }: Props = $props();
 </script>
 
 <div class="wrapper">
-  <div class="inner">
-    {@render children?.()}
-  </div>
+	<div class="inner">{@render children?.()}</div>
 </div>
 
 <style lang="scss">

@@ -1,22 +1,20 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte'
-  import { appSettings } from '$lib/stores/app-settings'
+import type { Snippet } from "svelte";
+import { appSettings } from "$lib/stores/app-settings";
 
-  type Props = {
-    children?: Snippet
-    multiple?: boolean
-  }
+type Props = {
+	children?: Snippet;
+	multiple?: boolean;
+};
 
-  const { children, multiple }: Props = $props()
-  const edit = $derived($appSettings.edit)
+const { children, multiple }: Props = $props();
+const edit = $derived($appSettings.edit);
 </script>
 
 <div class="container">
-  <div class="page" class:multiple class:edit>
-    <div class="inner">
-      {@render children?.()}
-    </div>
-  </div>
+	<div class="page" class:multiple class:edit>
+		<div class="inner">{@render children?.()}</div>
+	</div>
 </div>
 
 <style lang="scss">
