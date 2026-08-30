@@ -50,7 +50,7 @@ $effect(() => {
 	);
 	context.stroke();
 	const buffer = createCanvasBuffer(canvas);
-	context.filter = `url(#pencil)`;
+	context.filter = `var(--filter-pencil)`;
 
 	context.drawImage(buffer.canvas, 0, 0);
 	buffer.destroy();

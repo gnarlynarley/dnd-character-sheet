@@ -1,61 +1,65 @@
 <script lang="ts">
-import type { Snippet } from "svelte";
+  import type { Snippet } from 'svelte';
 
-type Props = {
-	children?: Snippet;
-	grid?: boolean;
-	nopadding?: boolean;
-	absolute?: boolean;
-	rounded?: boolean;
-	noshadow?: boolean;
-	transparent?: boolean;
-	faded?: boolean;
-	small?: boolean;
-	nogrow?: boolean;
-	withHover?: boolean;
-	flex?: boolean;
-};
+  type Props = {
+    children?: Snippet;
+    grid?: boolean;
+    padding?: 'sm';
+    nopadding?: boolean;
+    absolute?: boolean;
+    rounded?: boolean;
+    noshadow?: boolean;
+    transparent?: boolean;
+    faded?: boolean;
+    small?: boolean;
+    nogrow?: boolean;
+    withHover?: boolean;
+    flex?: boolean;
+  };
 
-const {
-	children,
-	grid,
-	nopadding,
-	absolute,
-	rounded,
-	noshadow,
-	transparent,
-	faded,
-	small,
-	nogrow,
-	withHover,
-	flex,
-}: Props = $props();
+  const {
+    children,
+    grid,
+    padding,
+    nopadding,
+    absolute,
+    rounded,
+    noshadow,
+    transparent,
+    faded,
+    small,
+    nogrow,
+    withHover,
+    flex,
+  }: Props = $props();
 </script>
 
 <div
-	class="container"
-	class:nopadding
-	class:grid
-	class:absolute
-	class:rounded
-	class:noshadow
-	class:transparent
-	class:faded
-	class:small
-	class:nogrow
-	class:withHover
-	class:flex
+  class="container"
+  class:nopadding
+  class:isSmallPadding={padding === 'sm'}
+  class:grid
+  class:absolute
+  class:rounded
+  class:noshadow
+  class:transparent
+  class:faded
+  class:small
+  class:nogrow
+  class:withHover
+  class:flex
 >
-	<div class="inner">{@render children?.()}</div>
+  <div class="inner">{@render children?.()}</div>
 </div>
 
 <style lang="scss">
   .container {
+    --padding: var(--gutter);
     --border-radius: 0.3em;
     --color-border: currentColor;
     position: relative;
     z-index: 0;
-    padding: calc(var(--gutter) + var(--border-size));
+    padding: calc(var(--padding) + var(--border-size));
     flex-grow: 1;
     display: flex;
     box-shadow: var(--shadow-distance) var(--shadow-distance) 0
@@ -73,15 +77,19 @@ const {
       border: var(--border-size) solid var(--color-border);
       border-bottom-width: calc(var(--border-size) * 1.5);
       border-right-width: calc(var(--border-size) * 1.5);
-      filter: url(#pencil);
+      filter: var(--filter-pencil);
       pointer-events: none;
       border-radius: var(--border-radius);
       background-color: var(--color-paper);
       z-index: 0;
     }
 
+    &.isSmallPadding {
+      --padding: calc(var(--gutter) * 0.5);
+    }
+
     &.nopadding {
-      padding: 0;
+      --padding: 0;
     }
     &.rounded {
       aspect-ratio: 1/1;

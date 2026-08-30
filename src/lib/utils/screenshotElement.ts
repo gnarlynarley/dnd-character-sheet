@@ -28,7 +28,7 @@ export async function screenshotElement(element: HTMLElement) {
 	}
 	canvas.width = f.width;
 	canvas.height = f.height;
-	context.filter = 'url("#pencil")';
+	context.filter = 'var(--filter-pencil)';
 	context.drawImage(f, 0, 0);
 
 	return canvas;

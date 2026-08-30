@@ -8,7 +8,7 @@ const { spread, vertical, faded }: Props = $props();
 
 <style>
 div {
-	filter: url("#pencil");
+	filter: var(--filter-pencil);
 
 	&.spread {
 		margin-left: calc(var(--gutter) * -1);

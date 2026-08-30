@@ -1,51 +1,39 @@
 <script lang="ts">
-import { micromark } from "micromark";
-import { gfmTable, gfmTableHtml } from "micromark-extension-gfm-table";
-import { appSettings } from "$lib/stores/app-settings";
-import Flex from "./Flex.svelte";
-import Markdown from "./Markdown.svelte";
-import Textarea from "./Textarea.svelte";
+  import { appSettings } from '$lib/stores/app-settings';
+  import Card from './Card.svelte';
+  import Flex from './Flex.svelte';
+  import Markdown from './Markdown.svelte';
+  import Textarea from './Textarea.svelte';
 
-type Props = {
-	code: string;
-};
+  type Props = {
+    code: string;
+  };
 
-let { code = $bindable() }: Props = $props();
-let edit = $derived($appSettings.edit);
-let dialog: HTMLDialogElement | null = $state(null);
+  let { code = $bindable() }: Props = $props();
+  let edit = $derived($appSettings.edit);
+  let dialog: HTMLDialogElement | null = $state(null);
 
-function openDialog() {
-	if (!dialog) return;
-	dialog.showModal();
-}
-
-function closeDialog(event: MouseEvent) {
-	if (!dialog) return;
-	var rect = dialog.getBoundingClientRect();
-	var isInDialog =
-		rect.top <= event.clientY &&
-		event.clientY <= rect.top + rect.height &&
-		rect.left <= event.clientX &&
-		event.clientX <= rect.left + rect.width;
-	if (!isInDialog) {
-		dialog.close();
-	}
-}
+  function openDialog() {
+    if (!dialog) return;
+    dialog.showModal();
+  }
 </script>
 
 {#if edit}
-	<div class="content">
-		<button type="button" onclick={openDialog}>⛶</button>
-		<Textarea bind:value={code} />
-	</div>
-	<dialog bind:this={dialog} onclick={closeDialog}>
-		<Flex column align="end">
-			<form method="dialog"><button type="submit">Close</button></form>
-			<Textarea bind:value={code} />
-		</Flex>
-	</dialog>
+  <div class="content">
+    <button type="button" onclick={openDialog}>⛶</button>
+    <Textarea bind:value={code} />
+  </div>
+  <dialog bind:this={dialog} closedby="any">
+    <Card>
+      <Flex column align="end">
+        <form method="dialog"><button type="submit">Close</button></form>
+        <Textarea bind:value={code} />
+      </Flex>
+    </Card>
+  </dialog>
 {:else}
-	<Markdown {code} />
+  <Markdown {code} />
 {/if}
 
 <style lang="scss">
@@ -80,6 +68,9 @@ function closeDialog(event: MouseEvent) {
     max-width: 60em;
     padding: var(--gutter);
     font-size: 1rem;
+    background-color: transparent;
+    border: none;
+    padding: 3px;
 
     &[open] {
       display: flex;

@@ -41,7 +41,7 @@ function onClick() {
     display: block;
     flex-shrink: 0;
     position: relative;
-    filter: url(#pencil);
+    filter: var(--filter-pencil);
     background-color: var(--color-editable);
     outline: var(--color-editable) 0.3em solid;
 

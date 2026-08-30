@@ -1,0 +1,232 @@
+avatar:
+  gray: 0.19
+  black: 0.69
+  x: -23.17442927222595
+  y: -20.640344541939214
+  scale: 1.4254515441959512
+  disableFilter: false
+  blob: null
+name: Phoebe Wrynn
+playerName: Narley
+level: 3
+class: Wizard
+subclass: Diviner
+species: Aarakocra
+size: Medium
+speed: 30
+background: Scribe
+alignment: Neutral
+armorClass: 13
+hitDice: 3d6
+hitPoints: 24
+proficiencyBonus: 2
+proficienies: Daggers, Darts, Slings, Quarterstaffs, Light Crossbows
+abilityScores:
+  str: 10
+  dex: 16
+  con: 14
+  int: 17
+  wis: 10
+  cha: 10
+abilityProficiencies:
+  - int
+  - wis
+skillProficiencies:
+  arcana: double
+  history: proficient
+  investigation: proficient
+languages: Common, Aarakocra, Auran
+features:
+  feats: >
+    # Lucky
+
+
+    **Luck Points**. You have a number of Luck Points equal to your Proficiency
+    Bonus and can spend the points on the benefits below. You regain your
+    expended Luck Points when you finish a Long Rest.
+
+
+    **Advantage**. When you roll a d20 for a D20 Test, you can spend 1 Luck
+    Point to give yourself Advantage on the roll.
+
+
+    **Disadvantage**. When a creature rolls a d20 for an attack roll against
+    you, you can spend 1 Luck Point to impose Disadvantage on that roll.
+  species: >
+    # Flight
+
+    Your wings give you a flying speed equal to your walking speed (30 feet). To
+    use this speed, you can't be wearing medium or heavy armor.
+
+
+    # Talons
+
+    Your talons are natural weapons, which you can use to make unarmed strikes.
+    If you hit with them, you deal slashing damage equal to **1d6** + your
+    Strength modifier, instead of the bludgeoning damage normal for an unarmed
+    strike.
+
+
+    # Wind Caller
+
+    Starting at 3rd level, you can cast the *Gust of Wind* spell with this
+    trait, without requiring a material component. Once you cast the spell with
+    this trait, you can't do so again until you finish a Long Rest. You can also
+    cast the spell using any spell slots you have of 2nd level or higher.
+    Intelligence is your spellcasting ability for this trait.
+  class: >
+    ## Level 1: Spellcasting
+
+    You have learned to cast spells through dedicated study, recorded in your
+    spellbook.
+
+
+    ## Level 1: Ritual Adept
+
+    If a spell has the Ritual tag and is in your spellbook, you can cast it as a
+    Ritual without needing to have it prepared.
+
+
+    ## Level 1: Arcane Recovery
+
+    Once per day when you finish a Short Rest, you can choose expended spell
+    slots to recover. The spell slots can have a combined level equal to or less
+    than half your Wizard level (round up), and none can be 6th level or higher.
+
+
+    ## Level 2: Scholar
+
+    You have Expertise in one skill you're proficient in from the following
+    list: Arcana, History, Investigation, Medicine, Nature, or Religion. Chosen:
+    **Arcana**.
+
+
+    # Diviner
+
+
+    ## Level 3: Divination Savant
+
+    The gold and time you must spend to copy a Divination spell into your
+    spellbook is halved, and you add two free Divination spells to your
+    spellbook whenever you gain a level in this class.
+
+
+    ## Level 3: Portent
+
+    Your study of divination magic gives you the ability to peer briefly into
+    the future. At the end of a Long Rest, roll two d20s and record the numbers.
+    You can replace any attack roll, saving throw, or ability check made by you
+    or a creature you can see with one of these rolls, deciding to do so before
+    or after the original roll, but before any effects of the roll occur. Once
+    you use a Portent roll, you can't use it again until you finish a Long Rest.
+weapons:
+  - name: Dagger
+    hit: 5
+    damage: 1d4
+    details: Piercing (Finesse, Light, Thrown 20/60)
+  - name: Light Crossbow
+    hit: 5
+    damage: 1d8
+    details: Piercing (Range 80/320, Two-Handed, Loading)
+  - name: Talons
+    hit: 2
+    damage: 1d6
+    details: Slashing (unarmed strike, natural weapon)
+spells:
+  - name: Mage Hand
+    showDescription: false
+    notes: Create a spectral hand that can manipulate objects.
+    prepared: true
+  - name: Minor Illusion
+    castingTime: Action
+    range: 30 feet
+    components: S, M (a bit of fleece)
+    duration: 1 minute
+    description: >
+      You create a sound or an image of an object within range that lasts for
+      the duration. See the descriptions below for the effects of each. The
+      illusion ends if you cast this spell again.
+
+
+      If a creature takes a Study action to examine the sound or image, the
+      creature can determine that it is an illusion with a successful
+      Intelligence (Investigation) check against your spell save DC. If a
+      creature discerns the illusion for what it is, the illusion becomes faint
+      to the creature.
+    showDescription: false
+    notes: Create a sound or image of an object.
+    prepared: true
+  - name: True Strike
+    showDescription: false
+    notes: Guarantee your next attack channels magic through the weapon (cantrip).
+    prepared: true
+  - name: Detect Magic
+    level: 1
+    castingTime: 1 action (Ritual)
+    range: Self (30-foot radius)
+    components: V, S
+    duration: Concentration, up to 10 minutes
+    showDescription: false
+    notes: Sense the presence and school of magic nearby.
+    prepared: true
+  - name: Identify
+    level: 1
+    castingTime: 1 minute (Ritual)
+    range: Touch
+    components: V, S, M
+    duration: Instantaneous
+    showDescription: false
+    notes: Learn the properties of a magic item or ongoing effect.
+    prepared: true
+  - name: Charm Person
+    level: 1
+    castingTime: 1 action
+    range: 30 feet
+    components: V, S
+    duration: 1 hour
+    showDescription: false
+    notes: Attempt to charm a humanoid.
+    prepared: true
+  - name: Disguise Self
+    level: 1
+    castingTime: 1 action
+    range: Self
+    components: V, S
+    duration: 1 hour
+    showDescription: false
+    notes: Change your appearance.
+    prepared: true
+  - name: Detect Thoughts
+    level: 2
+    castingTime: 1 action
+    range: Self
+    components: V, S, M
+    duration: Concentration, up to 1 minute
+    showDescription: false
+    notes: Read the surface thoughts of a nearby creature.
+    prepared: true
+spellcastingAbility: int
+spellSlots:
+  - level: 1
+    amount: 4
+  - level: 2
+    amount: 2
+inventory:
+  - Spellbook
+  - Arcane Focus (wand)
+  - Component Pouch
+  - Scholar's Pack
+  - Backpack
+  - Ball Bearings
+  - Bell
+  - 10 Candles
+  - Ink and Ink Pen
+  - Parchment (10 sheets)
+  - Little Bag of Sand
+  - Small Knife
+  - Hooded Lantern
+  - 7 flasks of Oil
+  - 5 days of Rations
+  - Rope
+  - Tinderbox
+  - Waterskin

@@ -46,7 +46,7 @@ const { children, pending }: Props = $props();
 		border: 2px solid currentColor;
 		border-bottom-color: transparent;
 		border-radius: 50%;
-		filter: url("#pencil");
+		filter: var(--filter-pencil);
 		animation: spin 1s linear infinite;
 	}
 

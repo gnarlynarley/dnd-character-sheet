@@ -36,6 +36,8 @@
   );
   --paper: url('#pencil');
 
+  --filter-pencil: url('#pencil');
+
   @media screen and (prefers-color-scheme: dark) {
     @include dark-mode-variables();
   }

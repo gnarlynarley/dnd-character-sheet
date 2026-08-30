@@ -47,7 +47,7 @@ const { children, centered, right, spread }: Props = $props();
 
   .inner {
     display: flex;
-    align-items: center;
+    align-items: start;
     padding-block: calc(var(--gutter) - (var(--row-gap) * 2));
     width: 100%;
   }

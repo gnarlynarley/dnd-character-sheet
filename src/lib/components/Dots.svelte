@@ -22,7 +22,7 @@ const { amount, sm }: Props = $props();
 	height: var(--size);
 	border: var(--border-sm);
 	border-radius: 50%;
-	filter: url("#pencil");
+	filter: var(--filter-pencil);
 
 	&.sm {
 		--size: 1em;
