@@ -1,33 +1,33 @@
 <script lang="ts">
-import type { Snippet } from "svelte";
+	import type { Snippet } from 'svelte';
 
-type Props = {
-	children?: Snippet;
-	padding?: boolean | "vertical" | "horizontal";
-	full?: boolean;
-	column?: boolean;
-	nogap?: boolean;
-	justify?: "start" | "center" | "end" | "between";
-	align?: "start" | "center" | "end";
-	sm?: boolean;
-	xl?: boolean;
-	nogrow?: boolean;
-	hidePrintSpacing?: boolean;
-};
+	type Props = {
+		children?: Snippet;
+		padding?: boolean | 'vertical' | 'horizontal';
+		full?: boolean;
+		column?: boolean;
+		nogap?: boolean;
+		justify?: 'start' | 'center' | 'end' | 'between';
+		align?: 'start' | 'center' | 'end';
+		sm?: boolean;
+		xl?: boolean;
+		nogrow?: boolean;
+		hidePrintSpacing?: boolean;
+	};
 
-const {
-	children,
-	padding,
-	full,
-	column,
-	nogap,
-	justify,
-	align,
-	sm,
-	xl,
-	nogrow,
-	hidePrintSpacing,
-}: Props = $props();
+	const {
+		children,
+		padding,
+		full,
+		column,
+		nogap,
+		justify,
+		align,
+		sm,
+		xl,
+		nogrow,
+		hidePrintSpacing
+	}: Props = $props();
 </script>
 
 <div
@@ -53,71 +53,71 @@ const {
 </div>
 
 <style lang="scss">
-  .flex {
-    display: flex;
-    flex-grow: var(--flex-grow, 1);
-    flex-shrink: var(--flex-shrink, 1);
-    width: 100%;
-    --gap: var(--gutter);
+	.flex {
+		display: flex;
+		flex-grow: var(--flex-grow, 1);
+		flex-shrink: var(--flex-shrink, 1);
+		width: 100%;
+		--gap: var(--gutter);
 
-    &.nogrow {
-      flex-grow: 0;
-    }
+		&.nogrow {
+			flex-grow: 0;
+		}
 
-    &.paddingVertical {
-      padding-block: var(--gutter);
-    }
-    &.paddingHorizontal {
-      padding-inline: var(--gutter);
-    }
+		&.paddingVertical {
+			padding-block: var(--gutter);
+		}
+		&.paddingHorizontal {
+			padding-inline: var(--gutter);
+		}
 
-    &:not(.nogap) {
-      gap: var(--gap);
-    }
+		&:not(.nogap) {
+			gap: var(--gap);
+		}
 
-    &.hidePrintSpacing {
-      @media print {
-        gap: 0;
-      }
-    }
+		&.hidePrintSpacing {
+			@media print {
+				gap: 0;
+			}
+		}
 
-    &.sm {
-      --gap: calc(var(--gutter) * 0.5);
-    }
+		&.sm {
+			--gap: calc(var(--gutter) * 0.5);
+		}
 
-    &.xl {
-      --gap: calc(var(--gutter) * 1.5);
-    }
+		&.xl {
+			--gap: calc(var(--gutter) * 1.5);
+		}
 
-    &.full {
-      width: 100%;
-    }
+		&.full {
+			width: 100%;
+		}
 
-    &.column {
-      flex-direction: column;
-    }
+		&.column {
+			flex-direction: column;
+		}
 
-    &.justifyStart {
-      justify-content: flex-start;
-    }
-    &.justifyCenter {
-      justify-content: center;
-    }
-    &.justifyEnd {
-      justify-content: flex-end;
-    }
-    &.justifyBetween {
-      justify-content: space-between;
-    }
+		&.justifyStart {
+			justify-content: flex-start;
+		}
+		&.justifyCenter {
+			justify-content: center;
+		}
+		&.justifyEnd {
+			justify-content: flex-end;
+		}
+		&.justifyBetween {
+			justify-content: space-between;
+		}
 
-    &.alignStart {
-      align-items: flex-start;
-    }
-    &.alignCenter {
-      align-items: center;
-    }
-    &.alignEnd {
-      align-items: flex-end;
-    }
-  }
+		&.alignStart {
+			align-items: flex-start;
+		}
+		&.alignCenter {
+			align-items: center;
+		}
+		&.alignEnd {
+			align-items: flex-end;
+		}
+	}
 </style>

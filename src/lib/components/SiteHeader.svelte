@@ -1,24 +1,24 @@
 <script>
-import { links } from "$lib/routes";
-import BorderLine from "./BorderLine.svelte";
-import Flex from "./Flex.svelte";
-import FlexPush from "./FlexPush.svelte";
-import Link from "./Link.svelte";
+	import { links } from '$lib/routes';
+	import BorderLine from './BorderLine.svelte';
+	import Flex from './Flex.svelte';
+	import FlexPush from './FlexPush.svelte';
+	import Link from './Link.svelte';
 
-const navigationLinks = [
-	{
-		href: links.characterSelect(),
-		label: "Character select",
-	},
-	{
-		href: links.gridGenerator(),
-		label: "Grid generator",
-	},
-	{
-		href: links.spells(),
-		label: "Spells",
-	},
-];
+	const navigationLinks = [
+		{
+			href: links.characterSelect(),
+			label: 'Character select'
+		},
+		{
+			href: links.gridGenerator(),
+			label: 'Grid generator'
+		},
+		{
+			href: links.spells(),
+			label: 'Spells'
+		}
+	];
 </script>
 
 <header class="hide-print">
@@ -31,7 +31,7 @@ const navigationLinks = [
 			<FlexPush />
 
 			<nav>
-				{#each navigationLinks as { href, label }}
+				{#each navigationLinks as { href, label } (label)}
 					<div class="link">
 						<Link {href}>{label}</Link>
 					</div>
@@ -44,31 +44,31 @@ const navigationLinks = [
 </header>
 
 <style lang="scss">
-  header {
-    margin-bottom: var(--gutter);
-  }
+	header {
+		margin-bottom: var(--gutter);
+	}
 
-  .inner {
-    padding: calc(var(--gutter) * 2) var(--gutter);
-  }
+	.inner {
+		padding: calc(var(--gutter) * 2) var(--gutter);
+	}
 
-  nav {
-    display: flex;
+	nav {
+		display: flex;
 
-    .link {
-      position: relative;
-      padding: calc(var(--gutter) * 0.5);
+		.link {
+			position: relative;
+			padding: calc(var(--gutter) * 0.5);
 
-      &:has(:global(.active))::after {
-        content: '';
-        display: block;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        background-color: var(--color-faded);
-      }
-    }
-  }
+			&:has(:global(.active))::after {
+				content: '';
+				display: block;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 1px;
+				background-color: var(--color-faded);
+			}
+		}
+	}
 </style>

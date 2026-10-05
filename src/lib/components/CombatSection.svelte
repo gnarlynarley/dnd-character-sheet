@@ -1,23 +1,23 @@
 <script lang="ts">
-import type { CharacterSvelteStore } from "$lib/stores/character";
-import BorderLine from "./BorderLine.svelte";
-import Card from "./Card.svelte";
-import DeathSave from "./DeathSave.svelte";
-import Flex from "./Flex.svelte";
-import FlexPush from "./FlexPush.svelte";
-import Input from "./Input.svelte";
+	import type { CharacterSvelteStore } from '$lib/stores/character';
+	import BorderLine from './BorderLine.svelte';
+	import Card from './Card.svelte';
+	import DeathSave from './DeathSave.svelte';
+	import Flex from './Flex.svelte';
+	import FlexPush from './FlexPush.svelte';
+	import Input from './Input.svelte';
 
-type Props = {
-	character: CharacterSvelteStore;
-};
+	type Props = {
+		character: CharacterSvelteStore;
+	};
 
-const { character }: Props = $props();
+	const { character }: Props = $props();
 </script>
 
 <div class="container">
 	<div class="armor">
 		<div class="inner">
-			<div class="label">Armor<br>Class</div>
+			<div class="label">Armor<br />Class</div>
 			<BorderLine />
 			<div class="value">
 				<Input type="number" bind:value={$character.armorClass} />
@@ -66,7 +66,7 @@ const { character }: Props = $props();
 			<BorderLine vertical />
 
 			<Flex column --flex-grow="0">
-				<div class="label">Death<br>Saves</div>
+				<div class="label">Death<br />Saves</div>
 				<FlexPush />
 				<DeathSave label="successes" />
 				<DeathSave label="failures" />
@@ -76,73 +76,73 @@ const { character }: Props = $props();
 </div>
 
 <style lang="scss">
-  .container {
-    display: flex;
-    flex-grow: 1;
-    gap: var(--gutter);
-    align-items: center;
-  }
+	.container {
+		display: flex;
+		flex-grow: 1;
+		gap: var(--gutter);
+		align-items: center;
+	}
 
-  .label {
-    text-transform: uppercase;
-    text-align: center;
-  }
+	.label {
+		text-transform: uppercase;
+		text-align: center;
+	}
 
-  .value {
-    font-size: 2em;
-    font-family: var(--font-written);
-    text-align: center;
-    width: 100%;
-  }
-  .armor {
-    z-index: 0;
-    position: relative;
-    aspect-ratio: 1/1;
-    width: 6em;
-    height: 8em;
-    flex-grow: 0;
+	.value {
+		font-size: 2em;
+		font-family: var(--font-written);
+		text-align: center;
+		width: 100%;
+	}
+	.armor {
+		z-index: 0;
+		position: relative;
+		aspect-ratio: 1/1;
+		width: 6em;
+		height: 8em;
+		flex-grow: 0;
 
-    &::after {
-      content: '';
-      border: var(--border);
-      border-bottom-width: calc(var(--border-size) * 1.5);
-      border-right-width: calc(var(--border-size) * 1.5);
-      border-radius: 0.4em 0.4em 10em 10em;
-      filter: var(--shadow) url('#pencil');
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: var(--color-paper);
-      z-index: -1;
-    }
+		&::after {
+			content: '';
+			border: var(--border);
+			border-bottom-width: calc(var(--border-size) * 1.5);
+			border-right-width: calc(var(--border-size) * 1.5);
+			border-radius: 0.4em 0.4em 10em 10em;
+			filter: var(--shadow) url('#pencil');
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: var(--color-paper);
+			z-index: -1;
+		}
 
-    .inner {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      align-self: center;
-      padding: calc(var(--gutter) * 0.5);
-      text-align: center;
-      gap: calc(var(--gutter) * 0.5);
-    }
+		.inner {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			align-self: center;
+			padding: calc(var(--gutter) * 0.5);
+			text-align: center;
+			gap: calc(var(--gutter) * 0.5);
+		}
 
-    .value {
-      width: 2em;
-    }
-  }
+		.value {
+			width: 2em;
+		}
+	}
 
-  .inner {
-    display: grid;
-    grid-template-columns: 2fr auto 1fr auto auto;
-    flex-grow: 1;
-    gap: var(--gutter);
-  }
+	.inner {
+		display: grid;
+		grid-template-columns: 2fr auto 1fr auto auto;
+		flex-grow: 1;
+		gap: var(--gutter);
+	}
 </style>

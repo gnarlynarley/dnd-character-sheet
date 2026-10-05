@@ -1,19 +1,19 @@
 <script lang="ts">
-import type { Snippet } from "svelte";
-import Flex from "./Flex.svelte";
+	import type { Snippet } from 'svelte';
+	import Flex from './Flex.svelte';
 
-type Props = {
-	children?: Snippet;
-};
+	type Props = {
+		children?: Snippet;
+	};
 
-let { children }: Props = $props();
+	let { children }: Props = $props();
 </script>
 
 <svelte:boundary>
 	{@render children?.()}
 
 	{#if $effect.pending()}
-		<Flex justify="center" padding> <h1>loading...</h1> </Flex>
+		<Flex justify="center" padding><h1>loading...</h1></Flex>
 	{/if}
 
 	{#snippet failed(error, reset)}

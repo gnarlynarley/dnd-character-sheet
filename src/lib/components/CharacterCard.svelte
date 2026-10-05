@@ -1,22 +1,22 @@
 <script lang="ts">
-import { link } from "svelte-spa-router";
-import type { CharacterType } from "$lib/models";
-import { links } from "$lib/routes";
-import AvatarImage from "./AvatarImage.svelte";
-import Border from "./Border.svelte";
-import BorderLine from "./BorderLine.svelte";
-import Button from "./Button.svelte";
-import ButtonStyling from "./ButtonStyling.svelte";
-import Card from "./Card.svelte";
-import Flex from "./Flex.svelte";
-import FlexPush from "./FlexPush.svelte";
+	import { link } from 'svelte-spa-router';
+	import type { CharacterType } from '$lib/models';
+	import { links } from '$lib/routes';
+	import AvatarImage from './AvatarImage.svelte';
+	import Border from './Border.svelte';
+	import BorderLine from './BorderLine.svelte';
+	import Button from './Button.svelte';
+	import ButtonStyling from './ButtonStyling.svelte';
+	import Card from './Card.svelte';
+	import Flex from './Flex.svelte';
+	import FlexPush from './FlexPush.svelte';
 
-type Props = {
-	character: CharacterType;
-	onDelete?: () => void;
-};
+	type Props = {
+		character: CharacterType;
+		onDelete?: () => void;
+	};
 
-const { character, onDelete }: Props = $props();
+	const { character, onDelete }: Props = $props();
 </script>
 
 <Card title={character.name}>
@@ -41,10 +41,10 @@ const { character, onDelete }: Props = $props();
 			<Flex column justify="start">
 				<Flex>
 					<a href={links.characterSheet(character.slug)} use:link>
-						<ButtonStyling> <span>View Sheet </span> </ButtonStyling>
+						<ButtonStyling><span>View Sheet </span></ButtonStyling>
 					</a>
 					<a href={links.characterMiniSheet(character.slug)} use:link>
-						<ButtonStyling> <span>View mini sheet</span> </ButtonStyling>
+						<ButtonStyling><span>View mini sheet</span></ButtonStyling>
 					</a>
 				</Flex>
 				{#if onDelete}
@@ -56,11 +56,11 @@ const { character, onDelete }: Props = $props();
 </Card>
 
 <style>
-.bottom {
-	justify-self: flex-end;
-}
+	.bottom {
+		justify-self: flex-end;
+	}
 
-a {
-	flex-grow: 1;
-}
+	a {
+		flex-grow: 1;
+	}
 </style>

@@ -1,26 +1,21 @@
 <script lang="ts">
-import { appSettings } from "$lib/stores/app-settings";
-import type { ProficiencyType } from "../models";
+	import { appSettings } from '$lib/stores/app-settings';
+	import type { ProficiencyType } from '../models';
 
-type Props = {
-	value?: ProficiencyType;
-};
+	type Props = {
+		value?: ProficiencyType;
+	};
 
-let { value = $bindable() }: Props = $props();
-const edit = $derived($appSettings.edit);
+	let { value = $bindable() }: Props = $props();
+	const edit = $derived($appSettings.edit);
 
-const PROFICIENCY_ORDER: ProficiencyType[] = [
-	"none",
-	"proficient",
-	"double",
-	"half",
-];
+	const PROFICIENCY_ORDER: ProficiencyType[] = ['none', 'proficient', 'double', 'half'];
 
-function onClick() {
-	const index = PROFICIENCY_ORDER.indexOf(value ?? "none");
-	const nextIndex = (index + 1) % PROFICIENCY_ORDER.length;
-	value = PROFICIENCY_ORDER[nextIndex];
-}
+	function onClick() {
+		const index = PROFICIENCY_ORDER.indexOf(value ?? 'none');
+		const nextIndex = (index + 1) % PROFICIENCY_ORDER.length;
+		value = PROFICIENCY_ORDER[nextIndex];
+	}
 </script>
 
 <button
@@ -34,53 +29,53 @@ function onClick() {
 ></button>
 
 <style lang="scss">
-  button {
-    width: 2em;
-    height: 2em;
-    display: flex;
-    display: block;
-    flex-shrink: 0;
-    position: relative;
-    filter: var(--filter-pencil);
-    background-color: var(--color-editable);
-    outline: var(--color-editable) 0.3em solid;
+	button {
+		width: 2em;
+		height: 2em;
+		display: flex;
+		display: block;
+		flex-shrink: 0;
+		position: relative;
+		filter: var(--filter-pencil);
+		background-color: var(--color-editable);
+		outline: var(--color-editable) 0.3em solid;
 
-    &::before,
-    &::after {
-      position: absolute;
-      content: '';
-      display: block;
-      width: 1.6em;
-      height: 1.6em;
-      background: var(--color-paper);
-      background-color: var(--color-paper);
-      border-radius: 50%;
-      border: var(--border);
-    }
+		&::before,
+		&::after {
+			position: absolute;
+			content: '';
+			display: block;
+			width: 1.6em;
+			height: 1.6em;
+			background: var(--color-paper);
+			background-color: var(--color-paper);
+			border-radius: 50%;
+			border: var(--border);
+		}
 
-    &::before {
-      top: 0;
-      left: 0;
-      width: 1.4em;
-      height: 1.4em;
-    }
+		&::before {
+			top: 0;
+			left: 0;
+			width: 1.4em;
+			height: 1.4em;
+		}
 
-    &::after {
-      bottom: 0;
-      right: 0;
-    }
+		&::after {
+			bottom: 0;
+			right: 0;
+		}
 
-    &.is-half,
-    &.is-double {
-      &::before {
-        background-color: var(--color-ink);
-      }
-    }
-    &.is-proficient,
-    &.is-double {
-      &::after {
-        background-color: var(--color-ink);
-      }
-    }
-  }
+		&.is-half,
+		&.is-double {
+			&::before {
+				background-color: var(--color-ink);
+			}
+		}
+		&.is-proficient,
+		&.is-double {
+			&::after {
+				background-color: var(--color-ink);
+			}
+		}
+	}
 </style>

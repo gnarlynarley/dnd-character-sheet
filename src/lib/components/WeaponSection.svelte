@@ -1,36 +1,36 @@
 <script lang="ts">
-import { appSettings } from "$lib/stores/app-settings";
-import type { CharacterSvelteStore } from "$lib/stores/character";
-import type { CharacterWeaponType } from "../models";
-import BorderLine from "./BorderLine.svelte";
-import Button from "./Button.svelte";
-import Card from "./Card.svelte";
-import Flex from "./Flex.svelte";
-import Input from "./Input.svelte";
+	import { appSettings } from '$lib/stores/app-settings';
+	import type { CharacterSvelteStore } from '$lib/stores/character';
+	import type { CharacterWeaponType } from '../models';
+	import BorderLine from './BorderLine.svelte';
+	import Button from './Button.svelte';
+	import Card from './Card.svelte';
+	import Flex from './Flex.svelte';
+	import Input from './Input.svelte';
 
-type Props = {
-	character: CharacterSvelteStore;
-};
+	type Props = {
+		character: CharacterSvelteStore;
+	};
 
-const { character }: Props = $props();
-const edit = $derived($appSettings.edit);
+	const { character }: Props = $props();
+	const edit = $derived($appSettings.edit);
 
-const addLine = () => {
-	$character.weapons.push({
-		name: "",
-		hit: 0,
-		damage: "",
-		details: "",
-	});
-	// biome-ignore lint/correctness/noSelfAssign: This needs to be here for svelte to recognize the change
-	$character.weapons = $character.weapons;
-};
-const deleteLine = (weapon: CharacterWeaponType) => {
-	const index = $character.weapons.indexOf(weapon);
-	$character.weapons.splice(index, 1);
-	// biome-ignore lint/correctness/noSelfAssign: This needs to be here for svelte to recognize the change
-	$character.weapons = $character.weapons;
-};
+	const addLine = () => {
+		$character.weapons.push({
+			name: '',
+			hit: 0,
+			damage: '',
+			details: ''
+		});
+		// biome-ignore lint/correctness/noSelfAssign: This needs to be here for svelte to recognize the change
+		$character.weapons = $character.weapons;
+	};
+	const deleteLine = (weapon: CharacterWeaponType) => {
+		const index = $character.weapons.indexOf(weapon);
+		$character.weapons.splice(index, 1);
+		// biome-ignore lint/correctness/noSelfAssign: This needs to be here for svelte to recognize the change
+		$character.weapons = $character.weapons;
+	};
 </script>
 
 <Card>
@@ -44,7 +44,7 @@ const deleteLine = (weapon: CharacterWeaponType) => {
 			<BorderLine vertical />
 			<div class="cell details">Details</div>
 		</div>
-		{#each $character.weapons as weapon}
+		{#each $character.weapons as weapon, index (index)}
 			<div class="seperator"><BorderLine /></div>
 			<div class="line">
 				<div class="cell name">
@@ -68,11 +68,7 @@ const deleteLine = (weapon: CharacterWeaponType) => {
 					<Input type="text" bind:value={weapon.details} />
 				</div>
 				{#if edit}
-					<button
-						class="delete-button"
-						type="button"
-						onclick={() => deleteLine(weapon)}
-					>
+					<button class="delete-button" type="button" onclick={() => deleteLine(weapon)}>
 						delete
 					</button>
 				{/if}
@@ -80,45 +76,45 @@ const deleteLine = (weapon: CharacterWeaponType) => {
 		{/each}
 		{#if edit}
 			<Flex>
-				<Button onclick={addLine}> <span>Add line</span> </Button>
+				<Button onclick={addLine}><span>Add line</span></Button>
 			</Flex>
 		{/if}
 	</div>
 </Card>
 
 <style lang="scss">
-  .items {
-    --cells: 7;
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(var(--cells), auto) 1fr;
-    gap: calc(var(--gutter) * 0.5);
-    flex-grow: 1;
+	.items {
+		--cells: 7;
+		position: relative;
+		display: grid;
+		grid-template-columns: repeat(var(--cells), auto) 1fr;
+		gap: calc(var(--gutter) * 0.5);
+		flex-grow: 1;
 
-    &.edit {
-      --cells: 8;
-    }
-  }
+		&.edit {
+			--cells: 8;
+		}
+	}
 
-  .seperator {
-    grid-column: 1 / -1;
-  }
+	.seperator {
+		grid-column: 1 / -1;
+	}
 
-  .line {
-    position: relative;
-    display: grid;
-    grid-template-columns: subgrid;
-    grid-column: 1 / -1;
-    gap: var(--gutter);
+	.line {
+		position: relative;
+		display: grid;
+		grid-template-columns: subgrid;
+		grid-column: 1 / -1;
+		gap: var(--gutter);
 
-    > .cell {
-      field-sizing: content;
-      width: auto;
-    }
+		> .cell {
+			field-sizing: content;
+			width: auto;
+		}
 
-    &:not(.heading) > .cell {
-      font-family: var(--font-written);
-      font-size: 1.6em;
-    }
-  }
+		&:not(.heading) > .cell {
+			font-family: var(--font-written);
+			font-size: 1.6em;
+		}
+	}
 </style>

@@ -1,6 +1,6 @@
-import { tick } from "svelte";
+import { tick } from 'svelte';
 
-const portalContainer = document.createElement("div");
+const portalContainer = document.createElement('div');
 document.body.appendChild(portalContainer);
 
 export function portal(node: HTMLElement) {
@@ -10,6 +10,6 @@ export function portal(node: HTMLElement) {
 	return {
 		destroy: () => {
 			node.remove();
-		},
+		}
 	};
 }

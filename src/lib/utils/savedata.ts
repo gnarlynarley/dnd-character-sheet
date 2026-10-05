@@ -1,13 +1,11 @@
-import type { FileEntry } from "@zip.js/zip.js";
-import { type CharacterType, parseCharacter } from "$lib/models";
+import type { FileEntry } from '@zip.js/zip.js';
+import { type CharacterType, parseCharacter } from '$lib/models';
 
-const FILE_CHARACTER_JSON = "character.json";
-const FILE_AVATAR_PREFIX = "avatar.";
+const FILE_CHARACTER_JSON = 'character.json';
+const FILE_AVATAR_PREFIX = 'avatar.';
 
 export async function createSaveData(character: CharacterType): Promise<File> {
-	const { BlobReader, BlobWriter, TextReader, ZipWriter } = await import(
-		"@zip.js/zip.js"
-	);
+	const { BlobReader, BlobWriter, TextReader, ZipWriter } = await import('@zip.js/zip.js');
 	const blobFileWriter = new BlobWriter();
 
 	const zipWriter = new ZipWriter(blobFileWriter);
@@ -19,9 +17,9 @@ export async function createSaveData(character: CharacterType): Promise<File> {
 
 	const avatarBlob = character.avatar?.blob;
 	if (avatarBlob instanceof Blob) {
-		let ext = avatarBlob.type?.split("/")[1] || "bin";
-		if (ext === "jpeg") {
-			ext = "jpg";
+		let ext = avatarBlob.type?.split('/')[1] || 'bin';
+		if (ext === 'jpeg') {
+			ext = 'jpg';
 		}
 		const fileName = `${FILE_AVATAR_PREFIX}${ext}`;
 		await zipWriter.add(fileName, new BlobReader(avatarBlob));
@@ -35,25 +33,20 @@ export async function createSaveData(character: CharacterType): Promise<File> {
 }
 
 export async function parseSaveData(zip: Blob): Promise<CharacterType> {
-	const { BlobReader, BlobWriter, TextWriter, ZipReader } = await import(
-		"@zip.js/zip.js"
-	);
+	const { BlobReader, BlobWriter, TextWriter, ZipReader } = await import('@zip.js/zip.js');
 
 	const zipReader = new ZipReader(new BlobReader(zip));
 	const entries = await zipReader.getEntries();
 
 	const avatarEntry = entries.find(
-		(entry) =>
-			entry.directory === false &&
-			entry.filename.startsWith(FILE_AVATAR_PREFIX),
+		(entry) => entry.directory === false && entry.filename.startsWith(FILE_AVATAR_PREFIX)
 	) as FileEntry | undefined;
 	const characterEntry = entries.find(
-		(entry) =>
-			entry.directory === false && entry.filename === FILE_CHARACTER_JSON,
+		(entry) => entry.directory === false && entry.filename === FILE_CHARACTER_JSON
 	) as FileEntry | undefined;
 
 	if (!characterEntry) {
-		throw new Error("Invalid save data: missing character.json");
+		throw new Error('Invalid save data: missing character.json');
 	}
 
 	const [characterJson, avatarBlob] = await Promise.all([
@@ -72,7 +65,7 @@ export async function parseSaveData(zip: Blob): Promise<CharacterType> {
 			const avatarBlob = await blobWriter.getData();
 
 			return avatarBlob;
-		})(),
+		})()
 	]);
 
 	characterJson.avatar.blob = avatarBlob;

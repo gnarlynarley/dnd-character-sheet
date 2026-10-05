@@ -1,7 +1,8 @@
-import path from "node:path";
-import * as prettier from "prettier";
-import type { Spell } from "$lib/models/spells";
+import path from 'node:path';
+import * as prettier from 'prettier';
+import type { Spell } from '$lib/models/spells';
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 namespace FiveE {
 	export type SpellIndexDTO = Record<string, string>;
 
@@ -87,94 +88,85 @@ namespace FiveE {
 	export type BooksDTO = {
 		book: {
 			name: "Player's Handbook (2014)";
-			id: "PHB";
-			source: "PHB";
-			group: "core";
+			id: 'PHB';
+			source: 'PHB';
+			group: 'core';
 		}[];
 	};
 }
 
-const DATA_ROOT_DIR = ".data/5etools-v2.24.1/data";
+const DATA_ROOT_DIR = '.data/5etools-v2.24.1/data';
 
 const bookCollection: FiveE.BooksDTO = await Bun.file(
-	path.join(DATA_ROOT_DIR, "books.json"),
+	path.join(DATA_ROOT_DIR, 'books.json')
 ).json();
 const indexData: FiveE.SpellIndexDTO = await Bun.file(
-	path.join(DATA_ROOT_DIR, "spells/index.json"),
+	path.join(DATA_ROOT_DIR, 'spells/index.json')
 ).json();
 const spellDataCollection = await Promise.all(
 	Object.values(indexData).map(async (fileName) => {
-		const filePath = path.join(DATA_ROOT_DIR, "spells", fileName);
+		const filePath = path.join(DATA_ROOT_DIR, 'spells', fileName);
 		const data: FiveE.SpellDTO = await Bun.file(filePath).json();
 
 		return data;
-	}),
+	})
 );
 const sources: FiveE.SpellSourcesDTO = await Bun.file(
-	path.join(DATA_ROOT_DIR, "spells/sources.json"),
+	path.join(DATA_ROOT_DIR, 'spells/sources.json')
 ).json();
 
 type EntryDTO =
 	| string
-	| { type: "list"; items: EntryDTO[] }
-	| { type: "entries"; entries: EntryDTO[] }
-	| { type: "table"; colLabels: string[]; caption: string; rows: string[][] }
+	| { type: 'list'; items: EntryDTO[] }
+	| { type: 'entries'; entries: EntryDTO[] }
+	| { type: 'table'; colLabels: string[]; caption: string; rows: string[][] }
 	| {
-			type: "item";
+			type: 'item';
 			name: string;
 			entries: EntryDTO[];
 	  }
-	| { type: "quote"; entries: EntryDTO[]; by: string }
-	| { type: "inset"; name: string; entries: EntryDTO[] };
+	| { type: 'quote'; entries: EntryDTO[]; by: string }
+	| { type: 'inset'; name: string; entries: EntryDTO[] };
 
 function parseEntry(entry: EntryDTO): string | [] {
-	if (typeof entry === "string") {
+	if (typeof entry === 'string') {
 		return entry;
 	}
 
 	switch (entry.type) {
-		case "list": {
+		case 'list': {
 			return entry.items
 				.flatMap((entry) => {
 					const parsed = parseEntry(entry);
 					if (parsed) return `- ${parsed}`;
 					return [];
 				})
-				.join("\n\n");
+				.join('\n\n');
 		}
-		case "entries": {
-			return entry.entries.flatMap(parseEntry).join("\n\n");
+		case 'entries': {
+			return entry.entries.flatMap(parseEntry).join('\n\n');
 		}
-		case "table": {
-			const header = `| ${entry.colLabels.join(" | ")} |`;
-			const separator = `| ${entry.colLabels.map(() => "---").join(" | ")} |`;
-			const rows = entry.rows.map((row) => `| ${row.join(" | ")} |`).join("\n");
-			const table = [
-				entry.caption && `**${entry.caption}**\n`,
-				header,
-				separator,
-				rows,
-			]
+		case 'table': {
+			const header = `| ${entry.colLabels.join(' | ')} |`;
+			const separator = `| ${entry.colLabels.map(() => '---').join(' | ')} |`;
+			const rows = entry.rows.map((row) => `| ${row.join(' | ')} |`).join('\n');
+			const table = [entry.caption && `**${entry.caption}**\n`, header, separator, rows]
 				.filter(Boolean)
-				.join("\n");
+				.join('\n');
 
 			return `\n${table}\n`;
 		}
 
-		case "item": {
-			return [`**${entry.name}**:`, entry.entries.flatMap(parseEntry)]
-				.flat()
-				.join(" ");
+		case 'item': {
+			return [`**${entry.name}**:`, entry.entries.flatMap(parseEntry)].flat().join(' ');
 		}
-		case "quote": {
+		case 'quote': {
 			return [...entry.entries.flatMap(parseEntry), entry.by]
 				.map((line) => `> ${line}`)
-				.join("\n\n");
+				.join('\n\n');
 		}
-		case "inset": {
-			return [`### ${entry.name}`, entry.entries.flatMap(parseEntry)]
-				.flat()
-				.join("\n\n");
+		case 'inset': {
+			return [`### ${entry.name}`, entry.entries.flatMap(parseEntry)].flat().join('\n\n');
 		}
 		default: {
 			console.error(`There is an unparsed entry`);
@@ -184,11 +176,11 @@ function parseEntry(entry: EntryDTO): string | [] {
 	}
 }
 
-function parseDescription(spell: FiveE.SpellDTO["spell"][number]): string {
+function parseDescription(spell: FiveE.SpellDTO['spell'][number]): string {
 	const parts = spell.entries.flatMap((e) => parseEntry(e) ?? []);
 
-	return parts.join("\n\n").replaceAll(/\{@(.*?) (.*?)\}/g, (_, _s, label) => {
-		return label.split("|")[0];
+	return parts.join('\n\n').replaceAll(/\{@(.*?) (.*?)\}/g, (_, _s, label) => {
+		return label.split('|')[0];
 	});
 }
 
@@ -202,52 +194,34 @@ const spellsCollections = await Promise.all(
 					source: spell.source,
 					level: spell.level,
 					range: spell.range.distance
-						? [spell.range.distance.amount, spell.range.distance.type]
-								.filter(Boolean)
-								.join(" ")
-						: (spell.range.type ?? "self"),
+						? [spell.range.distance.amount, spell.range.distance.type].filter(Boolean).join(' ')
+						: (spell.range.type ?? 'self'),
 					classes:
-						sources[spell.source]?.[spell.name]?.class?.map((i) =>
-							i.name.toLowerCase(),
-						) ?? [],
+						sources[spell.source]?.[spell.name]?.class?.map((i) => i.name.toLowerCase()) ?? [],
 					description: await prettier.format(parseDescription(spell), {
-						parser: "markdown",
-					}),
+						parser: 'markdown'
+					})
 				};
-			}),
-		),
-	),
+			})
+		)
+	)
 )
 	.then((arr) => arr.flat())
 	.then((arr) => arr.sort((a, b) => a.name.localeCompare(b.name)));
 
-const spellSources = Array.from(
-	new Set(spellsCollections.map((spell) => spell.source)),
-);
+const spellSources = Array.from(new Set(spellsCollections.map((spell) => spell.source)));
 
-const bookSources = bookCollection.book.reduce<Record<string, string>>(
-	(acc, book) => {
-		if (!spellSources.includes(book.source)) return acc;
-		acc[book.source] = book.name;
-		return acc;
-	},
-	{},
-);
+const bookSources = bookCollection.book.reduce<Record<string, string>>((acc, book) => {
+	if (!spellSources.includes(book.source)) return acc;
+	acc[book.source] = book.name;
+	return acc;
+}, {});
 
 // write collections to files
-const DESTINATION_PATH = "./src/lib/services/spells/data";
-const groupedSpellCollections = Object.groupBy(
-	spellsCollections,
-	(s) => s.source,
-);
+const DESTINATION_PATH = './src/lib/services/spells/data';
+const groupedSpellCollections = Object.groupBy(spellsCollections, (s) => s.source);
 for (const [source, spells] of Object.entries(groupedSpellCollections)) {
 	if (spells === undefined) continue;
-	await Bun.write(
-		path.join(DESTINATION_PATH, `spells-${source}.json`),
-		JSON.stringify(spells),
-	);
+	await Bun.write(path.join(DESTINATION_PATH, `spells-${source}.json`), JSON.stringify(spells));
 }
-await Bun.write(
-	path.join(DESTINATION_PATH, `sources.json`),
-	JSON.stringify(bookSources),
-);
+await Bun.write(path.join(DESTINATION_PATH, `sources.json`), JSON.stringify(bookSources));

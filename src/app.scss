@@ -2,136 +2,130 @@
 @use '@fontsource-variable/merriweather';
 
 @mixin light-mode-variables() {
-  --color-black: #202020;
-  --color-white: #e6dcd2;
-  --color-paper: var(--color-white);
-  --color-ink: var(--color-black);
-  --color-accent: #ffb703;
+	--color-black: #202020;
+	--color-white: #e6dcd2;
+	--color-paper: var(--color-white);
+	--color-ink: var(--color-black);
+	--color-accent: #ffb703;
 }
 @mixin dark-mode-variables() {
-  --color-black: #111111;
-  --color-white: #e6dcd2;
-  --color-paper: var(--color-black);
-  --color-ink: var(--color-white);
-  --color-accent: #cf871a;
+	--color-black: #111111;
+	--color-white: #e6dcd2;
+	--color-paper: var(--color-black);
+	--color-ink: var(--color-white);
+	--color-accent: #cf871a;
 }
 
 :root {
-  @include light-mode-variables();
-  --color-faded: color-mix(in srgb, var(--color-ink) 10%, var(--color-paper));
-  --color-editable: color-mix(
-    in oklab,
-    var(--color-paper),
-    rgb(255, 224, 86) 30%
-  );
-  --gutter: 1em;
-  --font-written: 'Patrick Hand', cursive;
-  --font-base: 'Merriweather Variable', serif;
-  --border-size: 1pt;
-  --border: var(--border-size) solid var(--color-ink);
-  --border-sm: 1pt solid var(--color-ink);
-  --shadow-distance: 0.5em;
-  --shadow: drop-shadow(
-    var(--shadow-distance) var(--shadow-distance) 0 var(--color-faded)
-  );
-  --paper: url('#pencil');
+	@include light-mode-variables();
+	--color-faded: color-mix(in srgb, var(--color-ink) 10%, var(--color-paper));
+	--color-editable: color-mix(in oklab, var(--color-paper), rgb(255, 224, 86) 30%);
+	--gutter: 1em;
+	--font-written: 'Patrick Hand', cursive;
+	--font-base: 'Merriweather Variable', serif;
+	--border-size: 1pt;
+	--border: var(--border-size) solid var(--color-ink);
+	--border-sm: 1pt solid var(--color-ink);
+	--shadow-distance: 0.5em;
+	--shadow: drop-shadow(var(--shadow-distance) var(--shadow-distance) 0 var(--color-faded));
+	--paper: url('#pencil');
 
-  --filter-pencil: url('#pencil');
+	--filter-pencil: url('#pencil');
 
-  @media screen and (prefers-color-scheme: dark) {
-    @include dark-mode-variables();
-  }
+	@media screen and (prefers-color-scheme: dark) {
+		@include dark-mode-variables();
+	}
 
-  @media print {
-    --color-white: white !important;
-    --color-black: black !important;
-    --color-editable: transparent !important;
-    --color-paper: #fff !important;
-    --color-ink: #000 !important;
-    --border-size: 0.5pt !important;
-  }
+	@media print {
+		--color-white: white !important;
+		--color-black: black !important;
+		--color-editable: transparent !important;
+		--color-paper: #fff !important;
+		--color-ink: #000 !important;
+		--border-size: 0.5pt !important;
+	}
 
-  font-family: var(--font-base);
-  background-color: var(--color-paper);
-  color: var(--color-ink);
+	font-family: var(--font-base);
+	background-color: var(--color-paper);
+	color: var(--color-ink);
 }
 
 .dark-mode {
-  @include dark-mode-variables();
+	@include dark-mode-variables();
 }
 
 .light-mode {
-  @include light-mode-variables();
+	@include light-mode-variables();
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 body {
-  background-color: var(--color-paper);
-  color: var(--color-ink);
+	background-color: var(--color-paper);
+	color: var(--color-ink);
 }
 
 a {
-  color: currentColor;
-  font: inherit;
-  text-decoration: none;
+	color: currentColor;
+	font: inherit;
+	text-decoration: none;
 }
 
 button {
-  font: inherit;
-  border: none;
-  background: transparent;
+	font: inherit;
+	border: none;
+	background: transparent;
 
-  &:focus-visible {
-    outline: 3px solid var(--color-accent) !important;
-    outline-offset: 0.5em !important;
-  }
+	&:focus-visible {
+		outline: 3px solid var(--color-accent) !important;
+		outline-offset: 0.5em !important;
+	}
 }
 
 input:not([type='checkbox']),
 textarea {
-  border: none;
-  font: inherit;
-  padding: 0;
-  background-color: var(--color-editable);
-  font-family: var(--font-written);
-  width: 100%;
-  text-align: inherit;
-  display: block;
-  min-width: none;
-  color: inherit;
+	border: none;
+	font: inherit;
+	padding: 0;
+	background-color: var(--color-editable);
+	font-family: var(--font-written);
+	width: 100%;
+	text-align: inherit;
+	display: block;
+	min-width: none;
+	color: inherit;
 }
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+	-webkit-appearance: none;
+	margin: 0;
 }
 
 button {
-  font: inherit;
-  color: currentColor;
+	font: inherit;
+	color: currentColor;
 }
 
 /* Firefox */
 input[type='number'] {
-  appearance: textfield;
+	appearance: textfield;
 }
 
 .hide-print {
-  @media print {
-    display: none;
-    visibility: hidden;
-  }
+	@media print {
+		display: none;
+		visibility: hidden;
+	}
 }
 
 .written {
-  font-family: var(--font-written);
+	font-family: var(--font-written);
 }

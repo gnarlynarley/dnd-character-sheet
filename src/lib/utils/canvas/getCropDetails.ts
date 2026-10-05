@@ -1,9 +1,9 @@
-import { createImage } from "..";
+import { createImage } from '..';
 
 export default async function getCropDetails(
 	blob: Blob,
 	width: number,
-	height: number,
+	height: number
 ): Promise<{ x: number; y: number; scale: number }> {
 	const image = await createImage(blob);
 	const imageAspect = image.width / image.height;

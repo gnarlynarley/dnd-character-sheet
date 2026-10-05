@@ -1,16 +1,16 @@
 <script lang="ts">
-import type { Snippet } from "svelte";
-import Border from "./Border.svelte";
-import BorderLine from "./BorderLine.svelte";
-import Grid from "./Grid.svelte";
+	import type { Snippet } from 'svelte';
+	import Border from './Border.svelte';
+	import BorderLine from './BorderLine.svelte';
+	import Grid from './Grid.svelte';
 
-type Props = {
-	title?: string;
-	grid?: boolean;
-	children?: Snippet;
-};
+	type Props = {
+		title?: string;
+		grid?: boolean;
+		children?: Snippet;
+	};
 
-const { title, children, grid }: Props = $props();
+	const { title, children, grid }: Props = $props();
 </script>
 
 <Border {grid} nopadding>
@@ -22,7 +22,7 @@ const { title, children, grid }: Props = $props();
 		{#if children}
 			<div class="children">
 				{#if grid}
-					<Grid> {@render children()} </Grid>
+					<Grid>{@render children()}</Grid>
 				{:else}
 					<div class="padding">{@render children()}</div>
 				{/if}
@@ -32,29 +32,29 @@ const { title, children, grid }: Props = $props();
 </Border>
 
 <style>
-.inner {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	flex-grow: 0;
-}
-
-.children {
-	flex-grow: 1;
-	display: flex;
-
-	> :global(*) {
-		flex-grow: 1;
+	.inner {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		flex-grow: 0;
 	}
-}
 
-.padding {
-	display: flex;
-	padding: var(--gutter);
-}
+	.children {
+		flex-grow: 1;
+		display: flex;
 
-h1 {
-	text-align: center;
-	padding: calc(var(--gutter) * 0.2) var(--gutter);
-}
+		> :global(*) {
+			flex-grow: 1;
+		}
+	}
+
+	.padding {
+		display: flex;
+		padding: var(--gutter);
+	}
+
+	h1 {
+		text-align: center;
+		padding: calc(var(--gutter) * 0.2) var(--gutter);
+	}
 </style>

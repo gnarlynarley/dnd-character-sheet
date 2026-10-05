@@ -3,7 +3,7 @@ export default function applyContrast(
 	context: CanvasRenderingContext2D,
 	amount = 0.4, // -1..1 (negative reduces contrast, positive increases)
 	toBlackWhite = false,
-	bwThreshold = 128, // 0..255 (higher => more becomes black)
+	bwThreshold = 128 // 0..255 (higher => more becomes black)
 ) {
 	const w = canvas.width | 0;
 	const h = canvas.height | 0;

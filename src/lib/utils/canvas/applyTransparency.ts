@@ -1,6 +1,6 @@
 export default function applyTransparency(
 	canvas: HTMLCanvasElement,
-	context: CanvasRenderingContext2D,
+	context: CanvasRenderingContext2D
 ) {
 	const imgData = context.getImageData(0, 0, canvas.width, canvas.height);
 	const data = imgData.data;

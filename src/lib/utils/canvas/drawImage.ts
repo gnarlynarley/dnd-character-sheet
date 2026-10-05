@@ -3,9 +3,9 @@ export default function drawImage(
 	image: HTMLImageElement | HTMLCanvasElement,
 	x: number,
 	y: number,
-	scale: number,
+	scale: number
 ) {
-	const ctx = canvas.getContext("2d");
+	const ctx = canvas.getContext('2d');
 	if (!ctx) return;
 
 	const { width, height } = image;

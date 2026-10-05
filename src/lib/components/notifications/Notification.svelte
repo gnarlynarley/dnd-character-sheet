@@ -1,41 +1,38 @@
 <script lang="ts">
-import { fade, fly } from "svelte/transition";
-import {
-	type Notification,
-	removeNotification,
-} from "$lib/stores/notifications";
-import Border from "../Border.svelte";
+	import { fade, fly } from 'svelte/transition';
+	import { type Notification, removeNotification } from '$lib/stores/notifications';
+	import Border from '../Border.svelte';
 
-const notificationDuration = 4000;
+	const notificationDuration = 4000;
 
-type Props = {
-	notification: Notification;
-};
-const { notification }: Props = $props();
-let hovered = $state(false);
-
-function remove() {
-	removeNotification(notification.id);
-}
-
-function onmouseenter() {
-	hovered = true;
-}
-
-function onmouseleave() {
-	hovered = false;
-}
-
-$effect(() => {
-	if (hovered) return;
-	const timeout = setTimeout(() => {
-		removeNotification(notification.id);
-	}, notificationDuration);
-
-	return () => {
-		clearTimeout(timeout);
+	type Props = {
+		notification: Notification;
 	};
-});
+	const { notification }: Props = $props();
+	let hovered = $state(false);
+
+	function remove() {
+		removeNotification(notification.id);
+	}
+
+	function onmouseenter() {
+		hovered = true;
+	}
+
+	function onmouseleave() {
+		hovered = false;
+	}
+
+	$effect(() => {
+		if (hovered) return;
+		const timeout = setTimeout(() => {
+			removeNotification(notification.id);
+		}, notificationDuration);
+
+		return () => {
+			clearTimeout(timeout);
+		};
+	});
 </script>
 
 <button
@@ -47,5 +44,5 @@ $effect(() => {
 	{onmouseenter}
 	{onmouseleave}
 >
-	<Border> <div class="message">{notification.message}</div> </Border>
+	<Border><div class="message">{notification.message}</div></Border>
 </button>

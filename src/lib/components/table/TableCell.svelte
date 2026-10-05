@@ -1,14 +1,14 @@
 <script lang="ts">
-import type { Snippet } from "svelte";
+	import type { Snippet } from 'svelte';
 
-type Props = {
-	children?: Snippet;
-	centered?: boolean;
-	right?: boolean;
-	spread?: boolean;
-};
+	type Props = {
+		children?: Snippet;
+		centered?: boolean;
+		right?: boolean;
+		spread?: boolean;
+	};
 
-const { children, centered, right, spread }: Props = $props();
+	const { children, centered, right, spread }: Props = $props();
 </script>
 
 <div class="cell" class:centered class:right class:spread>
@@ -16,39 +16,39 @@ const { children, centered, right, spread }: Props = $props();
 </div>
 
 <style lang="scss">
-  .cell {
-    display: flex;
-    height: 100%;
+	.cell {
+		display: flex;
+		height: 100%;
 
-    &:not(:last-child) {
-      padding-right: calc(var(--gutter) * 0.5);
-      &::after {
-        content: '';
-        width: calc(var(--gutter) * 0.5);
-        height: 100%;
-        margin-left: auto;
-        border-right: var(--border);
-        filter: url('#pencil');
-      }
-    }
+		&:not(:last-child) {
+			padding-right: calc(var(--gutter) * 0.5);
+			&::after {
+				content: '';
+				width: calc(var(--gutter) * 0.5);
+				height: 100%;
+				margin-left: auto;
+				border-right: var(--border);
+				filter: url('#pencil');
+			}
+		}
 
-    &.centered {
-      justify-content: center;
-    }
+		&.centered {
+			justify-content: center;
+		}
 
-    &.right {
-      justify-content: end;
-    }
+		&.right {
+			justify-content: end;
+		}
 
-    &.spread {
-      grid-column: 1 / -1;
-    }
-  }
+		&.spread {
+			grid-column: 1 / -1;
+		}
+	}
 
-  .inner {
-    display: flex;
-    align-items: start;
-    padding-block: calc(var(--gutter) - (var(--row-gap) * 2));
-    width: 100%;
-  }
+	.inner {
+		display: flex;
+		align-items: start;
+		padding-block: calc(var(--gutter) - (var(--row-gap) * 2));
+		width: 100%;
+	}
 </style>

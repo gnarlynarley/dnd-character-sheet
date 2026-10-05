@@ -1,25 +1,25 @@
 <script lang="ts">
-import { appSettings } from "$lib/stores/app-settings";
-import type { CharacterSvelteStore } from "../stores/character";
-import Button from "./Button.svelte";
-import Card from "./Card.svelte";
-import Flex from "./Flex.svelte";
-import Input from "./Input.svelte";
-import MarkdownEditor from "./MarkdownEditor.svelte";
+	import { appSettings } from '$lib/stores/app-settings';
+	import type { CharacterSvelteStore } from '../stores/character';
+	import Button from './Button.svelte';
+	import Card from './Card.svelte';
+	import Flex from './Flex.svelte';
+	import Input from './Input.svelte';
+	import MarkdownEditor from './MarkdownEditor.svelte';
 
-type Props = {
-	index: number;
+	type Props = {
+		index: number;
 
-	character: CharacterSvelteStore;
-};
+		character: CharacterSvelteStore;
+	};
 
-const { index, character }: Props = $props();
+	const { index, character }: Props = $props();
 
-function deleteSpell() {
-	$character.spells.splice(index, 1);
-	// biome-ignore lint/correctness/noSelfAssign: This needs to be here for svelte to recognize the change
-	$character.spells = $character.spells;
-}
+	function deleteSpell() {
+		$character.spells.splice(index, 1);
+		// biome-ignore lint/correctness/noSelfAssign: This needs to be here for svelte to recognize the change
+		$character.spells = $character.spells;
+	}
 </script>
 
 <div class="wrapper">
@@ -39,10 +39,7 @@ function deleteSpell() {
 				<div class="line">
 					<div class="label">Casting Time</div>
 					<div class="value">
-						<Input
-							type="text"
-							bind:value={$character.spells[index].castingTime}
-						/>
+						<Input type="text" bind:value={$character.spells[index].castingTime} />
 					</div>
 				</div>
 				<div class="line">
@@ -54,10 +51,7 @@ function deleteSpell() {
 				<div class="line">
 					<div class="label">Components</div>
 					<div class="value">
-						<Input
-							type="text"
-							bind:value={$character.spells[index].components}
-						/>
+						<Input type="text" bind:value={$character.spells[index].components} />
 					</div>
 				</div>
 				<div class="line">
@@ -80,43 +74,43 @@ function deleteSpell() {
 </div>
 
 <style lang="scss">
-  .wrapper {
-    position: relative;
-  }
+	.wrapper {
+		position: relative;
+	}
 
-  .name {
-    font-size: 3em;
-  }
+	.name {
+		font-size: 3em;
+	}
 
-  .value {
-    font-family: var(--font-written);
-  }
+	.value {
+		font-family: var(--font-written);
+	}
 
-  .line {
-    display: flex;
-    align-items: center;
-    gap: var(--gutter);
+	.line {
+		display: flex;
+		align-items: center;
+		gap: var(--gutter);
 
-    .label {
-      flex-shrink: 0;
+		.label {
+			flex-shrink: 0;
 
-      &::after {
-        content: ':';
-      }
-    }
+			&::after {
+				content: ':';
+			}
+		}
 
-    .value {
-      font-size: 1.4em;
-    }
-  }
+		.value {
+			font-size: 1.4em;
+		}
+	}
 
-  .delete-button {
-    position: absolute;
-    top: var(--gutter);
-    right: var(--gutter);
+	.delete-button {
+		position: absolute;
+		top: var(--gutter);
+		right: var(--gutter);
 
-    .wrapper:not(:hover) & {
-      display: none;
-    }
-  }
+		.wrapper:not(:hover) & {
+			display: none;
+		}
+	}
 </style>

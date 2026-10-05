@@ -1,68 +1,52 @@
 <script lang="ts">
-import type { Spell } from "$lib/models/spells";
-import { spellCollection } from "$lib/stores/spell-collection";
-import unique from "$lib/utils/unique";
-import BorderLine from "./BorderLine.svelte";
-import Button from "./Button.svelte";
-import Card from "./Card.svelte";
-import Flex from "./Flex.svelte";
-import Markdown from "./Markdown.svelte";
-import Modal from "./Modal.svelte";
-import Select from "./Select.svelte";
+	import type { Spell } from '$lib/models/spells';
+	import { spellCollection } from '$lib/stores/spell-collection';
+	import unique from '$lib/utils/unique';
+	import BorderLine from './BorderLine.svelte';
+	import Button from './Button.svelte';
+	import Card from './Card.svelte';
+	import Flex from './Flex.svelte';
+	import Markdown from './Markdown.svelte';
+	import Select from './Select.svelte';
 
-type Props = {
-	onSpellSelection?: (spell: Spell) => void;
-};
+	type Props = {
+		onSpellSelection?: (spell: Spell) => void;
+	};
 
-const { onSpellSelection }: Props = $props();
+	const { onSpellSelection }: Props = $props();
 
-const ALL_SPELL_CLASSBOOK = "All";
-const ALL_SPELL_LEVELS = "All";
-const classBooks = $derived(
-	unique(
-		[ALL_SPELL_CLASSBOOK].concat(
-			$spellCollection.flatMap((spell) => spell.classes).sort(),
-		),
-	),
-);
-const MAX_SPELL_LEVEL = $derived(
-	$spellCollection.map((s) => s.level).pop() ?? 0,
-);
-const spellLevelOptions = $derived(
-	([ALL_SPELL_LEVELS] as (string | number)[]).concat(
-		Array.from({ length: MAX_SPELL_LEVEL + 1 }, (_, i) => i),
-	),
-);
-let selectedClassBook = $state(ALL_SPELL_CLASSBOOK);
-let selectedSpellLevel = $state<number | string>(ALL_SPELL_LEVELS);
-let searchQuery = $state("");
-const trimmedSearchQuery = $derived(searchQuery.trim().toLocaleLowerCase());
-const filteredSpells = $derived(
-	$spellCollection.filter((spell) => {
-		if (
-			trimmedSearchQuery &&
-			!spell.name.toLowerCase().includes(trimmedSearchQuery)
-		) {
-			return false;
-		}
+	const ALL_SPELL_CLASSBOOK = 'All';
+	const ALL_SPELL_LEVELS = 'All';
+	const classBooks = $derived(
+		unique([ALL_SPELL_CLASSBOOK].concat($spellCollection.flatMap((spell) => spell.classes).sort()))
+	);
+	const MAX_SPELL_LEVEL = $derived($spellCollection.map((s) => s.level).pop() ?? 0);
+	const spellLevelOptions = $derived(
+		([ALL_SPELL_LEVELS] as (string | number)[]).concat(
+			Array.from({ length: MAX_SPELL_LEVEL + 1 }, (_, i) => i)
+		)
+	);
+	let selectedClassBook = $state(ALL_SPELL_CLASSBOOK);
+	let selectedSpellLevel = $state<number | string>(ALL_SPELL_LEVELS);
+	let searchQuery = $state('');
+	const trimmedSearchQuery = $derived(searchQuery.trim().toLocaleLowerCase());
+	const filteredSpells = $derived(
+		$spellCollection.filter((spell) => {
+			if (trimmedSearchQuery && !spell.name.toLowerCase().includes(trimmedSearchQuery)) {
+				return false;
+			}
 
-		if (
-			selectedClassBook !== ALL_SPELL_CLASSBOOK &&
-			!spell.classes.includes(selectedClassBook)
-		) {
-			return false;
-		}
+			if (selectedClassBook !== ALL_SPELL_CLASSBOOK && !spell.classes.includes(selectedClassBook)) {
+				return false;
+			}
 
-		if (
-			selectedSpellLevel !== ALL_SPELL_LEVELS &&
-			spell.level !== selectedSpellLevel
-		) {
-			return false;
-		}
+			if (selectedSpellLevel !== ALL_SPELL_LEVELS && spell.level !== selectedSpellLevel) {
+				return false;
+			}
 
-		return true;
-	}),
-);
+			return true;
+		})
+	);
 </script>
 
 <Flex column justify="start">
@@ -71,20 +55,12 @@ const filteredSpells = $derived(
 			<label>
 				<Flex>
 					<p style="flex-shrink: 0;">Search by name</p>
-					<input type="text" bind:value={searchQuery}>
+					<input type="text" bind:value={searchQuery} />
 				</Flex>
 			</label>
 			<Flex justify="start">
-				<Select
-					label="Classbook"
-					bind:value={selectedClassBook}
-					options={classBooks}
-				/>
-				<Select
-					label="Spell level"
-					bind:value={selectedSpellLevel}
-					options={spellLevelOptions}
-				/>
+				<Select label="Classbook" bind:value={selectedClassBook} options={classBooks} />
+				<Select label="Spell level" bind:value={selectedSpellLevel} options={spellLevelOptions} />
 			</Flex>
 			<BorderLine />
 		</Flex>
@@ -102,8 +78,8 @@ const filteredSpells = $derived(
 					{#if onSpellSelection}
 						<Button
 							onclick={() => {
-                onSpellSelection(spell)
-              }}
+								onSpellSelection(spell);
+							}}
 						>
 							Add
 						</Button>
@@ -115,22 +91,22 @@ const filteredSpells = $derived(
 </Flex>
 
 <style>
-.filter-bar {
-	position: sticky;
-	top: 0;
-	left: 0;
-	width: calc(100% + (var(--gutter) * 2));
-	z-index: 1;
-	background: var(--color-paper);
-	margin-inline: calc(var(--gutter) * -1);
-	padding: var(--gutter);
-}
+	.filter-bar {
+		position: sticky;
+		top: 0;
+		left: 0;
+		width: calc(100% + (var(--gutter) * 2));
+		z-index: 1;
+		background: var(--color-paper);
+		margin-inline: calc(var(--gutter) * -1);
+		padding: var(--gutter);
+	}
 
-.padding {
-	padding: var(--gutter);
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(30em, 1fr));
-	flex-direction: column;
-	gap: var(--gutter);
-}
+	.padding {
+		padding: var(--gutter);
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(30em, 1fr));
+		flex-direction: column;
+		gap: var(--gutter);
+	}
 </style>

@@ -1,4 +1,4 @@
-import type { ProficiencyType } from "$lib/models";
+import type { ProficiencyType } from '$lib/models';
 
 export function parseModifier(modifier: number): string {
 	return modifier > 0 ? `+${modifier}` : modifier.toString();
@@ -8,17 +8,15 @@ export function getAbilityModifier(abilityScore: number): number {
 	return Math.floor((abilityScore - 10) / 2);
 }
 
-export function getProficiencyMultiplier(
-	proficiencyType: ProficiencyType,
-): number {
+export function getProficiencyMultiplier(proficiencyType: ProficiencyType): number {
 	switch (proficiencyType) {
-		case "none":
+		case 'none':
 			return 0;
-		case "proficient":
+		case 'proficient':
 			return 1;
-		case "double":
+		case 'double':
 			return 2;
-		case "half":
+		case 'half':
 			return 0.5;
 	}
 }
@@ -26,7 +24,7 @@ export function getProficiencyMultiplier(
 export function getSkillModifier(
 	abilityScore: number,
 	proficiencyBonus: number,
-	proficiencyType: ProficiencyType,
+	proficiencyType: ProficiencyType
 ): number {
 	const multiplier = getProficiencyMultiplier(proficiencyType);
 	const abilityModifier = getAbilityModifier(abilityScore);
@@ -34,9 +32,7 @@ export function getSkillModifier(
 	return Math.floor(abilityModifier + proficiencyBonus * multiplier);
 }
 
-export function entries<TKey extends string, TValue>(
-	obj: Record<TKey, TValue>,
-): [TKey, TValue][] {
+export function entries<TKey extends string, TValue>(obj: Record<TKey, TValue>): [TKey, TValue][] {
 	return Object.entries(obj) as [TKey, TValue][];
 }
 
@@ -46,7 +42,7 @@ export function createImage(blob: Blob): Promise<DisposableImage> {
 	const url = URL.createObjectURL(blob);
 
 	return new Promise<DisposableImage>((resolve, reject) => {
-		const image = document.createElement("img") as DisposableImage;
+		const image = document.createElement('img') as DisposableImage;
 		image.dispose = () => {
 			URL.revokeObjectURL(url);
 		};
@@ -54,7 +50,7 @@ export function createImage(blob: Blob): Promise<DisposableImage> {
 			resolve(image);
 		};
 		image.onerror = () => {
-			reject(new Error("Image could not be loaded"));
+			reject(new Error('Image could not be loaded'));
 		};
 		image.src = url;
 	});
@@ -83,20 +79,18 @@ export function toggleAdd<T>(arr: T[], value: T): T[] {
 export function slugify(value: string): string {
 	return value
 		.toLowerCase()
-		.replace(/\s+/g, "-")
-		.replace(/[^a-z0-9-]/g, "");
+		.replace(/\s+/g, '-')
+		.replace(/[^a-z0-9-]/g, '');
 }
 
-export function deleteProperty<T extends object, K extends keyof T>(
-	obj: T,
-	key: K,
-): Omit<T, K> {
+export function deleteProperty<T extends object, K extends keyof T>(obj: T, key: K): Omit<T, K> {
+	 
 	const { [key]: _removed, ...rest } = obj;
 	return rest;
 }
 
 export async function compressString(input: string): Promise<string> {
-	const LZString = await import("lz-string");
+	const LZString = await import('lz-string');
 	const compressed = LZString.compressToEncodedURIComponent(input);
 	return compressed;
 }
@@ -104,7 +98,7 @@ export async function compressString(input: string): Promise<string> {
 export function sliceOnce(input: string, separator: string): [string, string] {
 	const index = input.indexOf(separator);
 	if (index === -1) {
-		return [input, ""];
+		return [input, ''];
 	}
 	const firstPart = input.slice(0, index);
 	const secondPart = input.slice(index + separator.length);
@@ -113,7 +107,7 @@ export function sliceOnce(input: string, separator: string): [string, string] {
 
 export function downloadBlob(blob: Blob, filename: string) {
 	const url = URL.createObjectURL(blob);
-	const a = document.createElement("a");
+	const a = document.createElement('a');
 	a.href = url;
 	a.download = filename;
 	document.body.appendChild(a);
@@ -122,5 +116,5 @@ export function downloadBlob(blob: Blob, filename: string) {
 	URL.revokeObjectURL(url);
 }
 
-export { default as createId } from "./createId";
-export { default as unique } from "./unique";
+export { default as createId } from './createId';
+export { default as unique } from './unique';

@@ -1,21 +1,21 @@
 <script lang="ts">
-import Avatar from "$lib/components/Avatar.svelte";
-import Card from "$lib/components/Card.svelte";
-import CombatSection from "$lib/components/CombatSection.svelte";
-import Heading from "$lib/components/Heading.svelte";
-import Other from "$lib/components/Other.svelte";
-import Page from "$lib/components/Page.svelte";
-import SkillList from "$lib/components/SkillList.svelte";
-import WeaponSection from "$lib/components/WeaponSection.svelte";
-import type { CharacterSvelteStore } from "$lib/stores/character";
-import Input from "../Input.svelte";
-import MarkdownEditor from "../MarkdownEditor.svelte";
-import Scrollbar from "../Scrollbar.svelte";
+	import Avatar from '$lib/components/Avatar.svelte';
+	import Card from '$lib/components/Card.svelte';
+	import CombatSection from '$lib/components/CombatSection.svelte';
+	import Heading from '$lib/components/Heading.svelte';
+	import Other from '$lib/components/Other.svelte';
+	import Page from '$lib/components/Page.svelte';
+	import SkillList from '$lib/components/SkillList.svelte';
+	import WeaponSection from '$lib/components/WeaponSection.svelte';
+	import type { CharacterSvelteStore } from '$lib/stores/character';
+	import Input from '../Input.svelte';
+	import MarkdownEditor from '../MarkdownEditor.svelte';
+	import Scrollbar from '../Scrollbar.svelte';
 
-type Props = {
-	character: CharacterSvelteStore;
-};
-const { character }: Props = $props();
+	type Props = {
+		character: CharacterSvelteStore;
+	};
+	const { character }: Props = $props();
 </script>
 
 <Page>
@@ -74,73 +74,73 @@ const { character }: Props = $props();
 </Page>
 
 <style lang="scss">
-  .name {
-    font-size: 3em;
-    text-align: center;
-    font-weight: bold;
-    font-family: var(--font-written);
-  }
+	.name {
+		font-size: 3em;
+		text-align: center;
+		font-weight: bold;
+		font-family: var(--font-written);
+	}
 
-  .inner {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 40% 1fr;
-    gap: var(--gutter);
-  }
+	.inner {
+		width: 100%;
+		display: grid;
+		grid-template-columns: 40% 1fr;
+		gap: var(--gutter);
+	}
 
-  .side {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gutter);
-    height: 100%;
+	.side {
+		display: flex;
+		flex-direction: column;
+		gap: var(--gutter);
+		height: 100%;
 
-    .avatar {
-      aspect-ratio: 1 / 1;
-    }
+		.avatar {
+			aspect-ratio: 1 / 1;
+		}
 
-    .languages {
-      font-size: 1.4em;
-      font-family: var(--font-written);
-      flex-grow: 1;
-    }
+		.languages {
+			font-size: 1.4em;
+			font-family: var(--font-written);
+			flex-grow: 1;
+		}
 
-    .abilities {
-      display: flex;
-      gap: var(--gutter);
-      align-items: stretch;
-      height: 100%;
-      width: 100%;
+		.abilities {
+			display: flex;
+			gap: var(--gutter);
+			align-items: stretch;
+			height: 100%;
+			width: 100%;
 
-      .line {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: var(--gutter);
-        height: 100%;
+			.line {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				gap: var(--gutter);
+				height: 100%;
 
-        > :global(*) {
-          flex-grow: 1;
-        }
-      }
-    }
-  }
+				> :global(*) {
+					flex-grow: 1;
+				}
+			}
+		}
+	}
 
-  .main {
-    display: grid;
-    grid-template:
-      'heading heading other' auto
-      'combat combat other' auto
-      'weapons weapons weapons' auto
-      'feats class class' minmax(20em, auto)
-      'species class class' 1fr
-      / 1fr 1fr 9em;
-    gap: var(--gutter);
+	.main {
+		display: grid;
+		grid-template:
+			'heading heading other' auto
+			'combat combat other' auto
+			'weapons weapons weapons' auto
+			'feats class class' minmax(20em, auto)
+			'species class class' 1fr
+			/ 1fr 1fr 9em;
+		gap: var(--gutter);
 
-    @each $name in heading, combat, feats, species, class, other, weapons {
-      .#{$name} {
-        grid-area: $name;
-        display: flex;
-      }
-    }
-  }
+		@each $name in heading, combat, feats, species, class, other, weapons {
+			.#{$name} {
+				grid-area: $name;
+				display: flex;
+			}
+		}
+	}
 </style>

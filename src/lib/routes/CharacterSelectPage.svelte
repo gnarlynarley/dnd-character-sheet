@@ -1,61 +1,57 @@
 <script lang="ts">
-import Button from "$lib/components/Button.svelte";
-import CharacterCard from "$lib/components/CharacterCard.svelte";
-import Flex from "$lib/components/Flex.svelte";
-import FlexPush from "$lib/components/FlexPush.svelte";
-import Modal from "$lib/components/Modal.svelte";
-import OverlayBox from "$lib/components/OverlayBox.svelte";
-import PageTitle from "$lib/components/PageTitle.svelte";
-import {
-	createCharacterData,
-	deleteCharacter,
-	loadAllCharacters,
-} from "$lib/stores/character";
-import { addNotification } from "$lib/stores/notifications";
-import { slugify } from "$lib/utils";
+	import Button from '$lib/components/Button.svelte';
+	import CharacterCard from '$lib/components/CharacterCard.svelte';
+	import Flex from '$lib/components/Flex.svelte';
+	import FlexPush from '$lib/components/FlexPush.svelte';
+	import Modal from '$lib/components/Modal.svelte';
+	import OverlayBox from '$lib/components/OverlayBox.svelte';
+	import PageTitle from '$lib/components/PageTitle.svelte';
+	import { createCharacterData, deleteCharacter, loadAllCharacters } from '$lib/stores/character';
+	import { addNotification } from '$lib/stores/notifications';
+	import { slugify } from '$lib/utils';
 
-let characters = $state(await loadAllCharacters());
-let newCharacterName = $state("");
-let characterSlugToDelete: string | null = $state(null);
+	let characters = $state(await loadAllCharacters());
+	let newCharacterName = $state('');
+	let characterSlugToDelete: string | null = $state(null);
 
-async function handleCreateCharacter() {
-	const trimmed = newCharacterName.trim();
-	if (trimmed.length === 0) {
-		return;
+	async function handleCreateCharacter() {
+		const trimmed = newCharacterName.trim();
+		if (trimmed.length === 0) {
+			return;
+		}
+		const slug = slugify(trimmed);
+		if (characters.find((c) => c.slug === slug)) {
+			addNotification('A character with that name already exists.', 'error');
+			return;
+		}
+		const newCharacter = await createCharacterData(slug, trimmed);
+		characters.push(newCharacter);
+		newCharacterName = '';
+		// biome-ignore lint/correctness/noSelfAssign: This needs to be here for svelte to recognize the change
+		characters = characters;
 	}
-	const slug = slugify(trimmed);
-	if (characters.find((c) => c.slug === slug)) {
-		addNotification("A character with that name already exists.", "error");
-		return;
+
+	function handleOpenDeleteModal(slug: string) {
+		characterSlugToDelete = slug;
 	}
-	const newCharacter = await createCharacterData(slug, trimmed);
-	characters.push(newCharacter);
-	newCharacterName = "";
-	// biome-ignore lint/correctness/noSelfAssign: This needs to be here for svelte to recognize the change
-	characters = characters;
-}
 
-function handleOpenDeleteModal(slug: string) {
-	characterSlugToDelete = slug;
-}
-
-function handleCloseDeleteModal() {
-	characterSlugToDelete = null;
-}
-
-async function handleDeleteCharacter() {
-	if (!characterSlugToDelete) {
-		return;
+	function handleCloseDeleteModal() {
+		characterSlugToDelete = null;
 	}
-	const slug = characterSlugToDelete;
-	characterSlugToDelete = null;
-	await deleteCharacter(slug);
-	characters = characters.filter((c) => c.slug !== slug);
-}
 
-function onsubmit(event: Event) {
-	event.preventDefault();
-}
+	async function handleDeleteCharacter() {
+		if (!characterSlugToDelete) {
+			return;
+		}
+		const slug = characterSlugToDelete;
+		characterSlugToDelete = null;
+		await deleteCharacter(slug);
+		characters = characters.filter((c) => c.slug !== slug);
+	}
+
+	function onsubmit(event: Event) {
+		event.preventDefault();
+	}
 </script>
 
 <PageTitle title="Character select" />
@@ -76,10 +72,7 @@ function onsubmit(event: Event) {
 <Flex column>
 	<div class="grid">
 		{#each characters as character (character.slug)}
-			<CharacterCard
-				{character}
-				onDelete={() => handleOpenDeleteModal(character.slug)}
-			/>
+			<CharacterCard {character} onDelete={() => handleOpenDeleteModal(character.slug)} />
 		{/each}
 	</div>
 
@@ -97,10 +90,8 @@ function onsubmit(event: Event) {
 									type="text"
 									bind:value={newCharacterName}
 									placeholder="New Character Name"
-								>
-								<Button type="submit" onclick={handleCreateCharacter}>
-									Create New Character
-								</Button>
+								/>
+								<Button type="submit" onclick={handleCreateCharacter}>Create New Character</Button>
 							</Flex>
 						</form>
 					</Flex>
@@ -111,23 +102,23 @@ function onsubmit(event: Event) {
 </Flex>
 
 <style>
-.grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-	gap: 1em;
-	padding: var(--gutter);
-	padding-top: 0;
-}
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+		gap: 1em;
+		padding: var(--gutter);
+		padding-top: 0;
+	}
 
-.toolbar {
-	position: sticky;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	display: flex;
-}
+	.toolbar {
+		position: sticky;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		display: flex;
+	}
 
-input {
-	padding: var(--gutter);
-}
+	input {
+		padding: var(--gutter);
+	}
 </style>

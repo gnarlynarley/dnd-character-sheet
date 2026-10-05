@@ -1,21 +1,21 @@
-import type { Spell, SpellSources } from "$lib/models/spells";
-import spellSourcesUrl from "./data/sources.json?url";
+import type { Spell, SpellSources } from '$lib/models/spells';
+import spellSourcesUrl from './data/sources.json?url';
 
 type SpellSourcesDTO = Record<string, string>;
 
 const SPELL_DATA_URLS: Partial<Record<string, string>> = Object.fromEntries(
 	Object.entries(
-		import.meta.glob("./data/spells-*.json", {
-			query: "?url",
-			eager: true,
-		}) as Record<string, { default: string }>,
+		import.meta.glob('./data/spells-*.json', {
+			query: '?url',
+			eager: true
+		}) as Record<string, { default: string }>
 	).map(([key, value]) => {
-		const filename = key.split("/").pop();
-		if (!filename) throw new Error("Filename could not get extracted.");
-		const source = filename.replace("spells-", "").replace(".json", "");
+		const filename = key.split('/').pop();
+		if (!filename) throw new Error('Filename could not get extracted.');
+		const source = filename.replace('spells-', '').replace('.json', '');
 
 		return [source, value.default];
-	}),
+	})
 );
 
 async function getJson<T = unknown>(url: string): Promise<T> {
@@ -45,7 +45,7 @@ export async function getSpells(sources: string[]): Promise<Spell[]> {
 		sources.flatMap((source) => {
 			const url = SPELL_DATA_URLS[source];
 			return url ? getJson<Spell>(url) : [];
-		}),
+		})
 	);
 
 	const spells = spellsCollections.flat().sort(sortSpells);

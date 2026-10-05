@@ -1,4 +1,4 @@
-import Color from "color";
+import Color from 'color';
 
 export type RGBA = {
 	r: number;
@@ -17,6 +17,6 @@ export function parseColor(color: string): RGBA {
 		g: parsed.green(),
 		b: parsed.blue(),
 		a: parsed.alpha(),
-		isDark,
+		isDark
 	};
 }

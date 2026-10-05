@@ -1,68 +1,67 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
-  import { portal } from '$lib/actions/portal';
-  import Card from './Card.svelte';
-  import Scrollbar from './Scrollbar.svelte';
+	import type { Snippet } from 'svelte';
+	import { portal } from '$lib/actions/portal';
+	import Card from './Card.svelte';
 
-  type Props = {
-    children?: Snippet;
-    title?: string;
-    full?: boolean;
-    onclose?: () => void;
-  };
+	type Props = {
+		children?: Snippet;
+		title?: string;
+		full?: boolean;
+		onclose?: () => void;
+	};
 
-  const { children, title, onclose, full }: Props = $props();
+	const { children, title, onclose, full }: Props = $props();
 
-  function handleEscape(event: KeyboardEvent) {
-    if (event.key === 'Escape') {
-      event.stopPropagation();
-      event.preventDefault();
-      onclose?.();
-    }
-  }
+	function handleEscape(event: KeyboardEvent) {
+		if (event.key === 'Escape') {
+			event.stopPropagation();
+			event.preventDefault();
+			onclose?.();
+		}
+	}
 </script>
 
 <svelte:window on:keydown={handleEscape} />
 
 <div class="modal" class:full use:portal>
-  <div class="inner">
-    <Card {title}>
-      <div class="child-wrapper">{@render children?.()}</div>
-    </Card>
-  </div>
+	<div class="inner">
+		<Card {title}>
+			<div class="child-wrapper">{@render children?.()}</div>
+		</Card>
+	</div>
 </div>
 
 <style lang="scss">
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: color-mix(in srgb, var(--color-paper) 80%, transparent);
-    backdrop-filter: blur(4px);
-    z-index: 1000;
+	.modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: color-mix(in srgb, var(--color-paper) 80%, transparent);
+		backdrop-filter: blur(4px);
+		z-index: 1000;
 
-    &.full {
-      align-items: stretch;
+		&.full {
+			align-items: stretch;
 
-      .inner {
-        width: 100%;
-        height: 100%;
-        display: flex;
-      }
-    }
-  }
+			.inner {
+				width: 100%;
+				height: 100%;
+				display: flex;
+			}
+		}
+	}
 
-  .inner {
-    display: flex;
-    padding: var(--gutter);
-  }
+	.inner {
+		display: flex;
+		padding: var(--gutter);
+	}
 
-  .child-wrapper {
-    padding-inline: var(--gutter);
-  }
+	.child-wrapper {
+		padding-inline: var(--gutter);
+	}
 </style>

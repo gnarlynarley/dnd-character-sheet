@@ -1,8 +1,5 @@
-export default function applyOutline(
-	canvas: HTMLCanvasElement,
-	width: number = 4,
-) {
-	const ctx = canvas.getContext("2d", { willReadFrequently: true });
+export default function applyOutline(canvas: HTMLCanvasElement, width: number = 4) {
+	const ctx = canvas.getContext('2d', { willReadFrequently: true });
 	if (!ctx) return;
 
 	const w = canvas.width | 0;

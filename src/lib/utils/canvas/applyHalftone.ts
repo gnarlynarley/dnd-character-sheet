@@ -2,7 +2,7 @@ export default function applyHalftone(
 	canvas: HTMLCanvasElement,
 	context: CanvasRenderingContext2D,
 	dotSize = 6, // radius of max dot
-	angle = 45,
+	angle = 45
 ) {
 	const w = canvas.width | 0;
 	const h = canvas.height | 0;
@@ -36,17 +36,17 @@ export default function applyHalftone(
 		ink[i] = y <= INK_THRESH ? 1 : 0;
 	}
 
-	const off = document.createElement("canvas");
+	const off = document.createElement('canvas');
 	off.width = w;
 	off.height = h;
-	const octx = off.getContext("2d");
+	const octx = off.getContext('2d');
 	if (!octx) return;
 
 	// White paper background, black dots
 	octx.clearRect(0, 0, w, h);
-	octx.fillStyle = "#fff";
+	octx.fillStyle = '#fff';
 	octx.fillRect(0, 0, w, h);
-	octx.fillStyle = "#000";
+	octx.fillStyle = '#000';
 
 	const rad = (angle * Math.PI) / 180;
 	const ca = Math.cos(rad);
