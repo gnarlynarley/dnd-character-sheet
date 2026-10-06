@@ -31,7 +31,9 @@ namespace FiveE {
 			components: {
 				v?: boolean;
 				s?: boolean;
-				m: unknown;
+				m?: {
+					text: string;
+				};
 			};
 			duration: Array<{
 				type: string;
@@ -200,7 +202,10 @@ const spellsCollections = await Promise.all(
 						sources[spell.source]?.[spell.name]?.class?.map((i) => i.name.toLowerCase()) ?? [],
 					description: await prettier.format(parseDescription(spell), {
 						parser: 'markdown'
-					})
+					}),
+					vocal: spell.components.v ?? false,
+					somatic: spell.components.s ?? false,
+					material: spell.components.m?.text?.trim() || null
 				};
 			})
 		)

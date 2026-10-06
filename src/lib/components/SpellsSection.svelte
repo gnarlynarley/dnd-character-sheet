@@ -19,7 +19,6 @@
 
 	function addSpell() {
 		$character.spells.push(parse(characterSpellSchema, {}));
-		// biome-ignore lint/correctness/noSelfAssign: This needs to be here for svelte to recognize the change
 		$character.spells = $character.spells;
 	}
 

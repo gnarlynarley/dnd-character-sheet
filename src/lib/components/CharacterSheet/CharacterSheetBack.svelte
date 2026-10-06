@@ -38,6 +38,7 @@
 
 	function onSpellSelection(spell: Spell) {
 		character.update((char) => {
+			console.log(parse(characterSpellSchema, spell));
 			char.spells.push(parse(characterSpellSchema, spell));
 			return char;
 		});

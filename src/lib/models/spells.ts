@@ -6,6 +6,9 @@ export type Spell = {
 	range: string;
 	classes: string[];
 	description: string;
+	vocal: boolean;
+	somatic: boolean;
+	material: string | null;
 };
 
 export type SpellSources = { source: string; name: string }[];

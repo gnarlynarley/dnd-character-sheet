@@ -73,6 +73,11 @@
 						<p>Level: {spell.level || 'Cantrip'}</p>
 						<p>Range: {spell.range}</p>
 						<p>For: {spell.classes.join(', ')}</p>
+						{@const components =
+							[spell.vocal && 'Vocal', spell.somatic && 'Somatic', spell.material]
+								.filter(Boolean)
+								.join(', ') || null}
+						<p>Components: {components}</p>
 						<Markdown code={spell.description} />
 					</Flex>
 					{#if onSpellSelection}

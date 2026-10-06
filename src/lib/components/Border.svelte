@@ -53,6 +53,11 @@
 </div>
 
 <style lang="scss">
+	@mixin border-radius {
+		corner-shape: squircle;
+		border-radius: 1em;
+	}
+
 	.container {
 		--padding: var(--gutter);
 		--border-radius: 0.3em;
@@ -62,8 +67,6 @@
 		padding: calc(var(--padding) + var(--border-size));
 		flex-grow: 1;
 		display: flex;
-		box-shadow: var(--shadow-distance) var(--shadow-distance) 0 var(--color-faded);
-		border-radius: var(--border-radius);
 
 		&::after {
 			content: '';
@@ -81,6 +84,8 @@
 			border-radius: var(--border-radius);
 			background-color: var(--color-paper);
 			z-index: 0;
+			filter: drop-shadow(var(--shadow-distance) var(--shadow-distance) 0 var(--color-faded));
+			@include border-radius();
 		}
 
 		&.isSmallPadding {
@@ -151,6 +156,8 @@
 		z-index: 1;
 		flex-grow: 1;
 		width: 100%;
+		@include border-radius();
+		overflow: auto;
 
 		.flex & {
 			display: flex;

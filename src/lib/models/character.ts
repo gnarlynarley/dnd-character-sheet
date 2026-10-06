@@ -49,7 +49,10 @@ export const characterSpellSchema = v.object({
 	description: v.optional(v.string(), ''),
 	showDescription: v.optional(v.boolean(), false),
 	notes: v.optional(v.string(), ''),
-	prepared: v.optional(v.boolean(), true)
+	prepared: v.optional(v.boolean(), true),
+	vocal: v.optional(v.boolean(), false),
+	somatic: v.optional(v.boolean(), false),
+	material: v.optional(v.union([v.string(), v.null()]), null)
 });
 export const characterAvatarSchema = v.object({
 	blob: v.optional(v.nullable(v.instance(Blob)), null),
