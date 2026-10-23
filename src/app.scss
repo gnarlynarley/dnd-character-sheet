@@ -6,14 +6,14 @@
 	--color-white: #e6dcd2;
 	--color-paper: var(--color-white);
 	--color-ink: var(--color-black);
-	--color-accent: #ffb703;
+	--color-accent: #eb2323;
 }
 @mixin dark-mode-variables() {
 	--color-black: #111111;
 	--color-white: #e6dcd2;
 	--color-paper: var(--color-black);
 	--color-ink: var(--color-white);
-	--color-accent: #cf871a;
+	--color-accent: #cf1a1a;
 }
 
 :root {

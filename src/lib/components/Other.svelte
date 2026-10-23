@@ -2,6 +2,7 @@
 	import type { CharacterSvelteStore } from '$lib/stores/character';
 	import { getAbilityModifier, parseModifier } from '../utils';
 	import Border from './Border.svelte';
+	import BorderLine from './BorderLine.svelte';
 	import Flex from './Flex.svelte';
 	import Input from './Input.svelte';
 
@@ -12,46 +13,45 @@
 	const { character }: Props = $props();
 </script>
 
-<Flex column justify="between" sm>
-	<Border nogrow nopadding>
+<Border>
+	<Flex column justify="between" sm full>
 		<Flex column sm>
 			<span class="label">Inspiration</span>
 			<div style="min-height: 1.4em"></div>
 		</Flex>
-	</Border>
-	<Border nogrow padding="sm">
+		<BorderLine />
 		<Flex column sm>
 			<span class="label">Size</span>
 			<span class="value">
 				<Input type="text" bind:value={$character.size} />
 			</span>
 		</Flex>
-	</Border>
-	<Border nogrow padding="sm">
+		<BorderLine />
+
 		<Flex column sm>
 			<span class="label">Initiative</span>
 			<span class="value">
 				{parseModifier(getAbilityModifier($character.abilityScores.dex))}
 			</span>
 		</Flex>
-	</Border>
-	<Border nogrow padding="sm">
+		<BorderLine />
+
 		<Flex column sm>
 			<span class="label">Speed</span>
 			<span class="value">
 				<Input type="number" bind:value={$character.speed} />
 			</span>
 		</Flex>
-	</Border>
-	<Border nogrow padding="sm">
+		<BorderLine />
+
 		<Flex column sm>
 			<span class="label">Proficiency Bonus</span>
 			<span class="value">
 				<Input type="number" bind:value={$character.proficiencyBonus} />
 			</span>
 		</Flex>
-	</Border>
-</Flex>
+	</Flex>
+</Border>
 
 <style>
 	.label {
